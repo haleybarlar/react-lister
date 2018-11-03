@@ -6,8 +6,7 @@ render() {
 
   return(
     <div>
-      <button>Log In</button>
-      <button>Sign Up</button>
+      HomePage
     </div>
   )
 }

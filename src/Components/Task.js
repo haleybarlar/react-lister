@@ -3,14 +3,11 @@ import {connect} from 'react-redux'
 
 class Task extends Component {
 
-  componentDidUpdate() {
-      fetch('http://localhost:3000/api/v1/users/1')
-      .then(resp => resp.json())
-      .then(resp => this.props.sendUsers(resp))
+  state = {
+    clicked: false
   }
 
   handleDelete = (event) => {
-
     const id = event.target.parentElement.id
 
     fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
@@ -24,12 +21,11 @@ class Task extends Component {
 
 render() {
 
-  const sortedIds = (this.props.currentUser.tasks ? this.props.currentUser.tasks.sort(function(a, b) {return b.id - a.id}) : null)
-
     return(
       <div>
         <ul>
-          {sortedIds && sortedIds.map(task => <li key={task.id} id={task.id}>{task.description}<button onClick={this.handleDelete} >Delete</button></li>)}
+          {(this.props.tasks === undefined ? null : this.props.tasks.map(task => <div id={task.id} onClick={this.edit}><li>{task.description}</li><button onClick={this.handleDelete}>Delete</button></div>))}
+          
         </ul>
       </div>
     )
@@ -55,9 +51,13 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
+    lists: state.lists,
     tasks: state.tasks,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentList: state.currentList
   }
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

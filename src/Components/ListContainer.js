@@ -1,14 +1,23 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import {connect} from 'react-redux'
+import { Pagination } from 'semantic-ui-react'
 
 class ListContainer extends Component {
 
 render() {
-
+  const lists = this.props.lists.map(list => <List list={list} />)
   return(
     <div>
-      <List />
+      {lists}
+      <Pagination
+      defaultActivePage={1}
+      firstItem={null}
+      lastItem={null}
+      pointing
+      secondary
+      totalPages={this.props.lists.length}
+      />
     </div>
   )
 }
@@ -27,6 +36,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "SEND_LISTS",
         payload: users
+      })
+    },
+    setCurrentList: (id) => {
+      dispatch({
+        type: "SET_LIST",
+        payload: id
       })
     }
   }
