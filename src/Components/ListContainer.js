@@ -1,42 +1,87 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import {connect} from 'react-redux'
-import { Pagination, Menu } from 'semantic-ui-react'
+import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button } from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 
 class ListContainer extends Component {
 
   state = {
-    activePage: 1
+    activeItem: 'todo',
+    value: ""
   }
 
-  handlePaginationChange = (e, { activePage }) => {
-    this.setState({ activePage })
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value
+    })
+  }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+
+    alert("great job!")
+
+    const data = {
+      user_id: 1,
+      kind: this.state.value
+    }
+
+    fetch('http://localhost:3000/api/v1/lists', {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(resp => resp.json())
+    .then(resp => this.props.addList(resp))
   }
 
 render() {
 
-  if (this.props.lists.length === 0) {
-    console.log("whatever")
+  let list = this.props.lists.find(list => list.kind === this.state.activeItem)
+
+  if(list === undefined) {
+    return null
   } else {
-    const list = this.props.lists.find(list => list.id === this.state.activePage)
     this.props.setCurrentList(list.id)
   }
 
-  const { activePage } = this.state
+  const { activeItem } = this.state
 
   return(
 
     <div>
-      <List />
-      <Pagination
-      activePage={this.state.activePage}
-      onPageChange={this.handlePaginationChange}
-      firstItem={null}
-      lastItem={null}
-      pointing
-      secondary
-      totalPages={this.props.lists.length}
-      />
+      <Segment attached='top'>
+        <List/>
+      </Segment>
+
+      <Menu attached='right' tabular>
+        {(this.props.lists.length === 0 ? null : this.props.lists.map(list =>
+          <Menu.Item name={list.kind} active={activeItem === list.kind} onClick={this.handleItemClick}>
+            {list.kind}
+          </Menu.Item>
+        ))}
+
+        <Menu.Menu position='right'>
+          <Modal trigger={ <Menu.Item>
+            <Icon name='add' />
+              New List
+            </Menu.Item>
+          }>
+            <Modal.Header>Create a list</Modal.Header>
+            <Modal.Content>
+              <form type="submit" onSubmit={this.handleSubmit}>
+                <label>List type:</label>
+                <input type="text" onChange={this.handleChange}></input>
+                <Button>Submit</Button>
+              </form>
+            </Modal.Content>
+          </Modal>
+        </Menu.Menu>
+      </Menu>
     </div>
   )
 }
@@ -62,6 +107,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "SET_LIST",
         payload: id
+      })
+    },
+    addList: (list) => {
+      dispatch({
+        type: "ADD_LIST",
+        payload: list
       })
     }
   }

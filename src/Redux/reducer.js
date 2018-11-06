@@ -43,9 +43,11 @@ const reducer = (state = initialState, action) => {
         }
       })
       return {...state, tasks: filteredArr, lists: removedLists}
+
     case "REMOVE_LIST":
       let arr = state.lists.filter(list => list.id !== parseInt(action.payload))
       return {...state, lists: arr}
+      
     case "ADD_LIST":
       return {...state, lists: [action.payload, ...state.lists]}
     default:

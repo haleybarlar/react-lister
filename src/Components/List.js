@@ -39,7 +39,6 @@ class List extends Component {
 
   handleDelete = (event) => {
     console.log(this.props.currentList.id);
-
     const id = this.props.currentList.id
 
     fetch(`http://localhost:3000/api/v1/lists/${id}`, {
@@ -52,17 +51,41 @@ class List extends Component {
   }
 
   render() {
-    console.log(this.props.currentList);
+
     return(
       <div>
           <div>
+            <h1>My {this.props.currentList.kind} list</h1>
+
+            {(this.props.currentList.kind === "todo" ?
+              <div>
+                <label>One big thing:</label><br></br>
+                <input type="text" placeholder="one big thing to do"></input><br></br>
+
+                <label>Three medium things:</label><br></br>
+                <input type="text" placeholder="something"></input><br></br>
+                <input type="text" placeholder="something"></input><br></br>
+                <input type="text" placeholder="something"></input><br></br>
+
+                <label>Five Small things:</label><br></br>
+                <input type="text" placeholder="small"></input><br></br>
+                <input type="text" placeholder="small"></input><br></br>
+                <input type="text" placeholder="small"></input><br></br>
+                <input type="text" placeholder="small"></input><br></br>
+                <input type="text" placeholder="small"></input><br></br>
+              </div>
+              : null
+            )}
+
+
+
+            <Task />
             <form type="submit" onSubmit={this.handleSubmit}>
               <input type="text" name="task" placeholder="make a todo"></input>
               <button type="submit">Submit</button>
             </form>
-            <Task />
           </div>
-          <Button onClick={this.handleDelete}>Delete List</Button>
+
       </div>
     )
   }

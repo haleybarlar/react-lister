@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { Pagination, Button } from 'semantic-ui-react'
 
 class Task extends Component {
 
@@ -8,7 +9,7 @@ class Task extends Component {
   }
 
   handleDelete = (event) => {
-    const id = event.target.parentElement.id
+    const id = event.target.parentElement.parentElement.id
 
     fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
       method: "DELETE",
@@ -23,12 +24,14 @@ render() {
 
   const sortedTasks = this.props.tasks.sort(function(a,b) {return b.id - a.id})
 
-  console.log(sortedTasks);
+
     return(
       <div>
-        <ul>
-          {(sortedTasks === undefined ? null : sortedTasks.map(task => <div id={task.id} onClick={this.edit}><li>{task.description}</li><button onClick={this.handleDelete}>Delete</button></div>))}
-        </ul>
+        {(sortedTasks.length === 0 ? <h1>Add some tasks:</h1> :
+          <ul>
+            {(sortedTasks === undefined ? null : sortedTasks.map(task => <div id={task.id} onClick={this.edit}><li>{task.description}<i onClick={this.handleDelete} class="trash alternate outline icon"></i></li></div>))}
+          </ul>
+        )}
       </div>
     )
   }
