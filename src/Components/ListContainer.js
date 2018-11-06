@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import List from './List.js'
+import TodoList from './TodoList.js'
 import {connect} from 'react-redux'
 import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
@@ -21,9 +22,7 @@ class ListContainer extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-
-    alert("great job!")
-
+    
     const data = {
       user_id: 1,
       kind: this.state.value
@@ -51,11 +50,13 @@ render() {
 
   const { activeItem } = this.state
 
+
   return(
 
     <div>
       <Segment attached='top'>
-        <List/>
+        <List />
+
       </Segment>
 
       <Menu attached='right' tabular>
@@ -119,3 +120,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer)
+
+// {(this.props.currentList !== undefined && this.props.currentList.kind === "todo" ? <TodoList /> : <List/>)}

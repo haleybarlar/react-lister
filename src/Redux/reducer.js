@@ -33,6 +33,7 @@ const reducer = (state = initialState, action) => {
       return {...state, lists: newLists}
 
     case "REMOVE_TASK":
+
       let filteredArr = state.tasks.filter(task => task.id !== parseInt(action.payload))
       const removedLists = state.lists.map(list => {
         if(list.id === state.currentListID) {
@@ -44,10 +45,21 @@ const reducer = (state = initialState, action) => {
       })
       return {...state, tasks: filteredArr, lists: removedLists}
 
+    case "EDIT_TASK":
+      const edited_tasks = state.tasks.map(task => {
+        if (task.id === action.payload) {
+          return {...task, ...action.payload}
+        }
+        else {
+          return task
+        }
+      })
+      return {...state, tasks: edited_tasks}
+
     case "REMOVE_LIST":
       let arr = state.lists.filter(list => list.id !== parseInt(action.payload))
       return {...state, lists: arr}
-      
+
     case "ADD_LIST":
       return {...state, lists: [action.payload, ...state.lists]}
     default:

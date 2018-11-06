@@ -15,7 +15,8 @@ class List extends Component {
     const data = {
       list_id: this.props.currentList.id,
       priority: "high",
-      description: event.target.task.value
+      description: event.target.task.value,
+      done: false
     }
 
     fetch('http://localhost:3000/api/v1/tasks', {
@@ -31,62 +32,17 @@ class List extends Component {
   }
 
 
-  handleClick = (event) => {
-    this.setState({
-      clicked: !this.state.clicked
-    })
-  }
-
-  handleDelete = (event) => {
-    console.log(this.props.currentList.id);
-    const id = this.props.currentList.id
-
-    fetch(`http://localhost:3000/api/v1/lists/${id}`, {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    this.props.removeList(id)
-  }
-
   render() {
 
     return(
-      <div>
-          <div>
-            <h1>My {this.props.currentList.kind} list</h1>
-
-            {(this.props.currentList.kind === "todo" ?
               <div>
-                <label>One big thing:</label><br></br>
-                <input type="text" placeholder="one big thing to do"></input><br></br>
-
-                <label>Three medium things:</label><br></br>
-                <input type="text" placeholder="something"></input><br></br>
-                <input type="text" placeholder="something"></input><br></br>
-                <input type="text" placeholder="something"></input><br></br>
-
-                <label>Five Small things:</label><br></br>
-                <input type="text" placeholder="small"></input><br></br>
-                <input type="text" placeholder="small"></input><br></br>
-                <input type="text" placeholder="small"></input><br></br>
-                <input type="text" placeholder="small"></input><br></br>
-                <input type="text" placeholder="small"></input><br></br>
+                <h1>My {this.props.currentList.kind} list</h1>
+                <Task />
+                <form type="submit" onSubmit={this.handleSubmit}>
+                  <input type="text" name="task" placeholder="make a todo"></input>
+                  <button type="submit">Submit</button>
+                </form>
               </div>
-              : null
-            )}
-
-
-
-            <Task />
-            <form type="submit" onSubmit={this.handleSubmit}>
-              <input type="text" name="task" placeholder="make a todo"></input>
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-
-      </div>
     )
   }
 }

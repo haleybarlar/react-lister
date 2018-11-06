@@ -20,16 +20,34 @@ class Task extends Component {
     this.props.removeTask(id)
   }
 
+  handleClick = (event) => {
+
+    const id = parseInt(event.target.parentElement.parentElement.id)
+
+    const data = {
+      done: true
+    }
+
+    fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    this.props.editTask(id)
+    }
+
 render() {
 
   const sortedTasks = this.props.tasks.sort(function(a,b) {return b.id - a.id})
 
-
+  console.log(this.props.tasks);
     return(
       <div>
         {(sortedTasks.length === 0 ? <h1>Add some tasks:</h1> :
           <ul>
-            {(sortedTasks === undefined ? null : sortedTasks.map(task => <div id={task.id} onClick={this.edit}><li>{task.description}<i onClick={this.handleDelete} class="trash alternate outline icon"></i></li></div>))}
+            {(sortedTasks === undefined ? null : sortedTasks.map(task => <div id={task.id} onClick={this.edit}><li><input type="checkbox" onClick={this.handleClick}/>{task.description}<i onClick={this.handleDelete} class="trash alternate outline icon"></i></li></div>))}
           </ul>
         )}
       </div>
@@ -49,6 +67,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "REMOVE_TASK",
         payload: task_id
+      })
+    },
+    editTask: (id) => {
+      dispatch({
+        type: "EDIT_TASK",
+        payload: id
       })
     }
   }
