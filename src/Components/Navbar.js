@@ -5,7 +5,7 @@ import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
 class Navbar extends Component {
 
   state = {
-    activeItem: 'home'
+    activeItem: ''
   }
 
   handleItemClick = (e, { name }) => {
@@ -20,8 +20,8 @@ class Navbar extends Component {
     return (
       <div>
         <Menu pointing secondary>
-          <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home"/>
-          <Menu.Item
+          <Menu.Item  name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home"/>
+          <Menu.Item exact
             name='lists'
             active={activeItem === 'lists'}
             onClick={this.handleItemClick} as={NavLink} to="/user/lists"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Task from './Task.js'
 import {connect} from 'react-redux'
+import { Pagination, Button } from 'semantic-ui-react'
 
 class List extends Component {
 
@@ -12,12 +13,10 @@ class List extends Component {
     event.preventDefault()
 
     const data = {
-      list_id: this.props.list.id,
+      list_id: this.props.currentList.id,
       priority: "high",
       description: event.target.task.value
     }
-
-    console.log('data', data)
 
     fetch('http://localhost:3000/api/v1/tasks', {
       method: "POST",
@@ -31,9 +30,6 @@ class List extends Component {
     event.target.task.value = ""
   }
 
-  setCurrentList = (id) => {
-    this.props.setCurrentList(id)
-  }
 
   handleClick = (event) => {
     this.setState({
@@ -41,18 +37,24 @@ class List extends Component {
     })
   }
 
+  handleDelete = (event) => {
+    console.log(this.props.currentList.id);
+
+    const id = this.props.currentList.id
+
+    fetch(`http://localhost:3000/api/v1/lists/${id}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    this.props.removeList(id)
+  }
+
   render() {
-
+    console.log(this.props.currentList);
     return(
-
       <div>
-
-
-        <button onClick={(event) => {this.setCurrentList( this.props.list.id); this.handleClick(event);}}>
-          {this.props.list.kind}
-        </button>
-
-        {(this.props.list.id === this.props.currentList.id && this.state.clicked ?
           <div>
             <form type="submit" onSubmit={this.handleSubmit}>
               <input type="text" name="task" placeholder="make a todo"></input>
@@ -60,7 +62,7 @@ class List extends Component {
             </form>
             <Task />
           </div>
-        : null)}
+          <Button onClick={this.handleDelete}>Delete List</Button>
       </div>
     )
   }
@@ -69,7 +71,8 @@ class List extends Component {
 const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
-    currentList: state.currentList
+    currentList: state.lists.find(list => list.id === state.currentListID),
+    lists: state.lists
   }
 }
 
@@ -81,9 +84,9 @@ const mapDispatchToProps = (dispatch) => {
         payload: task
       })
     },
-    setCurrentList: (id) => {
+    removeList: (id) => {
       dispatch({
-        type: "SET_LIST",
+        type: "REMOVE_LIST",
         payload: id
       })
     }
@@ -91,3 +94,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)
+
+// <button onClick={(event) => {this.setCurrentList( this.props.list.id); this.handleClick(event);}}>
+//   {this.props.list.kind}
+// </button>

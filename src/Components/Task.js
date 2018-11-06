@@ -21,11 +21,13 @@ class Task extends Component {
 
 render() {
 
+  const sortedTasks = this.props.tasks.sort(function(a,b) {return b.id - a.id})
+
+  console.log(sortedTasks);
     return(
       <div>
         <ul>
-          {(this.props.tasks === undefined ? null : this.props.tasks.map(task => <div id={task.id} onClick={this.edit}><li>{task.description}</li><button onClick={this.handleDelete}>Delete</button></div>))}
-          
+          {(sortedTasks === undefined ? null : sortedTasks.map(task => <div id={task.id} onClick={this.edit}><li>{task.description}</li><button onClick={this.handleDelete}>Delete</button></div>))}
         </ul>
       </div>
     )
@@ -53,7 +55,6 @@ const mapStateToProps = (state) => {
   return {
     lists: state.lists,
     tasks: state.tasks,
-    currentUser: state.currentUser,
     currentList: state.currentList
   }
 }

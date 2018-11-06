@@ -1,17 +1,36 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import {connect} from 'react-redux'
-import { Pagination } from 'semantic-ui-react'
+import { Pagination, Menu } from 'semantic-ui-react'
 
 class ListContainer extends Component {
 
+  state = {
+    activePage: 1
+  }
+
+  handlePaginationChange = (e, { activePage }) => {
+    this.setState({ activePage })
+  }
+
 render() {
-  const lists = this.props.lists.map(list => <List list={list} />)
+
+  if (this.props.lists.length === 0) {
+    console.log("whatever")
+  } else {
+    const list = this.props.lists.find(list => list.id === this.state.activePage)
+    this.props.setCurrentList(list.id)
+  }
+
+  const { activePage } = this.state
+
   return(
+
     <div>
-      {lists}
+      <List />
       <Pagination
-      defaultActivePage={1}
+      activePage={this.state.activePage}
+      onPageChange={this.handlePaginationChange}
       firstItem={null}
       lastItem={null}
       pointing
@@ -26,7 +45,8 @@ render() {
 const mapStateToProps = (state) => {
   return {
     users: state.users,
-    lists: state.lists
+    lists: state.lists,
+    currentList: state.lists.find(list => list.id === state.currentListID)
   }
 }
 
