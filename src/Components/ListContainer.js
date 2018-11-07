@@ -7,6 +7,10 @@ import { Link } from "react-router-dom";
 
 class ListContainer extends Component {
 
+  componentDidUpdate(){
+    
+  }
+
   state = {
     activeItem: 'todo',
     value: ""
@@ -18,11 +22,13 @@ class ListContainer extends Component {
     })
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    
+
     const data = {
       user_id: 1,
       kind: this.state.value
@@ -56,7 +62,6 @@ render() {
     <div>
       <Segment attached='top'>
         <List />
-
       </Segment>
 
       <Menu attached='right' tabular>

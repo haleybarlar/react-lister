@@ -46,9 +46,10 @@ const reducer = (state = initialState, action) => {
       return {...state, tasks: filteredArr, lists: removedLists}
 
     case "EDIT_TASK":
+    console.log(state)
       const edited_tasks = state.tasks.map(task => {
         if (task.id === action.payload) {
-          return {...task, ...action.payload}
+          return {...task, done: !task.done }
         }
         else {
           return task
