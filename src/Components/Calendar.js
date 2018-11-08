@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CalendarHeatmap from 'react-calendar-heatmap'
 import 'react-calendar-heatmap/dist/styles.css'
+import {connect} from 'react-redux'
 
 class Calendar extends Component {
   render() {
@@ -21,4 +22,12 @@ class Calendar extends Component {
   }
 }
 
-export default Calendar
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks,
+    currentList: state.lists.find(list => list.id === state.currentListID),
+    lists: state.lists
+  }
+}
+
+export default connect(mapStateToProps)(Calendar)

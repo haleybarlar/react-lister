@@ -2,7 +2,8 @@ const initialState = {
   currentUser: {}, //This holds user_id and user email
   lists: [], //Hold an array of lists
   currentListID: 0,
-  tasks: []
+  tasks: [],
+  isListDone: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,13 +15,7 @@ const reducer = (state = initialState, action) => {
     case "SET_LIST":
       const foundList = state.lists.find(list => list.id === action.payload)
       return {...state, currentListID: foundList.id, tasks: foundList.tasks}
-
     case "SEND_TASKS":
-      // const foundList = {...state.lists.find(list => list.id === state.currentListID)}
-      // let newTasks = [...foundList.tasks, action.payload]
-      // console.log('in send task', state.currentListID, action.payload)
-      // return {...state, currentListID: {...state.currentListID, tasks: newTasks}}
-
       const newLists = state.lists.map(list => {
         if(list.id === state.currentListID) {
           const newTasks = [...list.tasks, action.payload]
@@ -29,11 +24,8 @@ const reducer = (state = initialState, action) => {
           return list
         }
       })
-
       return {...state, lists: newLists}
-
     case "REMOVE_TASK":
-
       let filteredArr = state.tasks.filter(task => task.id !== parseInt(action.payload))
       const removedLists = state.lists.map(list => {
         if(list.id === state.currentListID) {
@@ -44,25 +36,25 @@ const reducer = (state = initialState, action) => {
         }
       })
       return {...state, tasks: filteredArr, lists: removedLists}
-
     case "EDIT_TASK":
-    console.log(state)
-      const edited_tasks = state.tasks.map(task => {
-        if (task.id === action.payload) {
-          return {...task, done: !task.done }
-        }
-        else {
-          return task
-        }
+      const edited_lists = state.lists.map((list)=> {
+      	if(list.id === state.currentListID) {
+          let x = list.tasks.map((task) => {
+      	     if(task.id === action.payload) {
+      	        return {...task, done: !task.done}
+              } else {return task}
+            })
+            return {...list, tasks: x}
+          } else {return list}
       })
-      return {...state, tasks: edited_tasks}
-
+      return {...state, lists: edited_lists}
     case "REMOVE_LIST":
       let arr = state.lists.filter(list => list.id !== parseInt(action.payload))
       return {...state, lists: arr}
-
     case "ADD_LIST":
       return {...state, lists: [action.payload, ...state.lists]}
+    case "LIST_DONE":
+      return {...state, isListDone: action.payload}
     default:
       return state
   }

@@ -41,7 +41,7 @@ class Task extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      }).then(console.log)
+      })
       this.props.editTask(id)
     } else {
 
@@ -55,7 +55,7 @@ class Task extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      }).then(console.log)
+      })
       this.props.editTask(id)
     }
   }
@@ -64,7 +64,11 @@ render() {
 
   const sortedTasks = this.props.currentList.tasks.sort(function(a,b) {return b.id - a.id})
 
-  console.log(this.props);
+  if(this.props.currentList.tasks.every(task => task.done === true)) {
+    this.props.isListDone(true)
+  } else {
+    this.props.isListDone(false)
+  }
 
     return(
       <div>
@@ -116,6 +120,12 @@ const mapDispatchToProps = (dispatch) => {
         type: "EDIT_TASK",
         payload: id
       })
+    },
+    isListDone: (boolean) => {
+      dispatch({
+        type: "LIST_DONE",
+        payload: boolean
+      })
     }
   }
 }
@@ -124,7 +134,8 @@ const mapStateToProps = (state) => {
   return {
     lists: state.lists,
     tasks: state.tasks,
-    currentList: state.lists.find(list => list.id === state.currentListID)
+    currentList: state.lists.find(list => list.id === state.currentListID),
+    doneList: state.isListDone
   }
 }
 

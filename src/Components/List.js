@@ -6,7 +6,13 @@ import { Pagination, Button } from 'semantic-ui-react'
 class List extends Component {
 
   state = {
-    clicked: false
+    allDone: false
+  }
+
+  componentDidUpdate(prevProps){
+    if (this.props.currentList !== prevProps.currentList) {
+    this.forceUpdate()
+    }
   }
 
   handleSubmit = (event) => {
@@ -31,18 +37,17 @@ class List extends Component {
     event.target.task.value = ""
   }
 
-
   render() {
 
     return(
-              <div>
-                <h1>My {this.props.currentList.kind} list</h1>
-                <Task />
-                <form type="submit" onSubmit={this.handleSubmit}>
-                  <input type="text" name="task" placeholder="make a todo"></input>
-                  <button type="submit">Submit</button>
-                </form>
-              </div>
+      <div>
+        <h1>My {this.props.currentList.kind.toUpperCase()} list</h1>
+        <Task />
+        <form type="submit" onSubmit={this.handleSubmit}>
+          <input type="text" name="task" placeholder="make a todo"></input>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     )
   }
 }
