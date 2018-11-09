@@ -7,13 +7,10 @@ import { Link } from "react-router-dom";
 
 class ListContainer extends Component {
 
-  componentDidUpdate(){
-    
-  }
 
   state = {
-    activeItem: 'todo',
-    value: ""
+    value: "",
+    open: false
   }
 
   handleChange = (event) => {
@@ -22,8 +19,8 @@ class ListContainer extends Component {
     })
   }
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name })
+  handleItemClick = (list) => {
+    this.props.setCurrentList(list.id)
   }
 
   handleSubmit = (e) => {
@@ -31,7 +28,8 @@ class ListContainer extends Component {
 
     const data = {
       user_id: 1,
-      kind: this.state.value
+      kind: this.state.value,
+      done: false
     }
 
     fetch('http://localhost:3000/api/v1/lists', {
@@ -44,19 +42,21 @@ class ListContainer extends Component {
     .then(resp => this.props.addList(resp))
   }
 
+  close = () => this.setState({ open: false })
+  open = () => this.setState({ open: true })
+
 render() {
 
-  let list = this.props.lists.find(list => list.kind === this.state.activeItem)
-
-  if(list === undefined) {
+  // let list = this.props.lists.find(list => list.kind === this.state.activeItem)
+  if(this.props.currentList === undefined) {
     return null
   } else {
-    this.props.setCurrentList(list.id)
+    this.props.setCurrentList(this.props.currentList.id)
   }
 
   const { activeItem } = this.state
 
-
+  // if (this.props.lists.length === 0 ? null : this.props.lists.sort(function(a,b) {return b.id - a.id}))
   return(
 
     <div>
@@ -66,8 +66,10 @@ render() {
 
       <Menu attached='right' tabular>
         {(this.props.lists.length === 0 ? null : this.props.lists.map(list =>
-          <Menu.Item name={list.kind} active={activeItem === list.kind} onClick={this.handleItemClick}>
-            {list.kind}
+          <Menu.Item name={list.kind} active={this.props.currentList === list} onClick={() => {
+            this.handleItemClick(list)
+          }}>
+            {(list.done ? <strike>{list.kind}</strike> : list.kind)}
           </Menu.Item>
         ))}
 
@@ -79,7 +81,7 @@ render() {
           }>
             <Modal.Header>Create a list</Modal.Header>
             <Modal.Content>
-              <form type="submit" onSubmit={this.handleSubmit}>
+              <form type="submit" onSubmit={this.handleSubmit} >
                 <label>List type:</label>
                 <input type="text" onChange={this.handleChange}></input>
                 <Button>Submit</Button>
@@ -94,10 +96,12 @@ render() {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.currentListID);
   return {
     users: state.users,
     lists: state.lists,
-    currentList: state.lists.find(list => list.id === state.currentListID)
+    currentList: state.lists.find(list => list.id === state.currentListID),
+    listDone: state.isListDone
   }
 }
 

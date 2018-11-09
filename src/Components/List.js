@@ -9,11 +9,11 @@ class List extends Component {
     allDone: false
   }
 
-  componentDidUpdate(prevProps){
-    if (this.props.currentList !== prevProps.currentList) {
-    this.forceUpdate()
-    }
-  }
+  // componentDidUpdate(prevProps){
+  //   if (this.props.currentList !== prevProps.currentList) {
+  //   this.forceUpdate()
+  //   }
+  // }
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -37,16 +37,31 @@ class List extends Component {
     event.target.task.value = ""
   }
 
+  handleDelete = (event) => {
+    const id = event.target.parentElement.id
+
+    fetch(`http://localhost:3000/api/v1/lists/${id}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    this.props.removeList(id)
+  }
+
   render() {
+    console.log(this.props.currentList);
+    const today = new Date()
 
     return(
-      <div>
+      <div id={this.props.currentList.id}>
         <h1>My {this.props.currentList.kind.toUpperCase()} list</h1>
         <Task />
         <form type="submit" onSubmit={this.handleSubmit}>
           <input type="text" name="task" placeholder="make a todo"></input>
           <button type="submit">Submit</button>
         </form>
+        <Button onClick={this.handleDelete}>Delete this list</Button>
       </div>
     )
   }

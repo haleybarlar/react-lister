@@ -4,6 +4,12 @@ import { Pagination, Button } from 'semantic-ui-react'
 
 class Task extends Component {
 
+  // componentDidUpdate(prevProps){
+  //   if (this.props.currentList !== prevProps.currentList) {
+  //   this.forceUpdate()
+  //   }
+  // }
+
   state = {
     done: [],
     clicked: false
@@ -28,54 +34,92 @@ class Task extends Component {
     const id = parseInt(event.target.parentElement.parentElement.id)
 
     const task = this.props.tasks.find(task => task.id === id)
+    let data = {
+      done: true
+    }
+    if (task.done){
+      data = {
+        done: false
+      }
+    }
 
-    if (task.done === false) {
+    fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(task => {
+      this.props.editTask(task.id)
+      if(this.props.currentList.tasks.every(task => task.done === true)) {
+        this.props.isListDone(true)
+        this.handleDone()
+      }
+      else {
+        this.props.isListDone(false)
+        this.handleDone()
+      }
+    })
+
+  }
+
+  handleDone = () => {
+
+    const today = new Date()
+
+
+
+    const id = this.props.currentList.id
+
+    if (this.props.doneList === true) {
 
       const data = {
-        done: true
+        done: true,
+        time_completed: today
       }
 
-      fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+      fetch(`http://localhost:3000/api/v1/lists/${id}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       })
-      this.props.editTask(id)
+      .then(resp => resp.json())
+      .then(list => this.props.editList(list))
     } else {
 
       const data = {
         done: false
       }
 
-      fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+      fetch(`http://localhost:3000/api/v1/lists/${id}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      })
-      this.props.editTask(id)
+      }).then(resp => resp.json())
+      .then(list => this.props.editList(list))
     }
   }
 
 render() {
 
+  console.log(this.props.tasks);
+
   const sortedTasks = this.props.currentList.tasks.sort(function(a,b) {return b.id - a.id})
 
-  if(this.props.currentList.tasks.every(task => task.done === true)) {
-    this.props.isListDone(true)
-  } else {
-    this.props.isListDone(false)
-  }
+
 
     return(
       <div>
         {(sortedTasks.length === 0 ? <h1>Add some tasks:</h1> :
           <ul>
             {(sortedTasks === undefined ? null : sortedTasks.map(task =>
-              {return (task.done === true ?
+              {return (
                 <div id={task.id} onClick={this.edit}>
                   <li>
                     <input type="checkbox" onClick={this.handleClick} checked={task.done} />
@@ -83,15 +127,6 @@ render() {
                     <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
                   </li>
                 </div>
-                :
-                <div id={task.id} onClick={this.edit}>
-                  <li>
-                    <input type="checkbox" onClick={this.handleClick} />
-                    {task.description}
-                    <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
-                  </li>
-                </div>
-
               )}
             ))}
           </ul>
@@ -125,6 +160,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "LIST_DONE",
         payload: boolean
+      })
+    },
+    editList: (list) => {
+      dispatch({
+        type: "EDIT_LIST",
+        payload: list
       })
     }
   }

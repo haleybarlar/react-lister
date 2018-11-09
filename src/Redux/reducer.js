@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
     case "SEND_USER":
       return {...state, currentUser: action.payload}
     case "SEND_LISTS":
-      return {...state, lists: action.payload}
+      return {...state, lists: action.payload, currentListID: action.payload[0].id}
     case "SET_LIST":
       const foundList = state.lists.find(list => list.id === action.payload)
       return {...state, currentListID: foundList.id, tasks: foundList.tasks}
@@ -48,12 +48,22 @@ const reducer = (state = initialState, action) => {
           } else {return list}
       })
       return {...state, lists: edited_lists}
+    case "EDIT_LIST":
+      const edited_list = state.lists.map((list)=> {
+        if(list.id === action.payload.id) {
+          return action.payload
+        } else {return list}
+      })
+      return {...state, lists: edited_list}
     case "REMOVE_LIST":
       let arr = state.lists.filter(list => list.id !== parseInt(action.payload))
-      return {...state, lists: arr}
+        return {...state, lists: arr, currentListID: arr[0].id}
+      
+
     case "ADD_LIST":
       return {...state, lists: [action.payload, ...state.lists]}
     case "LIST_DONE":
+
       return {...state, isListDone: action.payload}
     default:
       return state

@@ -14,6 +14,7 @@ componentDidMount() {
   .then(resp => resp.json())
   .then(resp => {
     const userInfo = {...resp}
+    console.log(resp.lists);
     delete userInfo["lists"]
     this.props.sendUser(userInfo)
     this.props.sendLists(resp.lists)
