@@ -4,6 +4,7 @@ import 'react-calendar-heatmap/dist/styles.css'
 import ReactTooltip from 'react-tooltip'
 import {connect} from 'react-redux'
 
+
 // if a list is completed that day, mark that day in calendar
 
 class Calendar extends Component {
@@ -20,18 +21,26 @@ class Calendar extends Component {
     const done = this.props.lists.filter(list => list.done === true)
 
     const values = done.map(list => ({
-      date: list.time_completed
+      date: list.time_completed,
+      count: list.done
     }))
 
-        console.log(this.props.currentList);
-    console.log(values);
-
     return (
-      <CalendarHeatmap
-        startDate={this.shiftDate(today, -150)}
-        endDate={today}
-        values={values}
-      />
+      <div>
+        <CalendarHeatmap
+          startDate={this.shiftDate(today, -150)}
+          endDate={today}
+          values={values}
+          tooltipDataAttrs={value => {
+            return {
+              'data-tip': `${value.date} was done:
+              ${value.count}`,
+            };
+          }}
+          showWeekdayLabels={true}
+        />
+        <ReactTooltip />
+      </div>
     )
   }
 }

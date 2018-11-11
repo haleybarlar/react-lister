@@ -120,7 +120,7 @@ render() {
           <ul>
             {(sortedTasks === undefined ? null : sortedTasks.map(task =>
               {return (
-                <div id={task.id} onClick={this.edit}>
+                <div key={task.id} id={task.id} onClick={this.edit}>
                   <li>
                     <input type="checkbox" onClick={this.handleClick} checked={task.done} />
                     {task.description}

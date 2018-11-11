@@ -1,29 +1,23 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Button, Header, Image, Modal, Dropdown } from 'semantic-ui-react'
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class HomePage extends Component {
 
   state = {
     clicked: false,
-    value: ""
-  }
-
-  handleClick = (event) => {
-    this.setState({
-      clicked: !this.state.clicked
-    })
+    value: "",
+    submitted: false
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
 
-    alert("great job!")
-
     const data = {
       user_id: 1,
-      kind: this.state.value
+      kind: this.state.value,
+      done: false
     }
 
     fetch('http://localhost:3000/api/v1/lists', {
@@ -34,56 +28,59 @@ class HomePage extends Component {
       }
     }).then(resp => resp.json())
     .then(resp => this.props.addList(resp))
+    .then(() => this.setState({open:false, submitted: true}))
+
+
   }
 
   handleChange = (event) => {
     this.setState({
-      value: event.target.textContent
+      value: event.target.value
+    }, () => {
+      console.log(this.state.value);
     })
   }
 
-  change = (event) => {
-    console.log(event.target.textContent);
-  }
+  close = () => this.setState({ open: false })
+  open = () => this.setState({ open: true })
+  triggerModal = () => this.setState({
+    open: !this.state.open
+  })
+
 
 render() {
 
-  const listOptions = [
-    {
-      text: 'Todo',
-      value: 'Todo'
-    },
-    {
-      text: 'Gratitude',
-      value: 'Gratitude'
-    },
-    {
-      text: 'Grocery',
-      value: 'Grocery'
-    }
-  ]
+  if (this.state.submitted === true) {
+    return <Redirect to='/user/lists' />
+  }
 
   return(
     <div>
-      <Modal trigger={<Button>Create a new list</Button>}>
+      <Modal open={this.state.open} onClose={this.close} trigger={<Button onClick={this.triggerModal}>Create a new list</Button>}>
         <Modal.Header>Create a list</Modal.Header>
-        <Modal.Content>
-          <form type="submit" onSubmit={this.handleSubmit}>
-            <Dropdown placeholder='Create a list' fluid selection options={listOptions} onChange={this.handleChange}/>
-            <Link to="/user/lists"><Button>Submit</Button></Link>
-          </form>
-        </Modal.Content>
+          <Modal.Content>
+            <form type="submit" onSubmit={this.handleSubmit} >
+              <label>List type:</label>
+              <input type="text" onChange={this.handleChange}></input>
+              <Modal.Actions>
+              <input type="submit" value="Submit"/>
+              </Modal.Actions>
+            </form>
+          </Modal.Content>
       </Modal>
 
-      <Modal trigger={<Button>Find a List</Button>}>
-        <Modal.Header>Find a list</Modal.Header>
-        <Modal.Content>
-          <form type="submit" >
-            <Dropdown placeholder='Type of List' fluid selection options={listOptions} onChange={this.change}/>
-            <Link to="/user/lists"><Button>Submit</Button></Link>
-          </form>
-        </Modal.Content>
-      </Modal>
+      <h1>or</h1>
+      <Link to='/user/lists'><Button>Go to your lists</Button></Link>
+
+    {/* <Modal trigger={<Button>Find a List</Button>}>
+    <Modal.Header>Find a list</Modal.Header>
+    <Modal.Content>
+      <form type="submit" >
+        <Dropdown placeholder='Type of List' fluid selection options={listOptions} onChange={this.change}/>
+        <Link to="/user/lists"><Button>Submit</Button></Link>
+      </form>
+    </Modal.Content>
+  </Modal>*/}
     </div>
   )
 }

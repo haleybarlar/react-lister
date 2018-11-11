@@ -40,10 +40,14 @@ class ListContainer extends Component {
       }
     }).then(resp => resp.json())
     .then(resp => this.props.addList(resp))
+    .then(() => this.setState({open:false}))
   }
 
   close = () => this.setState({ open: false })
   open = () => this.setState({ open: true })
+  triggerModal = () => this.setState({
+    open: !this.state.open
+  })
 
 render() {
 
@@ -54,7 +58,8 @@ render() {
     this.props.setCurrentList(this.props.currentList.id)
   }
 
-  const { activeItem } = this.state
+
+  console.log(this.state.open)
 
   // if (this.props.lists.length === 0 ? null : this.props.lists.sort(function(a,b) {return b.id - a.id}))
   return(
@@ -74,17 +79,20 @@ render() {
         ))}
 
         <Menu.Menu position='right'>
-          <Modal trigger={ <Menu.Item>
-            <Icon name='add' />
-              New List
+          <Modal open={this.state.open} onClose={this.close} trigger={
+            <Menu.Item onClick={this.triggerModal}>
+              <Icon name='add' />
+                New List
             </Menu.Item>
-          }>
+          } closeIcon>
             <Modal.Header>Create a list</Modal.Header>
             <Modal.Content>
               <form type="submit" onSubmit={this.handleSubmit} >
                 <label>List type:</label>
                 <input type="text" onChange={this.handleChange}></input>
-                <Button>Submit</Button>
+                <Modal.Actions>
+                <input type="submit" value="Submit"/>
+                </Modal.Actions>
               </form>
             </Modal.Content>
           </Modal>
@@ -96,7 +104,7 @@ render() {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.currentListID);
+
   return {
     users: state.users,
     lists: state.lists,

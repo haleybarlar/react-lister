@@ -11,7 +11,8 @@ const reducer = (state = initialState, action) => {
     case "SEND_USER":
       return {...state, currentUser: action.payload}
     case "SEND_LISTS":
-      return {...state, lists: action.payload, currentListID: action.payload[0].id}
+      const sortedLists = action.payload.sort(function(a,b) {return b.id - a.id})
+      return {...state, lists: sortedLists, currentListID: sortedLists[0].id}
     case "SET_LIST":
       const foundList = state.lists.find(list => list.id === action.payload)
       return {...state, currentListID: foundList.id, tasks: foundList.tasks}
@@ -57,9 +58,7 @@ const reducer = (state = initialState, action) => {
       return {...state, lists: edited_list}
     case "REMOVE_LIST":
       let arr = state.lists.filter(list => list.id !== parseInt(action.payload))
-        return {...state, lists: arr, currentListID: arr[0].id}
-      
-
+      return {...state, lists: arr, currentListID: arr[0].id}
     case "ADD_LIST":
       return {...state, lists: [action.payload, ...state.lists]}
     case "LIST_DONE":
