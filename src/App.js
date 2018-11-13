@@ -12,7 +12,7 @@ class App extends Component {
 
 
     return (
-      <div>
+      <div className="whole-div">
         <Navbar />
           <Switch>
             <Route path="/user" component={User}/>

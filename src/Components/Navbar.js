@@ -1,4 +1,4 @@
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment, Icon } from 'semantic-ui-react'
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
 
@@ -18,31 +18,24 @@ class Navbar extends Component {
     const { activeItem } = this.state
 
     return (
-      <div>
+      <div class="ui bottom fixed menu">
         <Menu pointing secondary>
-          <Menu.Item  name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home"/>
+          <Menu.Item  name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home">
+            <Icon name="home" />
+          </Menu.Item>
           <Menu.Item exact
             name='lists'
             active={activeItem === 'lists'}
-            onClick={this.handleItemClick} as={NavLink} to="/user/lists"
-          />
+            onClick={this.handleItemClick} as={NavLink} to="/user/lists">
+            <Icon name="list" />
+          </Menu.Item>
           <Menu.Item
             name='calendar'
             active={activeItem === 'calendar'}
             onClick={this.handleItemClick} as={NavLink} to="/user/calendar"
-          />
-          <Menu.Menu position='right'>
-            <Menu.Item
-              name='login'
-              active={activeItem === 'login'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name='sign up'
-              active={activeItem === 'sign up'}
-              onClick={this.handleItemClick}
-            />
-          </Menu.Menu>
+          >
+            <Icon name="calendar check outline" />
+          </Menu.Item>
         </Menu>
 
       </div>

@@ -1,30 +1,47 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import TodoList from './TodoList.js'
+import AListOfLists from './AListOfLists.js'
 import {connect} from 'react-redux'
-import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button } from 'semantic-ui-react'
+import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button, Grid, Form, Popup, Input, Card, Image, Header } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 
 class ListContainer extends Component {
 
-
   state = {
     value: "",
-    open: false
+    open: false,
+    clicked: false,
+    submitted: false
   }
 
+  // handleChange = (event) => {
+  //   this.setState({
+  //     value: event.target.value
+  //   })
+  // }
+
   handleChange = (event) => {
+    if(event.currentTarget.id !== "") {
+    this.setState({
+      clicked: true
+    })
+    this.props.setCurrentList(parseInt(event.currentTarget.id))
+    }
+  }
+
+  changeValue = (event) => {
     this.setState({
       value: event.target.value
     })
   }
 
-  handleItemClick = (list) => {
-    this.props.setCurrentList(list.id)
-  }
-
   handleSubmit = (e) => {
     e.preventDefault()
+
+    this.setState({
+      submitted: true
+    })
 
     const data = {
       user_id: 1,
@@ -39,7 +56,7 @@ class ListContainer extends Component {
         'Content-Type': 'application/json'
       }
     }).then(resp => resp.json())
-    .then(resp => this.props.addList(resp))
+    .then(resp => {this.props.addList(resp); this.props.setCurrentList(resp.id);})
     .then(() => this.setState({open:false}))
   }
 
@@ -49,62 +66,58 @@ class ListContainer extends Component {
     open: !this.state.open
   })
 
-render() {
-
-  // let list = this.props.lists.find(list => list.kind === this.state.activeItem)
-  if(this.props.currentList === undefined) {
-    return null
-  } else {
-    this.props.setCurrentList(this.props.currentList.id)
+  goBack = () => {
+    this.setState({
+      clicked: false
+    })
   }
 
+  render() {
 
-  console.log(this.state.open)
+    // let list = this.props.lists.find(list => list.kind === this.state.activeItem)
+    if(this.props.currentList === undefined) {
+      return null
+    } else {
+      this.props.setCurrentList(this.props.currentList.id)
+    }
 
-  // if (this.props.lists.length === 0 ? null : this.props.lists.sort(function(a,b) {return b.id - a.id}))
-  return(
+
+    const lists = (!this.props.lists ? null : this.props.lists.map(list =>
+      ({key: list.id, id: list.id, value: list.id, text: list.kind})
+    ))
+
+    return(
 
     <div>
-      <Segment attached='top'>
-        <List />
-      </Segment>
-
-      <Menu attached='right' tabular>
-        {(this.props.lists.length === 0 ? null : this.props.lists.map(list =>
-          <Menu.Item name={list.kind} active={this.props.currentList === list} onClick={() => {
-            this.handleItemClick(list)
-          }}>
-            {(list.done ? <strike>{list.kind}</strike> : list.kind)}
-          </Menu.Item>
-        ))}
-
-        <Menu.Menu position='right'>
+      {(this.state.clicked === false && this.state.submitted === false ?
+      <div className="list-container-div">
+        <div className="vadim">
+          <h1>select your list</h1>
+          <Dropdown placeholder='Select List' search selection options={lists} onChange={this.handleChange}/>
+          <h3>or</h3>
+          <h1>create a new list</h1>
           <Modal open={this.state.open} onClose={this.close} trigger={
-            <Menu.Item onClick={this.triggerModal}>
-              <Icon name='add' />
-                New List
-            </Menu.Item>
+            <Button circular icon='add' onClick={this.triggerModal}></Button>
           } closeIcon>
             <Modal.Header>Create a list</Modal.Header>
             <Modal.Content>
-              <form type="submit" onSubmit={this.handleSubmit} >
-                <label>List type:</label>
-                <input type="text" onChange={this.handleChange}></input>
-                <Modal.Actions>
-                <input type="submit" value="Submit"/>
-                </Modal.Actions>
-              </form>
+              <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
+              <Modal.Actions>
+                <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
+              </Modal.Actions>
             </Modal.Content>
           </Modal>
-        </Menu.Menu>
-      </Menu>
+        </div>
+        </div>
+        :
+        <List goBack={this.goBack}/>
+      )}
     </div>
-  )
-}
+    )
+  }
 }
 
 const mapStateToProps = (state) => {
-
   return {
     users: state.users,
     lists: state.lists,
@@ -131,6 +144,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "ADD_LIST",
         payload: list
+      })
+    },
+    removeList: (id) => {
+      dispatch({
+        type: "REMOVE_LIST",
+        payload: id
       })
     }
   }

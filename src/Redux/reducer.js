@@ -14,7 +14,8 @@ const reducer = (state = initialState, action) => {
       const sortedLists = action.payload.sort(function(a,b) {return b.id - a.id})
       return {...state, lists: sortedLists, currentListID: sortedLists[0].id}
     case "SET_LIST":
-      const foundList = state.lists.find(list => list.id === action.payload)
+    console.log("in set list", action);
+      let foundList = state.lists.find(list => list.id === action.payload)
       return {...state, currentListID: foundList.id, tasks: foundList.tasks}
     case "SEND_TASKS":
       const newLists = state.lists.map(list => {
@@ -62,7 +63,6 @@ const reducer = (state = initialState, action) => {
     case "ADD_LIST":
       return {...state, lists: [action.payload, ...state.lists]}
     case "LIST_DONE":
-
       return {...state, isListDone: action.payload}
     default:
       return state

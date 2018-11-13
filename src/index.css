@@ -13,6 +13,157 @@ code {
     monospace;
 }
 
-ul {
-  list-style-type: none;
+
+.whole-div {
+  font-family: 'Poppins', sans-serif;
 }
+
+body {
+  background-color: #8dbdc1;
+}
+
+.get-started-img {
+  width: 40%;
+  margin-left: 28%;
+  margin-top: -12%;
+}
+
+.mindful-img {
+  /* margin-left: 3%; */
+}
+
+div.header {
+  text-align: center;
+}
+
+div.ui.input {
+  width: 60%;
+  margin-left: 22%;
+  text-align: center;
+}
+
+button.ui.button {
+  margin-left: 41% !important;
+}
+
+div.ui.modal.transition.visible.active.create-list-modal {
+  width: 50%;
+}
+
+div.ui.segment {
+  width: 90%;
+  height: 600px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container-list {
+  background-color: white;
+  width: 50%;
+  height: 50%;
+}
+
+div.ui.input.haley {
+  width: 100%;
+  margin-left: 0%;
+}
+
+div.task-div {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border: 0.5px solid #8dbdc1;
+  width: 100%;
+  color: #8dbdc1;
+}
+
+i.trash.alternate.outline.icon {
+  float: right;
+  padding-right: 4%;
+}
+
+.checkbox {
+  float: left;
+  margin-left: 4%;
+  margin-top: 1%;
+  background-color: #fafafa;
+	border: 1px solid #cacece;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	border-radius: 3px;
+}
+
+label.task-description {
+
+  /* margin-left: 5%; */
+  padding-left: 2%;
+}
+
+div.list-div {
+  width: 50%;
+  background: white;
+  margin: 0 auto;
+
+}
+
+div.list-container-div {
+  width: 50%;
+  height: 600px;
+  background: white;
+  margin: 0 auto;
+  border-radius: 50%;
+  color: #8dbdc1;
+  text-align: center;
+  margin-top: 2%;
+}
+
+div.vadim {
+  padding: 30%;
+  margin: 0 auto;
+}
+
+button.ui.circular.icon.button {
+  margin-right: 40%;
+}
+
+div.list-container-div.haley {
+  padding-top: 5%;
+}
+
+div.entire-list {
+  margin: 0 auto;
+  width: 50%;
+
+}
+
+div.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding-left: 5%;
+  padding-top: 10%;
+  grid-gap: 5% 5%;
+}
+
+div.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  height: 290px;
+  width: 290px;
+  overflow: scroll;
+  border: 1px solid black;
+}
+
+input.a-thing {
+  float: left
+}
+
+p.a-thing {
+  text-align: left;
+  margin-left: 16%;
+}
+
+/* i.a-thing {
+  float: right
+} */

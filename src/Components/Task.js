@@ -1,22 +1,24 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Pagination, Button } from 'semantic-ui-react'
+import { Pagination, Button, Checkbox } from 'semantic-ui-react'
 
 class Task extends Component {
 
-  // componentDidUpdate(prevProps){
-  //   if (this.props.currentList !== prevProps.currentList) {
-  //   this.forceUpdate()
-  //   }
-  // }
+  componentDidUpdate(prevProps){
+    if (this.props.currentList !== prevProps.currentList) {
+    this.forceUpdate()
+    }
+  }
 
   state = {
     done: [],
-    clicked: false
+    clicked: false,
+    hovered: null,
+    currentTask: null
   }
 
   handleDelete = (event) => {
-    const id = event.target.parentElement.parentElement.id
+    const id = event.target.parentElement.id
 
     fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
       method: "DELETE",
@@ -29,14 +31,14 @@ class Task extends Component {
 
   handleClick = (event) => {
 
-    // debugger
-
-    const id = parseInt(event.target.parentElement.parentElement.id)
+    const id = parseInt(event.target.parentElement.id)
 
     const task = this.props.tasks.find(task => task.id === id)
+
     let data = {
       done: true
     }
+
     if (task.done){
       data = {
         done: false
@@ -56,11 +58,23 @@ class Task extends Component {
       if(this.props.currentList.tasks.every(task => task.done === true)) {
         this.props.isListDone(true)
         this.handleDone()
-      }
-      else {
+      } else {
         this.props.isListDone(false)
         this.handleDone()
       }
+
+    const userData = {
+      tasks_completed: this.props.currentUser.tasks_completed + 1
+    }
+
+    fetch(`http://localhost:3000/api/v1/users/1`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    }).then(resp => resp.json())
+    .then(console.log)
     })
 
   }
@@ -68,8 +82,6 @@ class Task extends Component {
   handleDone = () => {
 
     const today = new Date()
-
-
 
     const id = this.props.currentList.id
 
@@ -89,6 +101,20 @@ class Task extends Component {
       })
       .then(resp => resp.json())
       .then(list => this.props.editList(list))
+
+      const userData = {
+        lists_completed: this.props.currentUser.lists_completed + 1
+      }
+
+      fetch(`http://localhost:3000/api/v1/users/1`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      }).then(resp => resp.json())
+      .then(console.log)
+
     } else {
 
       const data = {
@@ -106,30 +132,39 @@ class Task extends Component {
     }
   }
 
-render() {
+  mouseOver = (event) => {
+    this.setState({
+      hovered: true,
+      id: event.target.id
+    })
+  }
 
-  console.log(this.props.tasks);
+  mouseOut = () => {
+    this.setState({
+      hovered: false
+    })
+  }
+
+
+render() {
 
   const sortedTasks = this.props.currentList.tasks.sort(function(a,b) {return b.id - a.id})
 
 
-
     return(
-      <div>
+      <div className="haley">
         {(sortedTasks.length === 0 ? <h1>Add some tasks:</h1> :
-          <ul>
-            {(sortedTasks === undefined ? null : sortedTasks.map(task =>
-              {return (
-                <div key={task.id} id={task.id} onClick={this.edit}>
-                  <li>
-                    <input type="checkbox" onClick={this.handleClick} checked={task.done} />
-                    {task.description}
-                    <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
-                  </li>
-                </div>
-              )}
-            ))}
-          </ul>
+          (sortedTasks === undefined ? null : sortedTasks.map(task =>
+            {return (
+              <div className="task-div" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut} key={task.id} id={task.id}>
+                <input type="checkbox" onClick={this.handleClick} checked={task.done} />
+                   {task.description}
+                 <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
+                <label className="task-description">{task.description}</label>
+                <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
+              </div>
+            )}
+          ))
         )}
       </div>
     )
@@ -176,7 +211,8 @@ const mapStateToProps = (state) => {
     lists: state.lists,
     tasks: state.tasks,
     currentList: state.lists.find(list => list.id === state.currentListID),
-    doneList: state.isListDone
+    doneList: state.isListDone,
+    currentUser: state.currentUser
   }
 }
 

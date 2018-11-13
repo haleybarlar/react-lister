@@ -4,6 +4,7 @@ import SignupForm from './SignupForm.js'
 import LoginForm from './LoginForm.js'
 import Calendar from './Calendar.js'
 import HomePage from './HomePage.js'
+import AListOfLists from './AListOfLists.js'
 import {connect} from 'react-redux'
 import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
 
@@ -29,8 +30,8 @@ render() {
         <Route exact path="/user/home" component={HomePage}/>
         <Route exact path="/user/lists" component={ListContainer}/>
         <Route exact path="/user/calendar" component={Calendar}/>
+        <Route exact path="/user/allLists" component={AListOfLists}/>
       </Switch>
-
     </div>
   )
 }

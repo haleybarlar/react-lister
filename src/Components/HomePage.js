@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Button, Header, Image, Modal, Dropdown } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Dropdown, Form, Input } from 'semantic-ui-react'
 import { Link, Redirect } from "react-router-dom";
 
 class HomePage extends Component {
@@ -14,6 +14,11 @@ class HomePage extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
+    this.setState({
+      clicked: true
+    })
+
+    if (this.state.value !== "") {
     const data = {
       user_id: 1,
       kind: this.state.value,
@@ -27,10 +32,9 @@ class HomePage extends Component {
         'Content-Type': 'application/json'
       }
     }).then(resp => resp.json())
-    .then(resp => this.props.addList(resp))
+    .then(resp => {this.props.addList(resp); this.props.setCurrentList(resp.id);})
     .then(() => this.setState({open:false, submitted: true}))
-
-
+    }
   }
 
   handleChange = (event) => {
@@ -47,30 +51,33 @@ class HomePage extends Component {
     open: !this.state.open
   })
 
+  move = () => {
+    this.setState({
+      submitted: true
+    })
+  }
+
 
 render() {
 
-  if (this.state.submitted === true) {
+  if (this.state.submitted === true || this.state.clicked === true) {
     return <Redirect to='/user/lists' />
   }
 
   return(
     <div>
-      <Modal open={this.state.open} onClose={this.close} trigger={<Button onClick={this.triggerModal}>Create a new list</Button>}>
+      <img src={"/Artboard 1.jpg"} alt="something" className="mindful-img"/>
+      <img src={"/Untitled-8.jpg"} alt="something" onClick={this.move} className="get-started-img"/>
+
+      {/*<Modal  className="create-list-modal" open={this.state.open} onClose={this.close} trigger={<img src={"/Untitled-8.jpg"} alt="something" onClick={this.triggerModal} className="get-started-img"/>}>
         <Modal.Header>Create a list</Modal.Header>
           <Modal.Content>
-            <form type="submit" onSubmit={this.handleSubmit} >
-              <label>List type:</label>
-              <input type="text" onChange={this.handleChange}></input>
+              <Form.Input type="text" onChange={this.handleChange} placeholder="ex: todo, gratitude, grocery" />
               <Modal.Actions>
-              <input type="submit" value="Submit"/>
+                <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
               </Modal.Actions>
-            </form>
           </Modal.Content>
-      </Modal>
-
-      <h1>or</h1>
-      <Link to='/user/lists'><Button>Go to your lists</Button></Link>
+      </Modal>*/}
 
     {/* <Modal trigger={<Button>Find a List</Button>}>
     <Modal.Header>Find a list</Modal.Header>
@@ -98,6 +105,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "ADD_LIST",
         payload: list
+      })
+    },
+    setCurrentList: (id) => {
+      dispatch({
+        type: "SET_LIST",
+        payload: id
       })
     }
   }

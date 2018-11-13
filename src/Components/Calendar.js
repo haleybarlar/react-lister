@@ -3,6 +3,7 @@ import CalendarHeatmap from 'react-calendar-heatmap'
 import 'react-calendar-heatmap/dist/styles.css'
 import ReactTooltip from 'react-tooltip'
 import {connect} from 'react-redux'
+import { Grid, Image } from 'semantic-ui-react'
 
 
 // if a list is completed that day, mark that day in calendar
@@ -27,16 +28,37 @@ class Calendar extends Component {
 
     return (
       <div>
+        <h1>Hi, {this.props.currentUser.email}</h1>
+
+        <Grid columns={3} divided>
+          <Grid.Row>
+            <Grid.Column>
+              <h1>Your streak: 0 days</h1>
+            </Grid.Column>
+            <Grid.Column>
+              {(this.props.currentUser.lists_completed === 1) ? <h1>You've completed {this.props.currentUser.lists_completed} list</h1> : <h1>You've completed {this.props.currentUser.lists_completed} lists</h1>}
+            </Grid.Column>
+            <Grid.Column>
+              {(this.props.currentUser.tasks_completed === 1) ? <h1>You've completed {this.props.currentUser.tasks_completed} task</h1> : <h1>You've completed {this.props.currentUser.tasks_completed} tasks</h1>}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+
         <CalendarHeatmap
+          legend={true}
           startDate={this.shiftDate(today, -150)}
           endDate={today}
           values={values}
-          tooltipDataAttrs={value => {
+          tooltipDataAttrs={(value) => {
+            if (value.date === null) {
+              return {
+                'data-tip': "You didnt finish today! :("
+              }
+            } else {
             return {
-              'data-tip': `${value.date} was done:
-              ${value.count}`,
+              'data-tip': "Atta boy!",
             };
-          }}
+          }}}
           showWeekdayLabels={true}
         />
         <ReactTooltip />
@@ -51,7 +73,8 @@ const mapStateToProps = (state) => {
     tasks: state.tasks,
     currentList: state.lists.find(list => list.id === state.currentListID),
     lists: state.lists,
-    doneList: state.isListDone
+    doneList: state.isListDone,
+    currentUser: state.currentUser
   }
 }
 
