@@ -281,3 +281,72 @@ th, td {
 .joy {
   background: red;
 }
+
+div.calendar-div {
+  margin-left: 45%;
+  margin-top: -23%;
+  height: 435px;
+  width: 39%;
+  border-radius: 50%;
+  background: white;
+}
+
+div.react-datepicker {
+  margin-left: 29%;
+  margin-top: 21%;
+}
+
+div.calendar-circle-div {
+  height: 374px;
+  width: 32%;
+  border-radius: 50%;
+}
+
+div.ui.placeholder.segment {
+  margin-top: 7%;
+  margin-left: 19%;
+  width: 21%;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  padding: 2%;
+}
+
+div.calendar-div {
+  margin-left: 45%;
+  margin-top: -16%;
+  height: 435px;
+  width: 39%;
+  border-radius: 50%;
+  background: white;
+}
+
+h1.total {
+  font-size: 85px;
+  color: #dddcda;
+}
+
+p.lists {
+  color: #8dbdc1;
+}
+
+.icon {
+  /* color: #8dbdc1; */
+}
+
+div.react-datepicker__day--highlighted {
+  background: #8dbdc1;
+}
+
+div.react-datepicker__header {
+  background: #dddcda;
+  color: white;
+}
+
+div.react-datepicker__current-month {
+  color: white;
+}
+
+div.react-datepicker__day-name {
+  
+}

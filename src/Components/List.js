@@ -42,7 +42,7 @@ class List extends Component {
       deleted: true
     })
 
-    const id = event.target.parentElement.id
+    const id = event.target.parentElement.parentElement.id
 
     fetch(`http://localhost:3000/api/v1/lists/${id}`, {
       method: "DELETE",
@@ -74,7 +74,15 @@ class List extends Component {
       <div >
       {(this.props.currentList.tasks.length=== 0 ?
         <div>
-          <h1 id="list-name-h1">{this.props.currentList.kind}</h1>
+          <h1  id={this.props.currentList.id}>{this.props.currentList.kind}</h1>
+            <Popup
+              trigger={
+                <Button
+                  inline field circular icon='x'
+                  onClick={this.handleDelete}
+                  id="delete-list-button"/>
+              }
+              content="Delete this list"/>
           <Form type="submit" onSubmit={this.handleSubmit} >
             <Input
               type="text"
