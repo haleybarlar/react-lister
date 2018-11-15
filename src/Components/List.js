@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import Task from './Task.js'
+import Timer from './Timer.js'
 import {connect} from 'react-redux'
 import { Pagination, Button, Form, Popup, Input, Dropdown, Modal } from 'semantic-ui-react'
 import { Link, Redirect } from "react-router-dom";
+
+document.addEventListener("touchstart", function(){}, true)
 
 class List extends Component {
 
@@ -11,12 +14,6 @@ class List extends Component {
     deleted: false,
     clicked: false
   }
-
-  // componentDidUpdate(prevProps){
-  //   if (this.props.currentList !== prevProps.currentList) {
-  //   this.forceUpdate()
-  //   }
-  // }
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -42,8 +39,6 @@ class List extends Component {
 
   handleDelete = (event) => {
 
-    this.props.goBack()
-
     this.setState({
       deleted: true
     })
@@ -56,7 +51,10 @@ class List extends Component {
         'Content-Type': 'application/json'
       }
     })
-    this.props.removeList(id)
+
+    if(this.props.lists.length > 1) {
+      this.props.removeList(id)
+    }
   }
 
   allLists = () => {
@@ -101,19 +99,25 @@ class List extends Component {
         </div>*/}
 
 
-
-      <div id={this.props.currentList.id} className="entire-list" >
-        <h1>my {this.props.currentList.kind} list</h1>
-      {/*  <Button className="delete-button" onClick={this.props.goBack} inline field>Go BACK!!!</Button>
-        <Popup trigger={<Button inline field circular icon='x' onClick={this.handleDelete}/>} content="Delete this list"/>*/}
-        <div className="list-div">
+      {(this.props.currentList.tasks.length=== 0 ?
+        <div>
+          <h1 id="list-name-h1">{this.props.currentList.kind}</h1>
           <Form type="submit" onSubmit={this.handleSubmit} >
             <Input type="text" name="task" placeholder="make a todo" className="haley"/>
           </Form>
+        </div>
+      :
+      <div id={this.props.currentList.id} className="entire-list" >
+        <h1 id="list-name-h1">{this.props.currentList.kind}</h1>
+        <Popup trigger={<Button inline field circular icon='x' onClick={this.handleDelete} id="delete-list-button"/>} content="Delete this list"/>
+        <Form type="submit" onSubmit={this.handleSubmit} >
+          <Input type="text" name="task" placeholder="make a todo" className="haley"/>
+        </Form>
+        <div className="list-div" style={{overflow: 'auto', maxHeight: 550, padding: 10}}>
           <Task />
         </div>
       </div>
-
+      )}
   </div>
 
 

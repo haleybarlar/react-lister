@@ -153,15 +153,14 @@ render() {
 
     return(
       <div className="haley">
-        {(sortedTasks.length === 0 ? <h1>Add some tasks:</h1> :
+        {(sortedTasks.length === 0 ? null :
           (sortedTasks === undefined ? null : sortedTasks.map(task =>
             {return (
               <div className="task-div" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut} key={task.id} id={task.id}>
                 <input type="checkbox" onClick={this.handleClick} checked={task.done} />
-                   {task.description}
-                 <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
-                <label className="task-description">{task.description}</label>
-                <i onClick={this.handleDelete} class="trash alternate outline icon"></i>
+                   <span>{task.description}</span>
+                 <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
+
               </div>
             )}
           ))

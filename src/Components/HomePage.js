@@ -61,7 +61,7 @@ class HomePage extends Component {
 render() {
 
   if (this.state.submitted === true || this.state.clicked === true) {
-    return <Redirect to='/user/lists' />
+    return <Redirect to='/user/getStarted' />
   }
 
   return(

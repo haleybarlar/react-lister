@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import TodoList from './TodoList.js'
-import AListOfLists from './AListOfLists.js'
+import HoldTheLists from './HoldTheLists.js'
 import {connect} from 'react-redux'
 import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button, Grid, Form, Popup, Input, Card, Image, Header } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
@@ -92,10 +92,10 @@ class ListContainer extends Component {
       {(this.state.clicked === false && this.state.submitted === false ?
       <div className="list-container-div">
         <div className="vadim">
-          <h1>select your list</h1>
+          <h1 className="change-font">select your list</h1>
           <Dropdown placeholder='Select List' search selection options={lists} onChange={this.handleChange}/>
-          <h3>or</h3>
-          <h1>create a new list</h1>
+          <h3 className="change-font">or</h3>
+          <h1 className="change-font">create a new list</h1>
           <Modal open={this.state.open} onClose={this.close} trigger={
             <Button circular icon='add' onClick={this.triggerModal}></Button>
           } closeIcon>
@@ -110,7 +110,7 @@ class ListContainer extends Component {
         </div>
         </div>
         :
-        <List goBack={this.goBack}/>
+        <HoldTheLists goBack={this.goBack}/>
       )}
     </div>
     )

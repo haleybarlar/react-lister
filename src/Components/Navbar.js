@@ -18,7 +18,7 @@ class Navbar extends Component {
     const { activeItem } = this.state
 
     return (
-      <div class="ui bottom fixed menu">
+      <div className="ui bottom fixed menu">
         <Menu pointing secondary>
           <Menu.Item  name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home">
             <Icon name="home" />
