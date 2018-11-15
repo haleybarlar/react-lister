@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import List from './List.js'
-import TodoList from './TodoList.js'
 import {connect} from 'react-redux'
-import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button, Grid, Form, Popup, Input, Card, Image, Header } from 'semantic-ui-react'
-import { Link } from "react-router-dom";
+import { Menu, Segment, Modal, Button, Grid, Form } from 'semantic-ui-react'
 
 class HoldTheLists extends Component {
 
@@ -84,12 +82,19 @@ class HoldTheLists extends Component {
         <Grid>
         <Grid.Column width={4}>
           <Menu fluid vertical tabular>
-            {(this.props.lists === undefined ? null :
-              this.props.lists.map(list => {
-                { return <Menu.Item id={list.id} name={list.kind} active={activeItem === list.kind} onClick={this.handleItemClick} />}
-              })
-            )}
-
+            {
+              (
+                this.props.lists === undefined ? null :
+                this.props.lists.map(list =>
+                  <Menu.Item
+                    key={list.id}
+                    id={list.id}
+                    name={list.kind}
+                    active={activeItem === list.kind}
+                    onClick={this.handleItemClick} />
+                )
+              )
+            }
           </Menu>
         </Grid.Column>
 

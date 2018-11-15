@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Button, Header, Image, Modal, Dropdown, Form, Input } from 'semantic-ui-react'
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class HomePage extends Component {
 
@@ -68,26 +67,6 @@ render() {
     <div>
       <img src={"/Artboard 1.jpg"} alt="something" className="mindful-img"/>
       <img src={"/Untitled-8.jpg"} alt="something" onClick={this.move} className="get-started-img"/>
-
-      {/*<Modal  className="create-list-modal" open={this.state.open} onClose={this.close} trigger={<img src={"/Untitled-8.jpg"} alt="something" onClick={this.triggerModal} className="get-started-img"/>}>
-        <Modal.Header>Create a list</Modal.Header>
-          <Modal.Content>
-              <Form.Input type="text" onChange={this.handleChange} placeholder="ex: todo, gratitude, grocery" />
-              <Modal.Actions>
-                <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
-              </Modal.Actions>
-          </Modal.Content>
-      </Modal>*/}
-
-    {/* <Modal trigger={<Button>Find a List</Button>}>
-    <Modal.Header>Find a list</Modal.Header>
-    <Modal.Content>
-      <form type="submit" >
-        <Dropdown placeholder='Type of List' fluid selection options={listOptions} onChange={this.change}/>
-        <Link to="/user/lists"><Button>Submit</Button></Link>
-      </form>
-    </Modal.Content>
-  </Modal>*/}
     </div>
   )
 }

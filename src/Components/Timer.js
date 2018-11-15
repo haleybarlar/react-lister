@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
 
 class Timer extends Component {
 
@@ -7,21 +6,6 @@ class Timer extends Component {
     timer: null,
     counter: 0
   }
-
-  // componentDidMount() {
-  //   let timer = setInterval(this.tick, 1000);
-  //   this.setState({timer});
-  // }
-  // componentWillUnmount() {
-  //   this.clearInterval(this.state.timer);
-  // }
-  //
-  // tick = () => {
-  //   this.setState({
-  //     counter: this.state.counter + 1
-  //   });
-  // }
-
 
   render() {
     return (

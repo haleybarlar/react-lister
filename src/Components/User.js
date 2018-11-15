@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import ListContainer from './ListContainer.js'
-import SignupForm from './SignupForm.js'
-import LoginForm from './LoginForm.js'
 import Calendar from './Calendar.js'
 import HomePage from './HomePage.js'
 import HoldTheLists from './HoldTheLists.js'
 import {connect} from 'react-redux'
-import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 class User extends Component {
 

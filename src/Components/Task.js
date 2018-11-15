@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Pagination, Button, Checkbox } from 'semantic-ui-react'
 
 class Task extends Component {
 

@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import List from './List.js'
-import TodoList from './TodoList.js'
 import HoldTheLists from './HoldTheLists.js'
 import {connect} from 'react-redux'
-import { Pagination, Menu, Segment, Icon, Modal, Dropdown, Button, Grid, Form, Popup, Input, Card, Image, Header } from 'semantic-ui-react'
-import { Link } from "react-router-dom";
+import { Modal, Dropdown, Button, Form } from 'semantic-ui-react'
 
 class ListContainer extends Component {
 
