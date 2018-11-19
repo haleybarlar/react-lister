@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
+const style = {
+  cursor: "pointer",
+  // position: "absolute",
+  width: "26px",
+  height: "25px",
+  // top: "0",
+  // left: "0",
+  background: "grey",
+  border:"1px solid #ddd"
+}
+
 class Task extends Component {
 
   componentDidUpdate(prevProps){
@@ -155,10 +166,14 @@ render() {
         {(sortedTasks.length === 0 ? null :
           (sortedTasks === undefined ? null : sortedTasks.map(task =>
             {return (
-              <div className="task-div" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut} key={task.id} id={task.id}>
-                <input type="checkbox" onClick={this.handleClick} checked={task.done} />
+              <div className="task-div" key={task.id} id={task.id}>
+                { /*<div class="checkboxFive" key={task.id} id={task.id}> */}
+                  <input style={style} type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
+                { /*  <label for="checkboxFiveInput" onClick={this.handleClick}></label> */}
+                { /*</div> */}
+                {/*<input type="checkbox" onClick={this.handleClick} checked={task.done} />*/}
                    <span>{task.description}</span>
-                 <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
+                <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
 
               </div>
             )}

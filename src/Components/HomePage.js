@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Redirect } from "react-router-dom";
+import { Segment } from 'semantic-ui-react'
 
 class HomePage extends Component {
 
@@ -50,23 +51,27 @@ class HomePage extends Component {
     open: !this.state.open
   })
 
-  move = () => {
+  setClicked = () => {
     this.setState({
-      submitted: true
+      clicked: true
     })
   }
 
 
 render() {
 
-  if (this.state.submitted === true || this.state.clicked === true) {
+  const square = { width: 200, height: 200 }
+
+  if (this.state.clicked === true) {
     return <Redirect to='/user/getStarted' />
   }
 
   return(
     <div>
       <img src={"/Artboard 1.jpg"} alt="something" className="mindful-img"/>
-      <img src={"/Untitled-8.jpg"} alt="something" onClick={this.move} className="get-started-img"/>
+      <Segment circular style={square} onClick={this.setClicked}>
+        <h1 className="get-started-h1">get started</h1>
+      </Segment>
     </div>
   )
 }

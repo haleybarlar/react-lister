@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Task from './Task.js'
 import {connect} from 'react-redux'
-import { Button, Form, Popup, Input } from 'semantic-ui-react'
+import { Button, Form, Popup, Input, Icon } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
 
 document.addEventListener("touchstart", function(){}, true)
@@ -24,6 +24,7 @@ class List extends Component {
       done: false
     }
 
+
     fetch('http://localhost:3000/api/v1/tasks', {
       method: "POST",
       body: JSON.stringify(data),
@@ -33,16 +34,19 @@ class List extends Component {
     }).then(resp => resp.json())
     .then(resp => this.props.sendTasks(resp))
 
+
     event.target.task.value = ""
   }
 
   handleDelete = (event) => {
 
+    console.log(event.target.parentElement.parentElement.id);
+
     this.setState({
       deleted: true
     })
 
-    const id = event.target.parentElement.parentElement.id
+    const id = event.target.parentElement.id
 
     fetch(`http://localhost:3000/api/v1/lists/${id}`, {
       method: "DELETE",
@@ -64,8 +68,6 @@ class List extends Component {
 
   render() {
 
-    console.log(this.props.currentList);
-
     if(this.state.clicked === true) {
       return <Redirect to='/user/allLists' />
     }
@@ -73,8 +75,8 @@ class List extends Component {
     return(
       <div >
       {(this.props.currentList.tasks.length=== 0 ?
-        <div>
-          <h1  id={this.props.currentList.id}>{this.props.currentList.kind}</h1>
+        <div id={this.props.currentList.id} className="entire-list" >
+          <h1  id="list-name-h1">{this.props.currentList.kind}</h1>
             <Popup
               trigger={
                 <Button
@@ -92,8 +94,10 @@ class List extends Component {
           </Form>
         </div>
       :
+
       <div id={this.props.currentList.id} className="entire-list" >
-        <h1 id="list-name-h1">{this.props.currentList.kind}</h1>
+        {(this.props.doneList ? <h1 id="list-name-h1">{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1> : <h1 id="list-name-h1">{this.props.currentList.kind}</h1>)}
+
         <Popup
           trigger={
             <Button
@@ -130,6 +134,7 @@ const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
     currentList: state.lists.find(list => list.id === state.currentListID),
+    doneList: state.isListDone,
     lists: state.lists
   }
 }

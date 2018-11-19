@@ -35,6 +35,7 @@ body {
 
 div.header {
   text-align: center;
+  color: #8dbdc1;
 }
 
 div.ui.input {
@@ -45,6 +46,8 @@ div.ui.input {
 
 button.ui.button {
   margin-left: 41% !important;
+  background: #8dbdc1;
+  color: white;
 }
 
 div.ui.modal.transition.visible.active.create-list-modal {
@@ -81,7 +84,7 @@ div.ui.input.haley {
 div.task-div {
   padding-top: 2%;
   padding-bottom: 2%;
-  border: 0.5px solid #8dbdc1;
+  border: 0.5px solid #e0e1e2;
   width: 100%;
   color: #8dbdc1;
 }
@@ -100,7 +103,7 @@ div.task-div input[type="checkbox"]:hover {
 }
 
 div.task-div span {
-  margin-left: 20px;
+  margin-left: 11%;
   font-size: 24px;
 }
 
@@ -110,12 +113,12 @@ i.trash.alternate.outline.icon {
   font-size: 20px;
   margin-top: 5px;
   margin-right: 16px;
-
+  color: #e0e1e2
 }
 
 i.trash.alternate.outline.icon:hover {
   cursor: pointer;
-  color: black;
+  color: #8dbdc1;
 
 }
 
@@ -137,12 +140,12 @@ label.task-description {
 }
 
 div.list-div {
-  width: 100%;
+  width: 824px;
   height: 405px;
   background: white;
   margin: 0 auto;
   overflow: scroll;
-
+  margin-left: 0%;
 }
 
 div.list-container-div {
@@ -347,6 +350,82 @@ div.react-datepicker__current-month {
   color: white;
 }
 
-div.react-datepicker__day-name {
-  
+div.react-datepicker__month-container {
+  box-shadow: 2px 2px 5px grey;
+}
+
+.checkboxFive {
+  width: 25px;
+  margin-left: 3%;
+  position: absolute;
+}
+
+.checkboxFive label {
+  cursor: pointer;
+  position: absolute;
+  width: 26px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  background: #eee;
+  border:1px solid #ddd;
+
+}
+
+.checkboxFive label:after {
+  opacity: 0.2;
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 5px;
+  background: transparent;
+  top: 6px;
+  left: 7px;
+  border: 3px solid #333;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+}
+
+.checkboxFive input[type=checkbox]:checked + label:after {
+    opacity: 1;
+  }
+
+div.ui.bottom.fixed.menu {
+  width: 17%;
+  background: #8dbdc1;
+}
+
+.nav-icon {
+  color: #8dbdc1;
+}
+
+div.ui.modal.transition.visible.active {
+  width: 39%;
+}
+
+i.close.icon {
+  color: #8dbdc1;
+}
+
+div.ui.icon.menu {
+  opacity: 0.5;
+}
+
+div.ui.grid {
+  margin-top: 0%;
+}
+
+div.ui.circular.segment {
+  width: 200px;
+height: 200px;
+position: absolute;
+margin-top: -12%;
+margin-left: 39%;
+}
+
+h1.get-started-h1 {
+  margin-top: 30%;
+  color: #8dbdc1;
+  font-size: 29px;
 }

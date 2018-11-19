@@ -51,6 +51,7 @@ class HoldTheLists extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
+    if (this.state.value !== "") {
     this.setState({
       submitted: true
     })
@@ -70,6 +71,11 @@ class HoldTheLists extends Component {
     }).then(resp => resp.json())
     .then(resp => {this.props.addList(resp); this.props.setCurrentList(resp.id);})
     .then(() => this.setState({open:false}))
+  } else {
+    this.setState({
+      open: false
+    })
+  }
   }
 
 
@@ -86,6 +92,7 @@ class HoldTheLists extends Component {
               (
                 this.props.lists === undefined ? null :
                 this.props.lists.map(list =>
+
                   <Menu.Item
                     key={list.id}
                     id={list.id}
@@ -95,10 +102,19 @@ class HoldTheLists extends Component {
                 )
               )
             }
+            <Modal open={this.state.open} onClose={this.close} trigger={
+              <Menu.Item circular icon='add' onClick={this.triggerModal}></Menu.Item>
+            } closeIcon>
+              <Modal.Header>Create a list</Modal.Header>
+              <Modal.Content>
+                <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
+                <Modal.Actions>
+                  <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
+                </Modal.Actions>
+              </Modal.Content>
+            </Modal>
           </Menu>
         </Grid.Column>
-
-
 
         <Grid.Column stretched width={12}>
           <Segment >
@@ -107,17 +123,7 @@ class HoldTheLists extends Component {
         </Grid.Column>
       </Grid>
 
-      <Modal open={this.state.open} onClose={this.close} trigger={
-        <Button circular icon='add' onClick={this.triggerModal}></Button>
-      } closeIcon>
-        <Modal.Header>Create a list</Modal.Header>
-        <Modal.Content>
-          <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
-          <Modal.Actions>
-            <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
-          </Modal.Actions>
-        </Modal.Content>
-      </Modal>
+
 
       </div>
 
@@ -130,6 +136,7 @@ const mapStateToProps = (state) => {
     users: state.users,
     lists: state.lists,
     currentList: state.lists.find(list => list.id === state.currentListID),
+    doneList: state.isListDone,
     listDone: state.isListDone
   }
 }

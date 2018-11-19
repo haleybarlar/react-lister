@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-calendar-heatmap/dist/styles.css'
-import { Header, Grid, Segment, Divider, Search, Button, Icon } from 'semantic-ui-react'
+import { Header, Grid, Segment, Divider, Icon } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import 'moment/locale/en-gb';
 import "react-datepicker/dist/react-datepicker.css";
+import ReactTooltip from 'react-tooltip'
 
 
 // if a list is completed that day, mark that day in calendar
@@ -32,9 +33,8 @@ class Calendar extends Component {
     }
 
   render() {
-    if (this.props.tasks.length > 0) {
-    console.log(this.props.tasks);
-  }
+
+    console.log(this.props.currentUser.lists_completed);
 
     return (
       <div>
@@ -47,14 +47,14 @@ class Calendar extends Component {
                 <Grid.Column>
                   <Header>
                     <p className="lists">total lists</p>
-                    <h1 className="total">{this.totalListsDone()}</h1>
+                    <h1 className="total">{this.props.currentUser.lists_completed}</h1>
                   </Header>
                 </Grid.Column>
 
                 <Grid.Column>
                   <Header>
                     <p className="lists">total tasks</p>
-                    <h1 className="total">{this.totalTasksDone()}</h1>
+                    <h1 className="total">{this.props.currentUser.tasks_completed}</h1>
                   </Header>
                 </Grid.Column>
               </Grid.Row>
@@ -68,8 +68,10 @@ class Calendar extends Component {
             onChange={this.handleChange}
             monthsShown={1}
             highlightDates={this.changeToMomentFormat()}
+            onClick={console.log("hi")}
           />
         </div>
+        <ReactTooltip />
       </div>
     )
   }

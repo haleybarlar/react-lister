@@ -18,23 +18,23 @@ class Navbar extends Component {
     const { activeItem } = this.state
 
     return (
-      <div className="ui bottom fixed menu">
-        <Menu pointing secondary>
+      <div >
+        <Menu icon>
           <Menu.Item  name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home">
-            <Icon name="home" />
+            <Icon name="home" size="big"  className="nav-icon"/>
           </Menu.Item>
           <Menu.Item exact
             name='lists'
             active={activeItem === 'lists'}
             onClick={this.handleItemClick} as={NavLink} to="/user/lists">
-            <Icon name="list" />
+            <Icon name="list" size="big" className="nav-icon"/>
           </Menu.Item>
           <Menu.Item
             name='calendar'
             active={activeItem === 'calendar'}
             onClick={this.handleItemClick} as={NavLink} to="/user/calendar"
           >
-            <Icon name="calendar check outline" />
+            <Icon name="calendar check outline" size="big"  className="nav-icon"/>
           </Menu.Item>
         </Menu>
 
