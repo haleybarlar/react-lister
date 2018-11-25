@@ -1,5 +1,6 @@
 const initialState = {
-  currentUser: {}, //This holds user_id and user email
+  currentUser: null, //This holds user_id and user email
+  userLoggedIn: false,
   lists: [], //Hold an array of lists
   currentListID: 0,
   tasks: [],
@@ -9,12 +10,14 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SEND_USER":
-      return {...state, currentUser: action.payload}
+      return {...state, userLoggedIn: true, currentUser: action.payload}
+    case "LOG_OUT":
+      return {...state, userLoggedIn: false, currentUser: null}
     case "SEND_LISTS":
       const sortedLists = action.payload.sort(function(a,b) {return b.id - a.id})
       return {...state, lists: sortedLists, currentListID: sortedLists[0].id}
     case "SET_LIST":
-    console.log("in set list", action);
+      console.log("in set list", action);
       let foundList = state.lists.find(list => list.id === action.payload)
       return {...state, currentListID: foundList.id, tasks: foundList.tasks}
     case "SEND_TASKS":

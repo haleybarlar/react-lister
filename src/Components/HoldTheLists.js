@@ -143,12 +143,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendLists: (users) => {
-      dispatch({
-        type: "SEND_LISTS",
-        payload: users
-      })
-    },
     setCurrentList: (id) => {
       dispatch({
         type: "SET_LIST",

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Task from './Task.js'
 import {connect} from 'react-redux'
 import { Button, Form, Popup, Input, Icon } from 'semantic-ui-react'
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 document.addEventListener("touchstart", function(){}, true)
 
@@ -74,7 +74,8 @@ class List extends Component {
 
     return(
       <div >
-      {(this.props.currentList.tasks.length=== 0 ?
+
+      {(this.props.currentList && this.props.currentList.tasks.length === 0 ?
         <div id={this.props.currentList.id} className="entire-list" >
           <h1  id="list-name-h1">{this.props.currentList.kind}</h1>
             <Popup
@@ -94,7 +95,6 @@ class List extends Component {
           </Form>
         </div>
       :
-
       <div id={this.props.currentList.id} className="entire-list" >
         {(this.props.doneList ? <h1 id="list-name-h1">{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1> : <h1 id="list-name-h1">{this.props.currentList.kind}</h1>)}
 
@@ -152,8 +152,14 @@ const mapDispatchToProps = (dispatch) => {
         type: "REMOVE_LIST",
         payload: id
       })
+    },
+    sendUser: (user) => {
+      dispatch({
+        type: "SEND_USER",
+        payload: user
+      })
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List))
