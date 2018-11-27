@@ -2,17 +2,34 @@ import React, { Component } from 'react'
 import Task from './Task.js'
 import {connect} from 'react-redux'
 import { Button, Form, Popup, Input, Icon } from 'semantic-ui-react'
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 document.addEventListener("touchstart", function(){}, true)
 
 class List extends Component {
+
+  componentDidMount() {
+    this.forceUpdate()
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState){
+    if(nextProps.currentList!==prevState.currentList){
+      return { currentList: nextProps.currentList};
+    } else return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currentList!==this.props.currentList){
+      this.setState({currentList: this.props.currentList});
+    }
+  }
 
   state = {
     allDone: false,
     deleted: false,
     clicked: false
   }
+
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -24,7 +41,6 @@ class List extends Component {
       done: false
     }
 
-
     fetch('http://localhost:3000/api/v1/tasks', {
       method: "POST",
       body: JSON.stringify(data),
@@ -32,15 +48,12 @@ class List extends Component {
         'Content-Type': 'application/json'
       }
     }).then(resp => resp.json())
-    .then(resp => this.props.sendTasks(resp))
-
-
+    .then(resp =>
+      this.props.sendTasks(resp))
     event.target.task.value = ""
   }
 
   handleDelete = (event) => {
-
-    console.log(event.target.parentElement.parentElement.id);
 
     this.setState({
       deleted: true
@@ -60,24 +73,34 @@ class List extends Component {
     }
   }
 
-  allLists = () => {
-    this.setState({
-      clicked: true
-    })
-  }
-
   render() {
-
-    if(this.state.clicked === true) {
-      return <Redirect to='/user/allLists' />
-    }
 
     return(
       <div >
-
-      {(this.props.currentList && this.props.currentList.tasks.length === 0 ?
-        <div id={this.props.currentList.id} className="entire-list" >
-          <h1  id="list-name-h1">{this.props.currentList.kind}</h1>
+        {(this.props.tasks && this.props.tasks.length === 0 ?
+          <div id={this.props.currentList.id} className="entire-list" >
+            <h1 id="list-name-h1">{this.props.currentList.kind}</h1>
+              <Popup
+                trigger={
+                  <Button
+                    inline field circular icon='x'
+                    onClick={this.handleDelete}
+                    id="delete-list-button"/>
+                }
+                content="Delete this list"/>
+            <Form type="submit" onSubmit={this.handleSubmit} >
+              <Input
+                type="text"
+                name="task"
+                placeholder="make a todo"
+                className="haley"/>
+            </Form>
+          </div>
+          :
+          <div id={this.props.currentList.id} className="entire-list" >
+            {(this.props.doneList ? <h1
+               id="list-name-h1">{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1> :
+               <h1 id="list-name-h1">{this.props.currentList.kind} </h1>)}
             <Popup
               trigger={
                 <Button
@@ -86,46 +109,22 @@ class List extends Component {
                   id="delete-list-button"/>
               }
               content="Delete this list"/>
-          <Form type="submit" onSubmit={this.handleSubmit} >
-            <Input
-              type="text"
-              name="task"
-              placeholder="make a todo"
-              className="haley"/>
-          </Form>
-        </div>
-      :
-      <div id={this.props.currentList.id} className="entire-list" >
-        {(this.props.doneList ? <h1 id="list-name-h1">{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1> : <h1 id="list-name-h1">{this.props.currentList.kind}</h1>)}
-
-        <Popup
-          trigger={
-            <Button
-              inline field circular icon='x'
-              onClick={this.handleDelete}
-              id="delete-list-button"/>
-          }
-          content="Delete this list"/>
-        <Form type="submit" onSubmit={this.handleSubmit} >
-          <Input
-            type="text"
-            name="task"
-            placeholder="make a todo"
-            className="haley"
-          />
-        </Form>
-        <div
-          className="list-div"
-          style={{overflow: 'auto', maxHeight: 550, padding: 10}}>
-          <Task />
-        </div>
+            <Form type="submit" onSubmit={this.handleSubmit} >
+              <Input
+                type="text"
+                name="task"
+                placeholder="make a todo"
+                className="haley"
+              />
+            </Form>
+            <div
+              className="list-div"
+              style={{overflow: 'auto', maxHeight: 550, padding: 10}}>
+              <Task />
+            </div>
+          </div>
+        )}
       </div>
-      )}
-  </div>
-
-
-
-
     )
   }
 }
@@ -133,7 +132,7 @@ class List extends Component {
 const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
-    currentList: state.lists.find(list => list.id === state.currentListID),
+    currentList: state.currentList,
     doneList: state.isListDone,
     lists: state.lists
   }
@@ -141,6 +140,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setCurrentList: (id) => {
+      dispatch({
+        type: "SET_LIST",
+        payload: id
+      })
+    },
     sendTasks: (task) => {
       dispatch({
         type: "SEND_TASKS",

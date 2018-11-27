@@ -34,7 +34,7 @@ class Calendar extends Component {
 
   render() {
 
-    console.log(this.props.currentUser.lists_completed);
+    console.log(this.props.currentUser.tasks_completed);
 
     return (
       <div>
@@ -68,7 +68,7 @@ class Calendar extends Component {
             onChange={this.handleChange}
             monthsShown={1}
             highlightDates={this.changeToMomentFormat()}
-            onClick={console.log("hi")}
+            onClick={ ("hi")}
           />
         </div>
         <ReactTooltip />
@@ -81,7 +81,7 @@ class Calendar extends Component {
 const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
-    currentList: state.lists.find(list => list.id === state.currentListID),
+    // currentList: state.lists.find(list => list.id === state.currentListID),
     lists: state.lists,
     doneList: state.isListDone,
     currentUser: state.currentUser

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
 import LoginForm from './LoginForm.js'
-import SignupForm from './SignupForm.js'
 
 class Navbar extends Component {
 
@@ -29,8 +28,9 @@ class Navbar extends Component {
 
     return (
       <div >
+        {this.props.currentUser ?
         <Menu icon>
-          <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/home">
+          <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home">
             <Icon name="home" size="big"  className="nav-icon"/>
           </Menu.Item>
           <Menu.Item exact
@@ -53,7 +53,7 @@ class Navbar extends Component {
                 name='logout'
                 active={activeItem === 'logout'}
                 onClick={this.props.handleLogout}
-                as={NavLink} to="/home">
+                as={NavLink} to="/">
               </Menu.Item>
               :
               <div>
@@ -68,20 +68,34 @@ class Navbar extends Component {
                   <LoginForm />
                 </Modal.Content>
               </Modal>
-              {/*<Modal open={this.state.open} onClose={this.close} trigger={
-                <Menu.Item
-                  name='sign up'
-                  active={activeItem === 'sign up'}
-                  onClick={this.triggerModal}>
-                </Menu.Item>
-              } closeIcon>
-                <Modal.Content>
-                  <SignupForm />
-                </Modal.Content>
-              </Modal>*/}
             </div>}
           </Menu.Menu>
         </Menu>
+        :
+        <Menu icon>
+          <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/">
+            <Icon name="home" size="big"  className="nav-icon"/>
+          </Menu.Item>
+          <Menu.Menu position='right'>
+              <Menu.Item
+                name='login'
+                active={activeItem === 'login'}
+                onClick={this.props.handleItemClick}
+                as={NavLink} to="/login">
+              </Menu.Item>
+              <Menu.Item
+                name='sign up'
+                active={activeItem === 'sign up'}
+                onClick={this.props.handleItemClick}
+                as={NavLink} to="/signup">
+              </Menu.Item>
+          </Menu.Menu>
+        </Menu>
+
+
+       }
+
+
       </div>
     );
   }

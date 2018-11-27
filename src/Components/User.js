@@ -1,79 +1,63 @@
 import React, { Component } from 'react'
-import ListContainer from './ListContainer.js'
+import GetStarted from './GetStarted.js'
 import Calendar from './Calendar.js'
 import HomePage from './HomePage.js'
-import HoldTheLists from './HoldTheLists.js'
-
+import ListContainer from './ListContainer.js'
 import {connect} from 'react-redux'
-import { Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 
 class User extends Component {
 
-// componentDidMount() {
-//   fetch('http://localhost:3000/api/v1/users/1')
-//   .then(resp => resp.json())
-//   .then(resp => {
-//     const userInfo = {...resp}
-//     console.log(resp.lists);
-//     delete userInfo["lists"]
-//     this.props.sendUser(userInfo)
-//     this.props.sendLists(resp.lists)
-//   })
-// }
-
-componentDidMount() {
-  const token = localStorage.getItem("jwt");
-  if (token) {
-    this.setUser(token)
-  }
-}
-
-setUser = (jwt) => {
-  fetch("http://localhost:3000/api/v1/profile", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Token ${jwt}`
+  componentDidMount() {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      this.setUser(token)
     }
-  })
-  .then(resp => resp.json())
-  .then(resp => {
-    if (!resp.message) {
-      console.log(resp);
-      this.props.setCurrentUser(resp)
-      // this.findUserInfo(resp)
   }
-  })
-}
 
-// findUserInfo = (resp) => {
-//
-//   const id = resp.id
-//
-//   fetch(`http://localhost:3000/api/v1/users/${id}`)
-//     .then(resp => resp.json())
-//     .then(resp => {
-//       const userInfo = {...resp}
-//       console.log(resp.lists);
-//       delete userInfo["lists"]
-//       // this.props.setCurrentUser(userInfo)
-//       // this.props.sendLists(resp.lists)
-//     })
-// }
+  setUser = (jwt) => {
+    fetch("http://localhost:3000/api/v1/profile", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Token ${jwt}`
+      }
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+      if (!resp.message) {
+        this.props.setCurrentUser(resp)
+        this.findUserInfo(resp)
+    }
+    })
+  }
 
-render() {
+  findUserInfo = (resp) => {
 
-  return(
-    <div>
-      <Switch>
-        <Route exact path="/user/home" component={HomePage}/>
-        <Route exact path="/user/getStarted" component={ListContainer}/>
-        <Route exact path="/user/lists" component={HoldTheLists}/>
-        <Route exact path="/user/calendar" component={Calendar}/>
-      </Switch>
-    </div>
-  )
-}
+    const id = resp.id
+
+    fetch(`http://localhost:3000/api/v1/users/${id}`)
+      .then(resp => resp.json())
+      .then(resp => {
+        const userInfo = {...resp}
+        delete userInfo["lists"]
+        this.props.setCurrentUser(userInfo)
+        this.props.sendLists(resp.lists)
+      })
+  }
+
+  render() {
+    return(
+      <div>
+        <Switch>
+          <Route path="/user/home" component={HomePage}/>
+          <Route path="/user/getstarted" component={GetStarted}/>
+          <Route path="/user/lists" component={ListContainer}/>
+          <Route path="/user/calendar" component={Calendar}/>
+        </Switch>
+      </div>
+    )
+  }
 
 }
 
@@ -90,8 +74,20 @@ const mapDispatchToProps = (dispatch) => {
         type: "SEND_USER",
         payload: info
       })
+    },
+    sendTasks: (tasks) => {
+      dispatch({
+        type: "SEND_TASKS",
+        payload: tasks
+      })
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(User)
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(User))

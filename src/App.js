@@ -2,9 +2,11 @@ import React, { Component, Fragment } from 'react';
 import Navbar from './Components/Navbar.js'
 import LoginForm from './Components/LoginForm.js'
 import HomePage from './Components/HomePage.js'
+import Welcome from './Components/Welcome.js'
+import SignupForm from './Components/SignupForm.js'
 import './App.css';
 import User from './Components/User.js'
-import { withRouter, Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import {connect} from 'react-redux'
 
 
@@ -39,12 +41,22 @@ class App extends Component {
   render() {
     return (
 
-      <Fragment className="whole-div">
+      <Fragment>
           <Navbar handleLogout={this.handleLogout}/>
           <Switch>
-            <Route exact path="/home" component={HomePage}/>
-            <Route exact path="/user" component={User}/>
-            <Route exact path="/login" component={LoginForm}/>
+            {this.props.currentUser ?
+              <div>
+                <Route path="/user" component={User}/>
+                <Route path="/login" component={LoginForm}/>
+                <Route path="/signup" component={SignupForm}/>
+              </div>
+            :
+            <div>
+              <Route exact path="/" component={Welcome}/>
+              <Route path="/login" component={LoginForm}/>
+              <Route path="/signup" component={SignupForm}/>
+            </div>
+            }
           </Switch>
       </Fragment>
 

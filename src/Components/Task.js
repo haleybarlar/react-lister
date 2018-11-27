@@ -14,9 +14,16 @@ const style = {
 
 class Task extends Component {
 
-  componentDidUpdate(prevProps){
-    if (this.props.currentList !== prevProps.currentList) {
-    this.forceUpdate()
+  static getDerivedStateFromProps(nextProps, prevState){
+    if(nextProps.currentList!==prevState.currentList){
+      return { currentTasks: nextProps.tasks};
+    } else return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currentList!==this.props.currentList){
+      //Perform some operation here
+      this.setState({currentTasks: this.props.tasks});
     }
   }
 
@@ -24,7 +31,7 @@ class Task extends Component {
     done: [],
     clicked: false,
     hovered: null,
-    currentTask: null
+    currentTasks: []
   }
 
   handleDelete = (event) => {
@@ -65,7 +72,7 @@ class Task extends Component {
     .then(res => res.json())
     .then(task => {
       this.props.editTask(task.id)
-      if(this.props.currentList.tasks.every(task => task.done === true)) {
+      if(this.props.tasks.every(task => task.done === true)) {
         this.props.isListDone(true)
         this.handleDone()
       } else {
@@ -77,14 +84,16 @@ class Task extends Component {
       tasks_completed: this.props.currentUser.tasks_completed + 1
     }
 
-    fetch(`http://localhost:3000/api/v1/users/1`, {
+    const userID = this.props.currentUser.id
+
+    fetch(`http://localhost:3000/api/v1/users/${userID}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData)
     }).then(resp => resp.json())
-    .then(console.log)
+    .then( )
     })
 
   }
@@ -93,7 +102,7 @@ class Task extends Component {
 
     const today = new Date()
 
-    const id = this.props.currentList.id
+    const id = this.props.currentUser.id
 
     if (this.props.doneList === true) {
 
@@ -116,15 +125,13 @@ class Task extends Component {
         lists_completed: this.props.currentUser.lists_completed + 1
       }
 
-      fetch(`http://localhost:3000/api/v1/users/1`, {
+      fetch(`http://localhost:3000/api/v1/users/${id}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
       }).then(resp => resp.json())
-      .then(console.log)
-
     } else {
 
       const data = {
@@ -158,27 +165,23 @@ class Task extends Component {
 
 render() {
 
-  const sortedTasks = this.props.currentList.tasks.sort(function(a,b) {return b.id - a.id})
-
+  console.log(this.state.currentTasks);
 
     return(
-      <div className="haley">
-        {(sortedTasks.length === 0 ? null :
-          (sortedTasks === undefined ? null : sortedTasks.map(task =>
-            {return (
-              <div className="task-div" key={task.id} id={task.id}>
-                { /*<div class="checkboxFive" key={task.id} id={task.id}> */}
-                  <input style={style} type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
-                { /*  <label for="checkboxFiveInput" onClick={this.handleClick}></label> */}
-                { /*</div> */}
-                {/*<input type="checkbox" onClick={this.handleClick} checked={task.done} />*/}
-                   <span>{task.description}</span>
-                <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
-
-              </div>
-            )}
-          ))
+      <div>
+        {(this.props.tasks && this.props.tasks.length > 0 ?
+          this.props.tasks.sort(function(a, b){return b.id - a.id}).map(task =>
+          {return (
+            <div className="task-div" key={task.id} id={task.id}>
+                <input style={style} type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
+                 <span>{task.description}</span>
+              <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
+            </div>
+          )
+          })
+          : null
         )}
+
       </div>
     )
   }
@@ -223,7 +226,7 @@ const mapStateToProps = (state) => {
   return {
     lists: state.lists,
     tasks: state.tasks,
-    currentList: state.lists.find(list => list.id === state.currentListID),
+    currentList: state.currentList,
     doneList: state.isListDone,
     currentUser: state.currentUser
   }
@@ -232,3 +235,18 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)
+
+// <div className="haley">
+//   {(this.props.currentList.tasks !== undefined && this.props.currentList.tasks.length > 0 ?
+//     this.props.currentList.tasks.sort(function(a,b) {return b.id - a.id}).map(task =>
+//       {return (
+        // <div className="task-div" key={task.id} id={task.id}>
+        //     <input style={style} type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
+        //      <span>{task.description}</span>
+        //   <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
+        // </div>
+//       )}
+//     )
+//     : null
+//   )}
+// </div>

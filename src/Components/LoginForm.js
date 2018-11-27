@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Redirect } from "react-router-dom";
+import { Button } from 'semantic-ui-react'
 
 class LoginForm extends Component {
 
@@ -10,7 +11,8 @@ class LoginForm extends Component {
       username: "",
       password: ""
     },
-    clicked: false
+    clicked: false,
+    signup: false
   }
 
   login = (username, password) => {
@@ -71,12 +73,20 @@ class LoginForm extends Component {
     })
   }
 
+  handleClick = (e) => {
+    this.setState({
+      signup: true
+    })
+  }
+
   render() {
 
     const { fields } = this.state
 
-    if (this.state.clicked === true) {
+    if (this.state.clicked) {
       return <Redirect to='/user/home' />
+    } else if (this.state.signup) {
+      return <Redirect to='/signup' />
     }
 
     return (
@@ -88,6 +98,7 @@ class LoginForm extends Component {
           <input type="password" name="password" placeholder="enter your password" onChange={this.handleChange} value={fields.password}></input>
           <button type="submit">Submit</button>
         </form>
+        <Button onClick={this.props.signup} value="signup">sign up</Button>
       </div>
     )
   }

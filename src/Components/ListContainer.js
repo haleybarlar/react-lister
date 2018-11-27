@@ -1,31 +1,42 @@
 import React, { Component } from 'react'
-import HoldTheLists from './HoldTheLists.js'
+import List from './List.js'
 import {connect} from 'react-redux'
-import { Modal, Dropdown, Button, Form } from 'semantic-ui-react'
+import { Menu, Segment, Modal, Button, Grid, Form } from 'semantic-ui-react'
 
 class ListContainer extends Component {
 
-  state = {
-    value: "",
-    open: false,
-    clicked: false,
-    submitted: false
+  static getDerivedStateFromProps(nextProps, prevState){
+    if(nextProps.currentList!==prevState.currentList){
+      return { activeItem: nextProps.currentList.kind};
+    } else return null;
   }
 
-  // handleChange = (event) => {
-  //   this.setState({
-  //     value: event.target.value
-  //   })
-  // }
-
-  handleChange = (event) => {
-    if(event.currentTarget.id !== "") {
-    this.setState({
-      clicked: true
-    })
-    this.props.setCurrentList(parseInt(event.currentTarget.id))
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currentList!==this.props.currentList){
+      //Perform some operation here
+      this.setState({activeItem: this.props.currentList.kind});
     }
   }
+
+  state = {
+    open: false,
+    activeItem: "",
+    value: "",
+    currentList: {}
+   }
+
+  handleItemClick = (e, { name }) => {
+    this.props.setCurrentList(parseInt(e.target.id))
+    this.setState({
+      activeItem: name
+    })
+  }
+
+  close = () => this.setState({ open: false })
+  open = () => this.setState({ open: true })
+  triggerModal = () => this.setState({
+    open: !this.state.open
+  })
 
   changeValue = (event) => {
     this.setState({
@@ -33,17 +44,23 @@ class ListContainer extends Component {
     })
   }
 
+  goBack = () => {
+    this.props.goBack(this.state.activeItem)
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
 
+    if (this.state.value !== "") {
     this.setState({
       submitted: true
     })
 
     const data = {
-      user_id: 1,
+      user_id: this.props.currentUser.id,
       kind: this.state.value,
-      done: false
+      done: false,
+      time_completed: null
     }
 
     fetch('http://localhost:3000/api/v1/lists', {
@@ -55,61 +72,58 @@ class ListContainer extends Component {
     }).then(resp => resp.json())
     .then(resp => {this.props.addList(resp); this.props.setCurrentList(resp.id);})
     .then(() => this.setState({open:false}))
-  }
-
-  close = () => this.setState({ open: false })
-  open = () => this.setState({ open: true })
-  triggerModal = () => this.setState({
-    open: !this.state.open
-  })
-
-  goBack = () => {
-    this.setState({
-      clicked: false
-    })
+    } else {
+      this.setState({
+        open: false
+      })
+    }
   }
 
   render() {
 
-    // let list = this.props.lists.find(list => list.kind === this.state.activeItem)
-    if(this.props.currentList === undefined) {
-      return null
-    } else {
-      this.props.setCurrentList(this.props.currentList.id)
-    }
-
-
-    const lists = (!this.props.lists ? null : this.props.lists.map(list =>
-      ({key: list.id, id: list.id, value: list.id, text: list.kind})
-    ))
+    const { activeItem } = this.state
 
     return(
+      <div>
+        <Grid>
+          <Grid.Column width={4}>
+            <Menu fluid vertical tabular>
+              { (this.props.currentList ?
+                (
+                  this.props.lists === undefined || this.props.lists.length === 0 ? null :
+                  this.props.lists.map(list =>
+                    <Menu.Item
+                      key={list.id}
+                      id={list.id}
+                      name={list.kind}
+                      active={activeItem === list.kind}
+                      onClick={this.handleItemClick} />
+                  )
+                )
+                : null)
+              }
+              <Modal open={this.state.open} onClose={this.close} trigger={
+                <Menu.Item circular icon='add' onClick={this.triggerModal}></Menu.Item>
+              } closeIcon>
+                <Modal.Header>Create a list</Modal.Header>
+                <Modal.Content>
+                  <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
+                  <Modal.Actions>
+                    <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
+                  </Modal.Actions>
+                </Modal.Content>
+              </Modal>
+            </Menu>
+          </Grid.Column>
 
-    <div>
-      {(this.state.clicked === false && this.state.submitted === false ?
-      <div className="list-container-div">
-        <div className="vadim">
-          <h1 className="change-font">select your list</h1>
-          <Dropdown placeholder='Select List' search selection options={lists} onChange={this.handleChange}/>
-          <h3 className="change-font">or</h3>
-          <h1 className="change-font">create a new list</h1>
-          <Modal open={this.state.open} onClose={this.close} trigger={
-            <Button circular icon='add' onClick={this.triggerModal}></Button>
-          } closeIcon>
-            <Modal.Header>Create a list</Modal.Header>
-            <Modal.Content>
-              <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
-              <Modal.Actions>
-                <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
-              </Modal.Actions>
-            </Modal.Content>
-          </Modal>
-        </div>
-        </div>
-        :
-        <HoldTheLists goBack={this.goBack}/>
-      )}
-    </div>
+          <Grid.Column stretched width={12}>
+            <Segment >
+              {(this.props.currentList ? <List/> : <h1>waiting</h1>)}
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </div>
+
     )
   }
 }
@@ -118,8 +132,10 @@ const mapStateToProps = (state) => {
   return {
     users: state.users,
     lists: state.lists,
-    currentList: state.lists.find(list => list.id === state.currentListID),
-    listDone: state.isListDone
+    currentList: state.currentList,
+    doneList: state.isListDone,
+    listDone: state.isListDone,
+    currentUser: state.currentUser
   }
 }
 
@@ -147,5 +163,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer)
-
-// {(this.props.currentList !== undefined && this.props.currentList.kind === "todo" ? <TodoList /> : <List/>)}

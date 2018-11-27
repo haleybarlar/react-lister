@@ -416,16 +416,47 @@ div.ui.grid {
   margin-top: 0%;
 }
 
-div.ui.circular.segment {
+div.ui.circular.segment.a-circle {
   width: 200px;
-height: 200px;
-position: absolute;
-margin-top: -12%;
-margin-left: 39%;
+  height: 200px;
+  position: absolute;
+  margin-top: -12%;
+  margin-left: 39%;
 }
 
 h1.get-started-h1 {
   margin-top: 30%;
   color: #8dbdc1;
   font-size: 29px;
+}
+
+h1.mindful-h1 {
+  font-size: 180px;
+  color: white;
+  font-family: 'Poppins';
+}
+
+div.ui.circular.segment.sign-up-circle {
+  margin-left: 35%;
+  position: absolute;
+  color: #8dbdc1;
+  font-size: 26px;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1.welcome-segments {
+  margin-top: 20%;
+}
+
+button.ui.button.welcome-segments {
+  margin: 0 auto !important;
+}
+
+div #outer {
+  width:100%;
+  text-align: center;
+}
+
+div.inner {
+  display: inline-block;
 }

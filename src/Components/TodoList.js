@@ -34,7 +34,7 @@ class TodoList extends Component {
 
     // const task = this.props.currentList.tasks.find(task => task.description === this.state.oneBigThingValue)
     //
-    // console.log(task);
+    //  (task);
 
     this.setState({
       oneBigThing: !this.state.oneBigThing
@@ -63,7 +63,7 @@ class TodoList extends Component {
     this.setState({
       oneBigThingValue: event.target.value
     }, () => {
-      console.log(this.state.oneBigThingValue);
+       (this.state.oneBigThingValue);
     })
   }
 

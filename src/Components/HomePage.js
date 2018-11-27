@@ -41,8 +41,6 @@ class HomePage extends Component {
   handleChange = (event) => {
     this.setState({
       value: event.target.value
-    }, () => {
-      console.log(this.state.value);
     })
   }
 
@@ -58,30 +56,6 @@ class HomePage extends Component {
     })
   }
 
-  handleClick = () => {
-    fetch('http://localhost:3000/api/v1/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({
-        user: {
-          "username": "vadim",
-           "password": "vadimloveshaley",
-           "email": "alkdjf@adof.com",
-           "lists_completed": 0,
-           "tasks_completed": 0,
-           "name": "haley",
-           "dates_done": 0
-        }
-      })
-    })
-      .then(r => r.json())
-      .then(console.log)
-  }
-
-
 render() {
 
   const square = { width: 200, height: 200 }
@@ -92,9 +66,8 @@ render() {
 
   return(
     <div>
-      <Button onClick={this.handleClick}>Click to Post</Button>
       <img src={"/Artboard 1.jpg"} alt="something" className="mindful-img"/>
-      <Segment circular style={square} onClick={this.setClicked}>
+      <Segment circular style={square} onClick={this.setClicked} className="a-circle">
         <h1 className="get-started-h1">get started</h1>
       </Segment>
     </div>
