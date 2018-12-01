@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
 import {connect} from 'react-redux'
-import { Button } from 'semantic-ui-react'
+import { Button, Input, Message } from 'semantic-ui-react'
 
 class SignupForm extends Component {
 
@@ -57,10 +57,13 @@ class SignupForm extends Component {
       .then(resp => {
         if (resp.error) {
           this.setState({
-            error: true
+            error: true,
+            fields: {
+              password: "",
+              confirm: ""
+            }
           })
-          event.target.password.value = ""
-          event.target.confirm.value = ""
+
         } else {
           this.login(this.state.fields.username, this.state.fields.password)
           this.setState({
@@ -70,7 +73,11 @@ class SignupForm extends Component {
       })
     } else {
       this.setState({
-        password_error: true
+        error: true,
+        fields: {
+          password: "",
+          confirm: ""
+        }
       })
     }
   }
@@ -128,25 +135,37 @@ class SignupForm extends Component {
 
     if (this.state.submitted && this.state.error === false) {
       return <Redirect to='/user/home' />
-    } else if (this.state.login) {
-      return <Redirect to='/login' />
     }
 
     return (
       <div>
-        {this.state.error ? <h1>Try Again</h1> : null}
-
-        Signup Form
-        <Form type="submit" onSubmit={this.handleSubmit}>
-          <input name="name" placeholder="enter your name" onChange={this.handleChange} value={this.state.fields.name}></input>
-          <input name="username" placeholder="enter your username" onChange={this.handleChange} value={this.state.fields.username}></input>
-          <input type="email" name="email" placeholder="enter your email" onChange={this.handleChange} value={this.state.fields.email}></input>
-          {this.state.password_error ? <h1>passwords didn't match</h1> : null}
-          <input type="password" name="password" placeholder="enter your password" onChange={this.handleChange} value={this.state.fields.password}></input>
-          <input type="password" name="confirm" placeholder="confirm your password" onChange={this.handleChange} value={this.state.fields.confirm}></input>
-          <button type="submit">Submit</button>
+        <Form onSubmit={this.handleSubmit} error>
+          <Form.Field>
+            <label>first name</label>
+            <Input name="name" placeholder="first name" onChange={this.handleChange} value={this.state.fields.name} className="login-input"/>
+          </Form.Field>
+          <Form.Field>
+            <label>username</label>
+            <Input name="username" placeholder="username" onChange={this.handleChange} value={this.state.fields.username} className="login-input"/>
+          </Form.Field>
+          <Form.Field>
+            <label>email</label>
+            <Input type="email" name="email" placeholder="email" onChange={this.handleChange} value={this.state.fields.email} className="login-input"/>
+          </Form.Field>
+          {this.state.error ? <Message
+            error
+            content='Uh oh! Make sure your passwords match!'
+          /> : null}
+          <Form.Field>
+            <label>password</label>
+            <Input type="password" name="password" placeholder="password" onChange={this.handleChange} value={this.state.fields.password} className="login-input"/>
+          </Form.Field>
+          <Form.Field>
+            <label>confirm password</label>
+            <Input type="password" name="confirm" placeholder="confirm your password" onChange={this.handleChange} value={this.state.fields.confirm} className="login-input" />
+          </Form.Field>
+          <Button type="submit" className="login-button">Submit</Button>
         </Form>
-        <Button onClick={this.props.login} value="login">log in</Button>
       </div>
     )
   }

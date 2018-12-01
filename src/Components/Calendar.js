@@ -9,21 +9,27 @@ import 'moment/locale/en-gb';
 import "react-datepicker/dist/react-datepicker.css";
 import ReactTooltip from 'react-tooltip'
 
-
 // if a list is completed that day, mark that day in calendar
 
 class Calendar extends Component {
 
+
+
+
   changeToMomentFormat() {
-    return this.props.lists
-      .filter(list => list.done)
-      .map(list => moment(list.time_completed))
+    if (this.props.lists) {
+      return this.props.lists
+        .filter(list => list.done)
+        .map(list => moment(list.time_completed))
+    }
   }
 
   totalListsDone() {
-    return this.props.lists
-      .filter(list => list.done)
-      .length
+    if (this.props.lists) {
+      return this.props.lists
+        .filter(list => list.done)
+        .length
+    }
   }
 
   totalTasksDone() {
@@ -34,7 +40,7 @@ class Calendar extends Component {
 
   render() {
 
-    console.log(this.props.currentUser.tasks_completed);
+    console.log(this.props.tasks_completed);
 
     return (
       <div>
@@ -46,15 +52,15 @@ class Calendar extends Component {
               <Grid.Row verticalAlign='middle'>
                 <Grid.Column>
                   <Header>
-                    <p className="lists">total lists</p>
-                    <h1 className="total">{this.props.currentUser.lists_completed}</h1>
+                    <p className="lists" id="calendar">total lists</p>
+                    <h1 id="calendar" className="total">{this.props.currentUser.lists_completed}</h1>
                   </Header>
                 </Grid.Column>
 
                 <Grid.Column>
                   <Header>
-                    <p className="lists">total tasks</p>
-                    <h1 className="total">{this.props.currentUser.tasks_completed}</h1>
+                    <p className="lists" id="calendar">total tasks</p>
+                    <h1 className="total" id="calendar">{this.props.currentUser.tasks_completed}</h1>
                   </Header>
                 </Grid.Column>
               </Grid.Row>
@@ -63,6 +69,7 @@ class Calendar extends Component {
         </div>
 
         <div className="calendar-div">
+          <h1 id="streak">you're on a {this.totalListsDone()} day streak!</h1>
           <DatePicker
             inline
             onChange={this.handleChange}
@@ -81,10 +88,11 @@ class Calendar extends Component {
 const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
-    // currentList: state.lists.find(list => list.id === state.currentListID),
     lists: state.lists,
     doneList: state.isListDone,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    tasks_completed: state.tasks_completed,
+    lists_completed: state.lists_completed
   }
 }
 

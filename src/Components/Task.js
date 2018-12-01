@@ -1,30 +1,10 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
-const style = {
-  cursor: "pointer",
-  // position: "absolute",
-  width: "26px",
-  height: "25px",
-  // top: "0",
-  // left: "0",
-  background: "grey",
-  border:"1px solid #ddd"
-}
-
 class Task extends Component {
 
-  static getDerivedStateFromProps(nextProps, prevState){
-    if(nextProps.currentList!==prevState.currentList){
-      return { currentTasks: nextProps.tasks};
-    } else return null;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(prevProps.currentList!==this.props.currentList){
-      //Perform some operation here
-      this.setState({currentTasks: this.props.tasks});
-    }
+  componentWillReceiveProps() {
+    console.log();
   }
 
   state = {
@@ -56,7 +36,7 @@ class Task extends Component {
       done: true
     }
 
-    if (task.done){
+    if (task.done === true){
       data = {
         done: false
       }
@@ -86,14 +66,17 @@ class Task extends Component {
 
     const userID = this.props.currentUser.id
 
+    this.props.tasksDone(this.props.currentUser.tasks_completed + 1)
+
     fetch(`http://localhost:3000/api/v1/users/${userID}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData)
-    }).then(resp => resp.json())
-    .then( )
+    })
+    .then(resp => resp.json())
+    .then(console.log)
     })
 
   }
@@ -102,7 +85,7 @@ class Task extends Component {
 
     const today = new Date()
 
-    const id = this.props.currentUser.id
+    const id = this.props.currentList.id
 
     if (this.props.doneList === true) {
 
@@ -125,7 +108,11 @@ class Task extends Component {
         lists_completed: this.props.currentUser.lists_completed + 1
       }
 
-      fetch(`http://localhost:3000/api/v1/users/${id}`, {
+      this.props.listsDone(this.props.currentUser.lists_completed + 1)
+
+      const userID = this.props.currentUser.id
+
+      fetch(`http://localhost:3000/api/v1/users/${userID}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'
@@ -149,23 +136,8 @@ class Task extends Component {
     }
   }
 
-  mouseOver = (event) => {
-    this.setState({
-      hovered: true,
-      id: event.target.id
-    })
-  }
-
-  mouseOut = () => {
-    this.setState({
-      hovered: false
-    })
-  }
-
-
-render() {
-
-  console.log(this.state.currentTasks);
+  render() {
+    console.log(this.props.currentUser.tasks_completed + 1);
 
     return(
       <div>
@@ -173,8 +145,9 @@ render() {
           this.props.tasks.sort(function(a, b){return b.id - a.id}).map(task =>
           {return (
             <div className="task-div" key={task.id} id={task.id}>
-                <input style={style} type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
-                 <span>{task.description}</span>
+              <label></label>
+              <input type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
+              <span>{task.description}</span>
               <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
             </div>
           )
@@ -218,6 +191,18 @@ const mapDispatchToProps = (dispatch) => {
         type: "EDIT_LIST",
         payload: list
       })
+    },
+    listsDone: (num) => {
+      dispatch({
+        type: "LISTS_DONE",
+        payload: num
+      })
+    },
+    tasksDone: (num) => {
+      dispatch({
+        type: "TASKS_DONE",
+        payload: num
+      })
     }
   }
 }
@@ -232,21 +217,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(Task)
-
-// <div className="haley">
-//   {(this.props.currentList.tasks !== undefined && this.props.currentList.tasks.length > 0 ?
-//     this.props.currentList.tasks.sort(function(a,b) {return b.id - a.id}).map(task =>
-//       {return (
-        // <div className="task-div" key={task.id} id={task.id}>
-        //     <input style={style} type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
-        //      <span>{task.description}</span>
-        //   <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
-        // </div>
-//       )}
-//     )
-//     : null
-//   )}
-// </div>

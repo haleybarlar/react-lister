@@ -2,21 +2,18 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+   font-family: 'Saira Semi Condensed', sans-serif;: 'Saira Semi Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+   font-family: 'Saira Semi Condensed', sans-serif;: 'Saira Semi Condensed', sans-serif;
 }
 
 
 .whole-div {
-  font-family: 'Poppins', sans-serif;
+   font-family: 'Saira Semi Condensed', sans-serif;: 'Saira Semi Condensed', sans-serif;
 }
 
 body {
@@ -40,14 +37,15 @@ div.header {
 
 div.ui.input {
   width: 60%;
-  margin-left: 22%;
   text-align: center;
+  margin-left: 21%;
 }
 
 button.ui.button {
   margin-left: 41% !important;
   background: #8dbdc1;
   color: white;
+  font-family: 'Niramit', sans-serif;
 }
 
 div.ui.modal.transition.visible.active.create-list-modal {
@@ -76,7 +74,7 @@ h1 {
 div.ui.input.haley {
   width: 100%;
   margin-left: 0%;
-  font-family: 'Poppins', sans-serif;
+   font-family: 'Saira Semi Condensed', sans-serif;: 'Saira Semi Condensed', sans-serif;
   font-size: 18px;
   font-style: italic;
 }
@@ -87,6 +85,7 @@ div.task-div {
   border: 0.5px solid #e0e1e2;
   width: 100%;
   color: #8dbdc1;
+  font-family: 'Niramit', sans-serif;
 }
 
 div.task-div input[type="checkbox"] {
@@ -162,7 +161,7 @@ div.list-container-div {
 div.vadim {
   padding: 25%;
   margin: 0 auto;
-  font-family: 'Poppins', sans-serif;
+   font-family: 'Saira Semi Condensed', sans-serif;: 'Saira Semi Condensed', sans-serif;
 }
 
 button.ui.circular.icon.button {
@@ -224,15 +223,16 @@ div.four.wide.column {
 }
 
 div.ui.fluid.vertical.tabular.menu {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Niramit', sans-serif;
   font-size: 24px;
   text-align: right;
 }
 
 #list-name-h1 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Niramit', sans-serif;
   font-size: 70px;
   color: #8dbdc1;
+  font-weight: 400;
 }
 
 div.ui.fluid.vertical.tabular.menu a.item {
@@ -243,15 +243,17 @@ div.ui.fluid.vertical.tabular.menu a.item {
 div.ui.fluid.vertical.tabular.menu a.active.item {
   color: #8dbdc1;
   text-transform: lowercase;
+  font-weight: 200 !important;
 }
 
 .change-font {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Niramit', sans-serif;
 }
 
 form.ui.form {
   width: 97% !important;
   margin-left: 10px;
+  font-family: 'Niramit', sans-serif;
 }
 
 svg.react-calendar-heatmap {
@@ -296,7 +298,7 @@ div.calendar-div {
 
 div.react-datepicker {
   margin-left: 29%;
-  margin-top: 21%;
+  margin-top: 24%;
 }
 
 div.calendar-circle-div {
@@ -327,10 +329,14 @@ div.calendar-div {
 h1.total {
   font-size: 85px;
   color: #dddcda;
+  margin-top: -5%;
 }
 
 p.lists {
   color: #8dbdc1;
+  font-size: 32px;
+  font-family: 'Niramit', sans-serif;
+  font-weight: 200;
 }
 
 .icon {
@@ -410,38 +416,49 @@ i.close.icon {
 
 div.ui.icon.menu {
   opacity: 0.5;
+  font-family: 'Niramit', sans-serif;
 }
 
 div.ui.grid {
-  margin-top: 0%;
+  margin-top: -2%;
 }
 
 div.ui.circular.segment.a-circle {
   width: 200px;
   height: 200px;
   position: absolute;
-  margin-top: -12%;
-  margin-left: 39%;
+  margin-top: 21%;
+  margin-left: 20%;
 }
 
 h1.get-started-h1 {
   margin-top: 30%;
   color: #8dbdc1;
   font-size: 29px;
+  font-family: 'Niramit', sans-serif;
+
 }
 
 h1.mindful-h1 {
   font-size: 180px;
   color: white;
-  font-family: 'Poppins';
+  font-family: 'Niramit', sans-serif;
+  font-weight: 300;
+}
+
+h1.welcome-name-div {
+  font-size: 100px;
+  color: white;
+  font-family: 'Niramit', sans-serif;
+  font-weight: 300;
 }
 
 div.ui.circular.segment.sign-up-circle {
-  margin-left: 35%;
+  margin-left: 39%;
   position: absolute;
   color: #8dbdc1;
   font-size: 26px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Saira Semi Condensed', sans-serif;
 }
 
 h1.welcome-segments {
@@ -449,8 +466,39 @@ h1.welcome-segments {
 }
 
 button.ui.button.welcome-segments {
-  margin: 0 auto !important;
+  border-radius: 50%;
+  background: white;
+  color: #8dbdc1;
+  display: inline-block !important;
+  font-family: 'Niramit', sans-serif !important;
 }
+
+button#login.ui.button.welcome-segments {
+  margin-left: 1% !important;
+  width: 23%;
+}
+
+button#signup.ui.button.welcome-segments {
+  margin-left: 1% !important;
+  width: 23%;
+}
+
+button#login.ui.button.welcome-segments:hover {
+  background: #cfbaa7;
+  color: white;
+}
+
+button#signup.ui.button.welcome-segments:hover {
+  background: #cfbaa7;
+  color: white;
+}
+
+/* button.ui.button.welcome-segments:hover {
+  margin: 0 auto !important;
+  background: #8dbdc1;
+  opacity: 1;
+  color: white;
+} */
 
 div #outer {
   width:100%;
@@ -459,4 +507,142 @@ div #outer {
 
 div.inner {
   display: inline-block;
+}
+
+img.ui.welcome-img {
+  border-radius: 50%;
+}
+
+div.ui.grid.welcome-grid {
+  margin-left: 16% !important;
+}
+
+div.six.wide.column {
+  border-radius: 25px;
+  color: white;
+  font-family: 'Niramit', sans-serif;
+  font-size: 20px;
+  margin-top: 4%;
+}
+
+div.welcome-button {
+  width: 100%;
+  margin-left: 22%;
+  margin-top: 21%;
+  position: absolute;
+}
+
+div.ui.input.login-input {
+  width: 87% !important;
+  margin-left: 3%;
+}
+
+.ui.form .field>label {
+  margin-left: 3%;
+}
+
+div.ui.modal.transition.visible.active.welcome-modal {
+  width: 26%;
+}
+
+button.ui.button.login-button {
+  margin-left: 33% !important;
+}
+
+div.ui.error.message {
+  width: 87%;
+  margin-left: 3%;
+  font-family: 'Niramit', sans-serif;
+}
+
+form.ui.error.form {
+  font-family: 'Niramit', sans-serif;
+}
+
+.ui.form .field .ui.input input{
+  font-family: 'Niramit', sans-serif;
+}
+
+div#welcome-circle.ui.circular.raised.segment {
+  height: 183px;
+  width: 183px;
+  position: absolute;
+  margin-left: 23%;
+  margin-top: -2%;
+}
+
+h1#welcome-h1.get-started-h1 {
+  margin-top: 16%;
+  font-weight: 300;
+}
+
+div.ui.placeholder.raised.segment.class-stats {
+  width: 450px;
+  height: 450px;
+  margin-left: 38%;
+  margin-top: 0%;
+}
+
+div#home-stats.ui.vertical.divider {
+  height: 106px !important;
+  margin-top: -5%;
+}
+
+div.middle.aligned.row {
+  margin-top: -15%;
+}
+
+button.ui.button.circle-button {
+  font-size: 21px;
+  margin-top: 32%;
+  margin-left: 29% !important;
+  font-weight: 200;
+  position: absolute;
+  padding-top: 6px;
+  padding-left: 31px;
+  background: #8dbdc1;
+  color: white;
+  border-radius: 25px;
+  width: 30%;
+  height: 59px;
+}
+
+button.ui.button.circle-button:hover {
+  background: #dddcda;
+  color: white;
+}
+
+i.check.circle.outline.huge.icon {
+  color: #dddcda;
+}
+
+p#calendar.lists {
+  font-size: 25px;
+  margin-top: 30%;
+}
+
+h1#calendar.total {
+  margin-top: -43%;
+  font-size: 82px;
+}
+
+h1#home.mindful-h1 {
+  margin-top: -3%;
+}
+
+input#container {
+  margin-left: -21%;
+}
+
+h1#streak {
+  margin-top: 4%;
+  position: absolute;
+  margin-left: 8%;
+  font-family: 'Niramit', sans-serif;
+  font-weight: 200;
+  color: #8dbdc1;
+}
+
+input#input {
+  margin-left: -20%;
 }

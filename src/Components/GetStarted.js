@@ -98,8 +98,6 @@ class GetStarted extends Component {
       return <Redirect to='/user/lists' />
     }
 
-    console.log(this.state.lists);
-
     const lists = (!this.state.lists || this.state.lists.length === 0 ? null : this.state.lists.map(list =>
       ({key: list.id, id: list.id, value: list.id, text: list.kind})
     ))
@@ -119,10 +117,12 @@ class GetStarted extends Component {
           } closeIcon>
             <Modal.Header>Create a list</Modal.Header>
             <Modal.Content>
-              <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
+              <Form onSubmit={this.handleSubmit}>
+              <Form.Input id="input" className="get-started-input" type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
               <Modal.Actions>
-                <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
+                <Button type="submit" value="Submit">Submit</Button>
               </Modal.Actions>
+              </Form>
             </Modal.Content>
           </Modal>
         </div>

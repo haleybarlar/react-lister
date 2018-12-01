@@ -4,7 +4,9 @@ const initialState = {
   lists: [], //Hold an array of lists
   currentList: {},
   tasks: [],
-  isListDone: false
+  isListDone: false,
+  lists_completed: 0,
+  tasks_completed: 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,18 +18,25 @@ const reducer = (state = initialState, action) => {
     case "SEND_LISTS":
       if (action.payload) {
         const sortedLists = action.payload.sort(function(a,b) {return b.id - a.id})
-        return {...state, lists: sortedLists, currentList: sortedLists[0]}
+        const tasks = sortedLists.map(list => list.tasks)
+        return {...state, lists: sortedLists, currentList: sortedLists[0], tasks: tasks[0]}
       } else {
         return {...state}
       }
+    case "LISTS_DONE":
+      return {...state, lists_completed: action.payload}
+    case "TASKS_DONE":
+      return {...state, tasks_completed: action.payload}
     case "SET_LIST":
       if (state.lists) {
         let foundList = state.lists.find(list => list.id === action.payload)
-          if (foundList) {
+          if (foundList && foundList.tasks.length > 0) {
+            return {...state, currentList: foundList, tasks: foundList.tasks}
+          } else if (foundList) {
             return {...state, currentList: foundList, tasks: foundList.tasks}
           } else {
             console.log("it didn't work", action.payload);
-            return {...state, currentList: state.lists[0]}
+            return {...state, currentList: state.lists[0], tasks: state.lists[0].tasks}
           }
       } else {
         return {...state}
@@ -53,19 +62,6 @@ const reducer = (state = initialState, action) => {
         } else {return task}
       })
       return {...state, tasks: edited_tasks}
-
-      // const edited_lists = state.lists.map((list)=> {
-      // 	if(list.id === state.currentList.id) {
-      //     let x = list.tasks.map((task) => {
-      // 	     if(task.id === action.payload) {
-      // 	        return {...task, done: !task.done}
-      //         } else {return task}
-      //       })
-      //       return {...list, tasks: x}
-      //     } else {return list}
-      // })
-      // return {...state, lists: edited_lists}
-
     case "EDIT_LIST":
       const edited_list = state.lists.map((list)=> {
         if(list.id === action.payload.id) {

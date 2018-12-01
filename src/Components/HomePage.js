@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-
 import {connect} from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { Segment, Button } from 'semantic-ui-react'
+import { Segment, Grid, Divider, Icon, Header, Button } from 'semantic-ui-react'
 
 class HomePage extends Component {
 
@@ -58,18 +57,44 @@ class HomePage extends Component {
 
 render() {
 
-  const square = { width: 200, height: 200 }
-
   if (this.state.clicked === true) {
     return <Redirect to='/user/getStarted' />
   }
 
+  console.log(this.props.currentUser.name);
+
   return(
     <div>
-      <img src={"/Artboard 1.jpg"} alt="something" className="mindful-img"/>
-      <Segment circular style={square} onClick={this.setClicked} className="a-circle">
-        <h1 className="get-started-h1">get started</h1>
-      </Segment>
+      <h1 className="mindful-h1" id="home">mindful todo</h1>
+
+      <Segment circular raised id="welcome-circle">
+        <h1 className="get-started-h1" id="welcome-h1">welcome, {this.props.currentUser.name}!</h1>
+        </Segment>
+
+        <Segment placeholder raised className="class-stats">
+          <Grid columns={2} stackable textAlign='center'>
+            <Divider vertical id="home-stats">
+              <Icon name="check circle outline" className="icon" size="huge" />
+            </Divider>
+            <Grid.Row verticalAlign='middle'>
+              <Grid.Column>
+                <Header>
+                  <p className="lists">total lists completed</p>
+                  <h1 className="total">{this.props.currentUser.lists_completed}</h1>
+                </Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header>
+                  <p className="lists">total tasks completed</p>
+                  <h1 className="total">{this.props.currentUser.tasks_completed}</h1>
+                </Header>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+
+          <Button className="circle-button" onClick={this.setClicked}>get started</Button>
+        </Segment>
+
     </div>
   )
 }
@@ -77,7 +102,8 @@ render() {
 
 const mapStateToProps = (state) => {
   return {
-    lists: state.lists
+    lists: state.lists,
+    currentUser: state.currentUser
   }
 }
 

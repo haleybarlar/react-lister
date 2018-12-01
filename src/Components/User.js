@@ -28,7 +28,7 @@ class User extends Component {
       if (!resp.message) {
         this.props.setCurrentUser(resp)
         this.findUserInfo(resp)
-    }
+      }
     })
   }
 
@@ -43,6 +43,8 @@ class User extends Component {
         delete userInfo["lists"]
         this.props.setCurrentUser(userInfo)
         this.props.sendLists(resp.lists)
+        this.props.listsDone(resp.lists_completed)
+        this.props.tasksDone(resp.tasks_completed)
       })
   }
 
@@ -58,7 +60,6 @@ class User extends Component {
       </div>
     )
   }
-
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -79,6 +80,18 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "SEND_TASKS",
         payload: tasks
+      })
+    },
+    listsDone: (num) => {
+      dispatch({
+        type: "LISTS_DONE",
+        payload: num
+      })
+    },
+    tasksDone: (num) => {
+      dispatch({
+        type: "TASKS_DONE",
+        payload: num
       })
     }
   }

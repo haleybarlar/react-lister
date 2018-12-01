@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import {connect} from 'react-redux'
-import { Menu, Segment, Modal, Button, Grid, Form } from 'semantic-ui-react'
+import { Menu, Segment, Modal, Button, Grid, Form, Progress } from 'semantic-ui-react'
 
 class ListContainer extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState){
-    if(nextProps.currentList!==prevState.currentList){
+    if(nextProps.currentList!==prevState.currentList && nextProps.currentList){
       return { activeItem: nextProps.currentList.kind};
     } else return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.currentList!==this.props.currentList){
+    if(prevProps.currentList!==this.props.currentList && this.props.currentList){
       //Perform some operation here
-      this.setState({activeItem: this.props.currentList.kind});
+      this.setState({activeItem: this.props.currentList.kind})
     }
   }
 
@@ -97,7 +97,8 @@ class ListContainer extends Component {
                       id={list.id}
                       name={list.kind}
                       active={activeItem === list.kind}
-                      onClick={this.handleItemClick} />
+                      onClick={this.handleItemClick} >
+                    </Menu.Item>
                   )
                 )
                 : null)
@@ -107,10 +108,13 @@ class ListContainer extends Component {
               } closeIcon>
                 <Modal.Header>Create a list</Modal.Header>
                 <Modal.Content>
-                  <Form.Input type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
-                  <Modal.Actions>
-                    <Button type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
-                  </Modal.Actions>
+                  <Form onSubmit={this.handleSubmit}>
+                    <label>type of list</label>
+                    <Form.Input id="container" type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
+                    <Modal.Actions>
+                      <Button type="submit">Submit</Button>
+                    </Modal.Actions>
+                  </Form>
                 </Modal.Content>
               </Modal>
             </Menu>
@@ -135,7 +139,8 @@ const mapStateToProps = (state) => {
     currentList: state.currentList,
     doneList: state.isListDone,
     listDone: state.isListDone,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    tasks: state.tasks
   }
 }
 

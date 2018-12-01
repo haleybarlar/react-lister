@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import Navbar from './Components/Navbar.js'
 import LoginForm from './Components/LoginForm.js'
-import HomePage from './Components/HomePage.js'
 import Welcome from './Components/Welcome.js'
 import SignupForm from './Components/SignupForm.js'
 import './App.css';
 import User from './Components/User.js'
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import {connect} from 'react-redux'
-
 
 class App extends Component {
 
@@ -29,7 +27,9 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(resp => {
+      if (!resp.message) {
         this.props.setCurrentUser(resp)
+      }
     })
   }
 

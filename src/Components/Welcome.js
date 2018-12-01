@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Button, Modal, Menu } from 'semantic-ui-react'
-import { Redirect } from "react-router-dom";
+import { Button, Modal, Grid, Image, List } from 'semantic-ui-react'
 import LoginForm from './LoginForm.js'
 import SignupForm from './SignupForm.js'
 
@@ -59,24 +58,49 @@ class Welcome extends Component {
 
   render() {
 
-    const square = { width: 300, height: 300 }
-
     return (
       <div>
         <h1 className="mindful-h1">mindful todo</h1>
-        <Segment circular className="sign-up-circle" style={square}>
-          <Modal open={this.state.open} onClose={this.close} trigger={
-            <div>
-              <Button value="login" className="welcome-segments" onClick={this.triggerModal}>log in</Button>
-              <Button value="signup" className="welcome-segments" onClick={this.triggerModal}>sign up</Button>
-            </div>
-          } closeIcon>
-            <Modal.Content>
-              {this.state.login ? <LoginForm signup={this.toggle}/> : null}
-              {this.state.signup ? <SignupForm login={this.toggle}/> : null}
-            </Modal.Content>
-          </Modal>
-        </Segment>
+
+        <Grid container className="welcome-grid">
+          <Grid.Column width={7}>
+            <Image src={"./3099178910.jpg"} alt="#" className="welcome-img"/>
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <List relaxed>
+              <List.Item>
+                <List.Icon name='check circle outline' size='large' verticalAlign='middle' />
+                <List.Content>
+                  <p>declutter your brain by writing down your thoughts</p>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name='check circle outline' size='large' verticalAlign='middle' />
+                <List.Content>
+                  <p>get rewarded for completeting tasks and lists</p>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name='check circle outline' size='large' verticalAlign='middle' />
+                <List.Content>
+                  <p>follow your progress and watch your productivity grow</p>
+                </List.Content>
+              </List.Item>
+            </List>
+              <Modal className="welcome-modal" open={this.state.open} onClose={this.close} trigger={
+                <div className="welcome-button">
+                  <Button value="login" className="welcome-segments" id="login" onClick={this.triggerModal}>log in</Button>
+                  <Button value="signup" className="welcome-segments" id="signup" onClick={this.triggerModal}>sign up</Button>
+                </div>
+              } closeIcon>
+              <Modal.Content>
+                {this.state.login ? <LoginForm signup={this.toggle}/> : null}
+                {this.state.signup ? <SignupForm login={this.toggle}/> : null}
+              </Modal.Content>
+            </Modal>
+          </Grid.Column>
+        </Grid>
+
       </div>
     )
   }

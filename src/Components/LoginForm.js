@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { Button } from 'semantic-ui-react'
+import { Button, Input, Form } from 'semantic-ui-react'
 
 class LoginForm extends Component {
 
@@ -91,14 +91,17 @@ class LoginForm extends Component {
 
     return (
       <div>
-        {this.state.error ? <h1>Try Again</h1> : null}
-        Login Form
-        <form type="submit" onSubmit={this.handleSubmit}>
-          <input name="username" placeholder="enter your username" onChange={this.handleChange} value={fields.username}></input>
-          <input type="password" name="password" placeholder="enter your password" onChange={this.handleChange} value={fields.password}></input>
-          <button type="submit">Submit</button>
-        </form>
-        <Button onClick={this.props.signup} value="signup">sign up</Button>
+        <Form onSubmit={this.handleSubmit} >
+          <Form.Field>
+            <label>username</label>
+            <Input name="username" placeholder="username" onChange={this.handleChange} value={fields.username} className="login-input"/>
+          </Form.Field>
+          <Form.Field>
+            <label>password</label>
+            <Input type="password" name="password" placeholder="enter your password" className="login-input" onChange={this.handleChange} value={fields.password}/>
+          </Form.Field>
+          <Button type='submit' className="login-button">log in</Button>
+        </Form>
       </div>
     )
   }
