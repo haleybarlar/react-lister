@@ -1,0 +1,116 @@
+.get-started {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  text-align: center;
+  display: grid;
+
+  .home-page {
+    h1 {
+      font-weight: 400;
+          margin-bottom: 18%;
+    }
+  }
+
+  h1 {
+    font-family: 'Space Mono';
+    font-weight: 300;
+    font-size: 2rem;
+  }
+
+  h1#padding {
+    padding-bottom: 1%;
+    margin-top: 18%;
+    font-size: 1.8rem;
+  }
+
+  h1#create-new {
+    border: 1px solid black;
+    font-size: 1.7rem;
+    width: 24rem;
+    margin: 0 auto;
+    padding: 2px;
+
+    i#add {
+      position: absolute;
+      margin-left: 2%;
+      font-size: 2rem;
+      margin-top: 1%;
+    }
+  }
+
+  h1#create-new:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
+  }
+
+  h3 {
+    font-family: 'Space Mono';
+    font-weight: 300;
+    padding-top: 6%;
+    padding-bottom: 6%;
+  }
+
+  select {
+    appearance: none;
+    padding: 3px 20px;
+    border-radius: 0px;
+    border-bottom: 1px solid black;
+    background: white;
+    margin-top: 3%;
+    font-family: 'Space Mono';
+  }
+
+  select:focus {
+    outline:none;
+  }
+
+  .vertical-menu {
+    overflow: scroll;
+    border: 2px solid black;
+    width: 24rem;
+    max-height: 88px;
+    height: 88px;
+    overflow: auto;
+    margin: 0 auto;
+
+    p {
+      font-family: 'Space Mono';
+      font-size: 1.7rem;
+      border-bottom: 1px solid black;
+      padding: 2px;
+    }
+
+    p:hover {
+      background: black;
+      color: white;
+    }
+
+    p#title {
+      background: black;
+      color: white;
+    }
+  }
+
+  #not-clicked {
+    p#not {
+      font-family: 'Space Mono';
+      font-size: 1.7rem;
+      border: 1px solid black;
+      width: 16rem;
+      padding: 2px;
+      margin: 0 auto;
+      margin-bottom: 12%;
+      width: 24rem;
+      margin-bottom: 20.1%;
+    }
+
+    i#not {
+      position: absolute;
+      margin-left: 3%;
+    }
+  }
+}

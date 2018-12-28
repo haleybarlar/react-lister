@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
 import {connect} from 'react-redux'
-import { Button, Input, Message } from 'semantic-ui-react'
+import './CSS/signup.scss'
 
 class SignupForm extends Component {
 
@@ -138,34 +137,74 @@ class SignupForm extends Component {
     }
 
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit} error>
-          <Form.Field>
+      <div className="signup">
+        <form onSubmit={this.handleSubmit} error>
+          <div className="password">
             <label>first name</label>
-            <Input name="name" placeholder="first name" onChange={this.handleChange} value={this.state.fields.name} className="login-input"/>
-          </Form.Field>
-          <Form.Field>
+            <input
+              name="name"
+              placeholder="first name"
+              onChange={this.handleChange}
+              value={this.state.fields.name}
+              className="login-input"
+              autoComplete="off"/>
+          </div>
+          <div className="password">
             <label>username</label>
-            <Input name="username" placeholder="username" onChange={this.handleChange} value={this.state.fields.username} className="login-input"/>
-          </Form.Field>
-          <Form.Field>
+            <input
+              name="username"
+              placeholder="username"
+              onChange={this.handleChange}
+              alue={this.state.fields.username}
+              className="login-input"
+              autoComplete="off"/>
+          </div>
+          <div className="password">
             <label>email</label>
-            <Input type="email" name="email" placeholder="email" onChange={this.handleChange} value={this.state.fields.email} className="login-input"/>
-          </Form.Field>
-          {this.state.error ? <Message
-            error
-            content='Uh oh! Make sure your passwords match!'
-          /> : null}
-          <Form.Field>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              onChange={this.handleChange}
+              value={this.state.fields.email}
+              className="login-input"
+              autoComplete="off"/>
+          </div>
+          {this.state.error ?
+            <h1>
+              Uh oh! Make sure your passwords match!
+            </h1>
+          : 
+            null
+          }
+          <div className="password">
             <label>password</label>
-            <Input type="password" name="password" placeholder="password" onChange={this.handleChange} value={this.state.fields.password} className="login-input"/>
-          </Form.Field>
-          <Form.Field>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              onChange={this.handleChange}
+              value={this.state.fields.password}
+              className="login-input"
+              autoComplete="off"/>
+          </div>
+          <div className="password">
             <label>confirm password</label>
-            <Input type="password" name="confirm" placeholder="confirm your password" onChange={this.handleChange} value={this.state.fields.confirm} className="login-input" />
-          </Form.Field>
-          <Button type="submit" className="login-button">Submit</Button>
-        </Form>
+            <input
+              type="password"
+              name="confirm"
+              placeholder="confirm your password"
+              onChange={this.handleChange}
+              value={this.state.fields.confirm}
+              className="login-input"
+              autoComplete="off"/>
+          </div>
+          <button
+            type="submit"
+            className="login-button">
+            Submit
+          </button>
+        </form>
       </div>
     )
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GetStarted from './GetStarted.js'
 import Calendar from './Calendar.js'
-import HomePage from './HomePage.js'
 import ListContainer from './ListContainer.js'
 import {connect} from 'react-redux'
 import { withRouter, Route, Switch } from "react-router-dom";
@@ -52,8 +51,7 @@ class User extends Component {
     return(
       <div>
         <Switch>
-          <Route path="/user/home" component={HomePage}/>
-          <Route path="/user/getstarted" component={GetStarted}/>
+          <Route path="/user/home" component={GetStarted}/>
           <Route path="/user/lists" component={ListContainer}/>
           <Route path="/user/calendar" component={Calendar}/>
         </Switch>

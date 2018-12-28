@@ -1,0 +1,51 @@
+.signup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  font-family: 'Space Mono';
+
+  label {
+    color: #7a7a7a;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  input {
+    border: none;
+    border-bottom: 1px solid #dadada;
+    color: #969696;
+    width: 100%;
+    margin-top: 1%;
+    font-family: 'Space Mono';
+  }
+
+  input:focus {
+    outline:none;
+  }
+
+  ::placeholder {
+    color: #c7c7c7;
+    font-family: 'Space Mono';
+  }
+
+  button {
+    width: 100%;
+    border: 1px solid #c7c7c7;
+    margin-top: 8%;
+    color: #969696;
+    font-family: 'Space Mono';
+  }
+
+  button:hover {
+    background: #c7c7c7;
+    cursor: pointer;
+    color: white;
+    border: 1px solid #c7c7c7;
+  }
+
+  .password {
+    margin-top: 4%;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-calendar-heatmap/dist/styles.css'
-import { Header, Grid, Segment, Divider, Icon } from 'semantic-ui-react'
+import { Header, Grid, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -44,20 +44,19 @@ class Calendar extends Component {
 
     return (
       <div>
+        <Image src={'https://images.unsplash.com/photo-1541269676894-e7edc07ec4b1?ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb'} alt="#" id="calendar-img"/>
         <div className="calendar-circle-div">
-          <Segment placeholder>
             <Grid columns={2}  textAlign='center'>
-              <Divider vertical><Icon name="check circle outline" className="icon" size="huge" /></Divider>
 
               <Grid.Row verticalAlign='middle'>
-                <Grid.Column>
+                <Grid.Column id="calendar-lists">
                   <Header>
                     <p className="lists" id="calendar">total lists</p>
                     <h1 id="calendar" className="total">{this.props.currentUser.lists_completed}</h1>
                   </Header>
                 </Grid.Column>
 
-                <Grid.Column>
+                <Grid.Column id="calendar-tasks">
                   <Header>
                     <p className="lists" id="calendar">total tasks</p>
                     <h1 className="total" id="calendar">{this.props.currentUser.tasks_completed}</h1>
@@ -65,7 +64,6 @@ class Calendar extends Component {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </Segment>
         </div>
 
         <div className="calendar-div">

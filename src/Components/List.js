@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Task from './Task.js'
 import {connect} from 'react-redux'
-import { Button, Form, Popup, Input, Icon, Progress } from 'semantic-ui-react'
 import { withRouter } from "react-router-dom";
+import './CSS/list.scss'
 
 document.addEventListener("touchstart", function(){}, true)
 
@@ -70,54 +70,60 @@ class List extends Component {
   }
 
   render() {
-
     return(
-      <div >
+      <div class='list'>
         {(this.props.tasks && this.props.tasks.length > 0 ?
           <div id={this.props.currentList.id} className="entire-list" >
-            {(this.props.isListDone ? <h1
-               id="list-name-h1">{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1> :
-               <h1 id="list-name-h1">{this.props.currentList.kind} </h1>)}
-            <Popup
+            <button
+              onClick={this.handleDelete}
+              id="delete-list-button"><i class="material-icons">close</i></button>
+{/*            {(this.props.isListDone ?
+              <h1>{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1>
+            :
+              <h1>{this.props.currentList.kind} </h1>
+            )}*/}
+          {/*  <Popup
               trigger={
                 <Button
                   inline field circular icon='x'
                   onClick={this.handleDelete}
                   id="delete-list-button"/>
               }
-              content="Delete this list"/>
-            <Form type="submit" onSubmit={this.handleSubmit} >
-              <Input
+              content="Delete this list"/>*/}
+            <form onSubmit={this.handleSubmit} >
+              <input
                 type="text"
                 name="task"
-                placeholder="make a todo"
+                placeholder="what's on your mind?"
                 className="haley"
+                autoComplete="off"
               />
-            </Form>
+          </form>
             <div
-              className="list-div"
-              style={{overflow: 'auto', maxHeight: 550, padding: 10}}>
+              className="listdiv"
+              style={{overflow: 'auto', maxHeight: 550}}>
               <Task />
             </div>
           </div>
           :
           <div id={this.props.currentList.id} className="entire-list" >
-            <h1 id="list-name-h1">{this.props.currentList.kind}</h1>
-              <Popup
-                trigger={
-                  <Button
-                    inline field circular icon='x'
+
+                  <button
                     onClick={this.handleDelete}
-                    id="delete-list-button"/>
-                }
-                content="Delete this list"/>
-            <Form type="submit" onSubmit={this.handleSubmit} >
-              <Input
+                    id="delete-list-button"><i class="material-icons">close</i></button>
+
+              <form type="submit" onSubmit={this.handleSubmit} >
+              <input
                 type="text"
                 name="task"
-                placeholder="make a todo"
+                placeholder="what's on your mind?"
+                autoComplete="off"
                 className="haley"/>
-            </Form>
+            </form>
+            <div
+              className="listdiv"
+              style={{overflow: 'auto', maxHeight: 550}}>
+            </div>
           </div>
         )}
 

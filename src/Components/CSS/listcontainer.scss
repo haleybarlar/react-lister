@@ -1,0 +1,40 @@
+div.scrollmenu {
+  border: 1px solid #dadada;
+  overflow: auto;
+  white-space: nowrap;
+  position: fixed;
+  top: 77.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 50%;
+
+  i {
+    font-size: 1.5rem;
+  }
+}
+
+div.scrollmenu p {
+  display: inline-block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  border-right: 1px solid #dadada;
+  color: #7a7a7a;
+  font-family: 'Space Mono';
+  font-size: 1.3rem;
+  background: white;
+}
+
+div.scrollmenu p:hover {
+  background-color: #dadada;
+  color: white;
+}
+
+p:hover {
+  cursor: pointer;
+}
+
+.list-item.active {
+  background: #dadada;
+  color: white;
+}

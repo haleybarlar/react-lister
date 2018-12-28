@@ -1,0 +1,41 @@
+ul.fa-ul {
+  margin-left: 0rem;
+}
+
+span {
+  padding-left: 1rem;
+  font-size: 1.4rem;
+  font-family: 'Space Mono';
+  color: #505050;
+}
+
+.taskdiv {
+  padding-top: 1rem;
+}
+
+i.fa.fa-times {
+  float: right;
+  padding-right: 7%;
+  color: #c7c7c7;
+}
+
+i.fa.fa-times:hover {
+  color: #7a7a7a;
+  cursor: pointer;
+}
+
+i.fa.fa-check-circle-o {
+  color: #505050;
+}
+
+i.fa.fa-check-circle-o:hover {
+  cursor: pointer;
+}
+
+i.fa.fa-circle-thin {
+  color: #505050;
+}
+
+i.fa.fa-circle-thin:hover {
+  cursor: pointer;
+}

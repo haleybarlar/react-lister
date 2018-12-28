@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import './CSS/task.scss'
 
 class Task extends Component {
 
@@ -27,7 +28,6 @@ class Task extends Component {
   }
 
   handleClick = (event) => {
-
     const id = parseInt(event.target.parentElement.id)
 
     const task = this.props.tasks.find(task => task.id === id)
@@ -82,7 +82,6 @@ class Task extends Component {
   }
 
   handleDone = () => {
-
     const today = new Date()
 
     const id = this.props.currentList.id
@@ -137,18 +136,16 @@ class Task extends Component {
   }
 
   render() {
-    console.log(this.props.currentUser.tasks_completed + 1);
-
     return(
       <div>
         {(this.props.tasks && this.props.tasks.length > 0 ?
           this.props.tasks.sort(function(a, b){return b.id - a.id}).map(task =>
           {return (
-            <div className="task-div" key={task.id} id={task.id}>
-              <label></label>
-              <input type="checkbox" value="1" id="checkboxFiveInput" name="" onClick={this.handleClick} checked={task.done} />
-              <span>{task.description}</span>
-              <i onClick={this.handleDelete} className="trash alternate outline icon"></i>
+            <div className="taskdiv" key={task.id} id={task.id}>
+              <ul className="fa-ul">
+                <li id={task.id}>{(task.done ? <i class="fa fa-check-circle-o" aria-hidden="true" onClick={this.handleClick} id={task.id}></i> : <i class="fa fa-circle-thin" aria-hidden="true" onClick={this.handleClick} id={task.id}></i>)}<span>{task.description}</span><i onClick={this.handleDelete} class="fa fa-times"></i></li>
+              </ul>
+
             </div>
           )
           })

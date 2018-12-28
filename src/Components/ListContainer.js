@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import List from './List.js'
 import {connect} from 'react-redux'
-import { Menu, Segment, Modal, Button, Grid, Form, Progress } from 'semantic-ui-react'
+import './CSS/listcontainer.scss'
+import Modali from './Modal.js'
 
 class ListContainer extends Component {
 
@@ -18,18 +19,29 @@ class ListContainer extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.currentList !== this.props.currentList) {
+      this.setState({
+        activeItem: nextProps.currentList
+      })
+    }
+  }
+
   state = {
     open: false,
     activeItem: "",
     value: "",
-    currentList: {}
+    currentList: {},
+    openModal: false
    }
 
-  handleItemClick = (e, { name }) => {
+  handleItemClick = (e) => {
+    let current = document.getElementsByClassName("active")
+    if (current.length > 0) {
+      current[0].className = current[0].className.replace(" active", "")
+    }
+    e.target.className += " active"
     this.props.setCurrentList(parseInt(e.target.id))
-    this.setState({
-      activeItem: name
-    })
   }
 
   close = () => this.setState({ open: false })
@@ -53,7 +65,8 @@ class ListContainer extends Component {
 
     if (this.state.value !== "") {
     this.setState({
-      submitted: true
+      submitted: true,
+      openModal: false
     })
 
     const data = {
@@ -79,53 +92,38 @@ class ListContainer extends Component {
     }
   }
 
+  openModal = () => {
+    this.setState({
+      openModal: !this.state.openModal
+    })
+  }
+
   render() {
-
-    const { activeItem } = this.state
-
     return(
-      <div>
-        <Grid>
-          <Grid.Column width={4}>
-            <Menu fluid vertical tabular>
-              { (this.props.currentList ?
-                (
-                  this.props.lists === undefined || this.props.lists.length === 0 ? null :
-                  this.props.lists.map(list =>
-                    <Menu.Item
-                      key={list.id}
-                      id={list.id}
-                      name={list.kind}
-                      active={activeItem === list.kind}
-                      onClick={this.handleItemClick} >
-                    </Menu.Item>
-                  )
+      <div className="list-container">
+        <Modali modal={this.state.openModal} handleSubmit={this.handleSubmit} handleChange={this.changeValue}/>
+        <div>
+          {(this.props.currentList ? <List/> : <p className="add-list" onClick={this.openModal}>add a list <i class="fa fa-plus-square-o" aria-hidden="true"></i></p>)}
+          <div class="scrollmenu">
+            <p className="add-list" onClick={this.openModal}><i class="material-icons">library_add</i></p>
+            { (this.props.currentList ?
+              (
+                this.props.lists === undefined || this.props.lists.length === 0 ? null :
+                this.props.lists.map(list =>
+                  <p
+                    className="list-item"
+                    key={list.id}
+                    id={list.id}
+                    name={list.kind}
+                    onClick={this.handleItemClick}
+                    >{list.kind}
+                  </p>
                 )
-                : null)
-              }
-              <Modal open={this.state.open} onClose={this.close} trigger={
-                <Menu.Item circular icon='add' onClick={this.triggerModal}></Menu.Item>
-              } closeIcon>
-                <Modal.Header>Create a list</Modal.Header>
-                <Modal.Content>
-                  <Form onSubmit={this.handleSubmit}>
-                    <label>type of list</label>
-                    <Form.Input id="container" type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
-                    <Modal.Actions>
-                      <Button type="submit">Submit</Button>
-                    </Modal.Actions>
-                  </Form>
-                </Modal.Content>
-              </Modal>
-            </Menu>
-          </Grid.Column>
-
-          <Grid.Column stretched width={12}>
-            <Segment >
-              {(this.props.currentList ? <List/> : <h1>waiting</h1>)}
-            </Segment>
-          </Grid.Column>
-        </Grid>
+              )
+              : null)
+            }
+          </div>
+        </div>
       </div>
 
     )

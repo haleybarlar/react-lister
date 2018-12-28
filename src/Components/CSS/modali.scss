@@ -1,0 +1,82 @@
+.Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 63%;
+  text-align: left;
+  background: white;
+  border: 1px solid #c7c7c7;
+  height: 27%;
+  font-family: 'Space Mono';
+
+  form.modal-form {
+    width: 74%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  p {
+    color: #7a7a7a;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  input {
+    font-family: 'Space Mono';
+    border: none;
+    border-bottom: 1px solid #dadada;
+    width: 100%;
+    color: #969696;
+    margin-top: 2%;
+    padding: 1% 0rem;
+  }
+
+  ::placeholder {
+    color: #c7c7c7;
+    font-family: 'Space Mono';
+  }
+
+  button {
+    font-family: 'Space Mono';
+    border: 1px solid #c7c7c7;
+    color: #969696;
+    margin-top: 8%;
+    padding: 1px 14px;
+    width: 100%;
+  }
+
+  button:focus {
+    outline:none;
+  }
+
+  button:hover {
+    background: #c7c7c7;
+    cursor: pointer;
+    color: white;
+    border: 1px solid #c7c7c7;
+  }
+
+  input:focus {
+    outline:none;
+  }
+
+  i {
+    right: 0;
+    position: absolute;
+    padding: 2%;
+    font-size: 1.4rem;
+    color: #c7c7c7;
+  }
+
+  i:hover {
+    cursor: pointer;
+    color: #969696;
+  }
+}
+
+.Modal:focus {
+  outline:none;
+}

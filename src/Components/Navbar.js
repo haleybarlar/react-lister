@@ -1,9 +1,8 @@
-import { Menu, Icon, Modal } from 'semantic-ui-react'
 import React, { Component } from 'react';
-import { NavLink, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import LoginForm from './LoginForm.js'
-import SignupForm from './SignupForm.js'
+import './CSS/navbar.scss'
+import Hamburger from './Hamburger.js'
 
 class Navbar extends Component {
 
@@ -24,13 +23,14 @@ class Navbar extends Component {
   close = () => this.setState({ open: false })
   open = () => this.setState({ open: true })
   triggerModal = (event, name) => {
-    if (name.name === "login") {
+    debugger
+    if (event.target.textContent.toLowerCase() === "log in") {
       this.setState({
         open: !this.state.open,
         login: true,
         signup: false
       })
-    } else if (name.name === "sign up") {
+    } else if (event.target.textContent.toLowerCase() === "sign up") {
       this.setState({
         open: !this.state.open,
         signup: true,
@@ -40,65 +40,32 @@ class Navbar extends Component {
   }
 
   render() {
-    const { activeItem } = this.state
+    // const { activeItem } = this.state
 
     return (
-      <div >
+      <div className="navbar">
         {this.props.currentUser ?
-          <Menu icon>
-            <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home">
-              <Icon name="home" size="big"  className="nav-icon"/>
-            </Menu.Item>
-            <Menu.Item exact
-              name='lists'
-              active={activeItem === 'lists'}
-              onClick={this.handleItemClick} as={NavLink} to="/user/lists">
-              <Icon name="list" size="big" className="nav-icon"/>
-            </Menu.Item>
-            <Menu.Item
-              name='calendar'
-              active={activeItem === 'calendar'}
-              onClick={this.handleItemClick} as={NavLink} to="/user/calendar"
-            >
-              <Icon name="calendar check outline" size="big"  className="nav-icon"/>
-            </Menu.Item>
-            <Menu.Menu position='right'>
-                <Menu.Item
-                  name='logout'
-                  active={activeItem === 'logout'}
-                  onClick={this.props.handleLogout}
-                  as={NavLink} to="/">
-                </Menu.Item>
-            </Menu.Menu>
-          </Menu>
+          <div>
+            <Link to="/user/home"><p className="main">mindful todo</p></Link>
+            <Hamburger handleLogout={this.props.handleLogout}/>
+            <div className="nav-right">
+              <Link to="/user/lists"><p className="right-p">lists</p></Link>
+              <Link to="/user/calendar"><p className="right-p">calendar</p></Link>
+              <Link to="/" onClick={this.props.handleLogout}><p className="right-p">logout</p></Link>
+            </div>
+          </div>
         :
-          <Menu icon>
-            <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/">
-              <Icon name="home" size="big"  className="nav-icon"/>
-            </Menu.Item>
-            <Modal className="welcome-modal" open={this.state.open} onClose={this.close} trigger={
-              <Menu.Menu position='right'>
-                <Menu.Item
-                  name='login'
-                  active={activeItem === 'login'}
-                  onClick={(event, sign) => this.triggerModal(event, sign)}>
-                </Menu.Item>
-                <Menu.Item
-                  name='sign up'
-                  active={activeItem === 'sign up'}
-                  onClick={(event, sign) => this.triggerModal(event, sign)}>
-                </Menu.Item>
-              </Menu.Menu>
-            } closeIcon>
-              <Modal.Content>
-                {this.state.login ? <LoginForm /> : null}
-                {this.state.signup ? <SignupForm /> : null}
-              </Modal.Content>
-            </Modal>
-          </Menu>
+          <div>
+            <Link to="/"><p className="main">mindful todo</p></Link>
+            <Hamburger handleLogout={this.props.handleLogout}/>
+            <div className="nav-right">
+              <Link to="/login"><p className="right-p">log in</p></Link>
+              <Link to="/signup"><p className="right-p">sign up</p></Link>
+            </div>
+          </div>
         }
       </div>
-    );
+    )
   }
 }
 
@@ -119,3 +86,59 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar))
+
+// <Menu icon>
+//   <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/user/home">
+//     <Icon name="home" size="big"  className="nav-icon"/>
+//   </Menu.Item>
+//   <Menu.Item exact
+//     name='lists'
+//     active={activeItem === 'lists'}
+//     onClick={this.handleItemClick} as={NavLink} to="/user/lists">
+//     <Icon name="list" size="big" className="nav-icon"/>
+//   </Menu.Item>
+//   <Menu.Item
+//     name='calendar'
+//     active={activeItem === 'calendar'}
+//     onClick={this.handleItemClick} as={NavLink} to="/user/calendar"
+//   >
+//     <Icon name="calendar check outline" size="big"  className="nav-icon"/>
+//   </Menu.Item>
+//   <h1 className="mindful-h1" id="loggedin-navbar">mindful todo</h1>
+//   <Menu.Menu position='right'>
+//       <Menu.Item
+//         name='logout'
+//         active={activeItem === 'logout'}
+//         onClick={this.props.handleLogout}
+//         as={NavLink} to="/">
+//       </Menu.Item>
+//   </Menu.Menu>
+// </Menu>
+
+// :
+
+// <Menu icon>
+//   <Menu.Item exact name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={NavLink} to="/">
+//     <Icon name="home" size="big"  className="nav-icon"/>
+//   </Menu.Item>
+//   <h1 className="mindful-h1">mindful todo</h1>
+//   <Modal className="welcome-modal" open={this.state.open} onClose={this.close} trigger={
+//     <Menu.Menu position='right'>
+//       <Menu.Item
+//         name='login'
+//         active={activeItem === 'login'}
+//         onClick={(event, sign) => this.triggerModal(event, sign)}>
+//       </Menu.Item>
+//       <Menu.Item
+//         name='sign up'
+//         active={activeItem === 'sign up'}
+//         onClick={(event, sign) => this.triggerModal(event, sign)}>
+//       </Menu.Item>
+//     </Menu.Menu>
+//   } closeIcon>
+//     <Modal.Content>
+//       {this.state.login ? <LoginForm /> : null}
+//       {this.state.signup ? <SignupForm /> : null}
+//     </Modal.Content>
+//   </Modal>
+// </Menu>
