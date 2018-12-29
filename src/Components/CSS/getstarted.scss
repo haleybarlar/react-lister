@@ -1,16 +1,29 @@
+$dkgrey: #7a7a7a;
+$ltgrey: #c7c7c7;
+$medgrey: #969696;
+
+.whole {
+  border: 1px solid $ltgrey;
+  display: grid;
+  margin-top: 21%;
+  margin-left: 12%;
+  margin-right: 12%;
+  height: 24.9rem;
+}
+
 .get-started {
   position: fixed;
-  top: 45%;
+  top: 33%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 72%;
   text-align: center;
-  display: grid;
 
   .home-page {
     h1 {
       font-weight: 400;
-          margin-bottom: 18%;
+      margin-bottom: 6%;
+      color: #7a7a7a;
     }
   }
 
@@ -20,29 +33,23 @@
     font-size: 2rem;
   }
 
-  h1#padding {
-    padding-bottom: 1%;
-    margin-top: 18%;
-    font-size: 1.8rem;
-  }
-
   h1#create-new {
-    border: 1px solid black;
-    font-size: 1.7rem;
+    border: 1px solid #c7c7c7;
+    font-size: 1.5rem;
     width: 24rem;
     margin: 0 auto;
     padding: 2px;
+    text-align: center;
+    color: $medgrey;
 
     i#add {
-      position: absolute;
-      margin-left: 2%;
-      font-size: 2rem;
-      margin-top: 1%;
+      font-size: 1.5rem;
+      margin-left: 6%;
     }
   }
 
   h1#create-new:hover {
-    background: black;
+    background: #c7c7c7;
     color: white;
     cursor: pointer;
   }
@@ -50,67 +57,71 @@
   h3 {
     font-family: 'Space Mono';
     font-weight: 300;
-    padding-top: 6%;
-    padding-bottom: 6%;
+    padding: 3% 0%;
+    color: $medgrey;
   }
+}
 
-  select {
-    appearance: none;
-    padding: 3px 20px;
-    border-radius: 0px;
-    border-bottom: 1px solid black;
-    background: white;
-    margin-top: 3%;
+.vertical-menu {
+  overflow: scroll;
+  border: 2px solid $ltgrey;
+  width: 24rem;
+  max-height: 88px;
+  height: 88px;
+  overflow: auto;
+  margin: 0 auto;
+  z-index: 1;
+  margin-top: 42%;
+
+  p {
     font-family: 'Space Mono';
+    font-size: 1.5rem;
+    border-bottom: 1px solid $ltgrey;
+    padding: 2px;
+    background: white;
+    color: $medgrey;
   }
 
-  select:focus {
-    outline:none;
+  p:hover {
+    background: $ltgrey;
+    color: white;
   }
 
-  .vertical-menu {
-    overflow: scroll;
-    border: 2px solid black;
-    width: 24rem;
-    max-height: 88px;
-    height: 88px;
-    overflow: auto;
+  p#title {
+    background: $ltgrey;
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid $medgrey;
+  }
+
+  i#not {
+    font-size: 1.5rem;
+    margin-left: 10%;
+  }
+}
+
+#not-clicked {
+  p#not {
+    font-family: 'Space Mono';
+    font-size: 1.5rem;
+    border: 1px solid $ltgrey;
+    width: 16rem;
+    padding: 2px;
     margin: 0 auto;
-
-    p {
-      font-family: 'Space Mono';
-      font-size: 1.7rem;
-      border-bottom: 1px solid black;
-      padding: 2px;
-    }
-
-    p:hover {
-      background: black;
-      color: white;
-    }
-
-    p#title {
-      background: black;
-      color: white;
-    }
+    width: 24rem;
+    margin-top: 42%;
+    color: white;
+    text-align: center;
+    background: $ltgrey;
   }
 
-  #not-clicked {
-    p#not {
-      font-family: 'Space Mono';
-      font-size: 1.7rem;
-      border: 1px solid black;
-      width: 16rem;
-      padding: 2px;
-      margin: 0 auto;
-      margin-bottom: 12%;
-      width: 24rem;
-      margin-bottom: 20.1%;
-    }
+  p#not:hover {
+    background: white;
+    color: $medgrey;
+  }
 
-    i#not {
-      position: absolute;
-      margin-left: 3%;
-    }
+  i#not {
+    font-size: 1.5rem;
+    margin-left: 10%;
   }
 }
