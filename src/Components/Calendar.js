@@ -13,9 +13,6 @@ import ReactTooltip from 'react-tooltip'
 
 class Calendar extends Component {
 
-
-
-
   changeToMomentFormat() {
     if (this.props.lists) {
       return this.props.lists

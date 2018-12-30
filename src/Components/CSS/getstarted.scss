@@ -41,6 +41,7 @@ $medgrey: #969696;
     padding: 2px;
     text-align: center;
     color: $medgrey;
+    box-shadow: 5px 5px $dkgrey;
 
     i#add {
       font-size: 1.5rem;
@@ -49,8 +50,9 @@ $medgrey: #969696;
   }
 
   h1#create-new:hover {
-    background: #c7c7c7;
+    background: $ltgrey;
     color: white;
+    box-shadow: 5px 5px $dkgrey;
     cursor: pointer;
   }
 
@@ -72,6 +74,7 @@ $medgrey: #969696;
   margin: 0 auto;
   z-index: 1;
   margin-top: 42%;
+  box-shadow: 5px 5px $dkgrey;
 
   p {
     font-family: 'Space Mono';
@@ -110,14 +113,16 @@ $medgrey: #969696;
     margin: 0 auto;
     width: 24rem;
     margin-top: 42%;
-    color: white;
+    color: $medgrey;
     text-align: center;
-    background: $ltgrey;
+    background: white;
+    box-shadow: 5px 5px $dkgrey;
   }
 
   p#not:hover {
-    background: white;
-    color: $medgrey;
+    background: $ltgrey;
+    color: white;
+    box-shadow: 5px 5px $dkgrey;
   }
 
   i#not {
