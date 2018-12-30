@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom"
 import GetStarted from './GetStarted.js'
 
 class HomePage extends Component {

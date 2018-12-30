@@ -18,6 +18,7 @@ span.bm-burger-bars {
 .bm-cross-button {
   height: 24px;
   width: 24px;
+  display: none;
 }
 
 /* Color/shape of close button cross */
@@ -54,5 +55,6 @@ span.bm-burger-bars {
 }
 
 p {
-  color: #505050;
+  color: #7a7a7a;
+  font-size: 1.3rem;
 }

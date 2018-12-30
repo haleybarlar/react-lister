@@ -13,6 +13,10 @@ import './CSS/calendar.scss'
 
 class Calendar extends Component {
 
+  state = {
+    isOpen: false
+  }
+
   changeToMomentFormat() {
     if (this.props.lists) {
       return this.props.lists
@@ -30,10 +34,21 @@ class Calendar extends Component {
   }
 
   totalTasksDone() {
-      return this.props.tasks
-        .filter(task => task.done)
-        .length
-    }
+    return this.props.tasks
+      .filter(task => task.done)
+      .length
+  }
+
+  // handleChange (date) {
+  //   this.setState({startDate: date})
+  //   this.toggleCalendar()
+  // }
+
+  toggleCalendar = (e) => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
 
   render() {
 
@@ -61,14 +76,18 @@ class Calendar extends Component {
             </Grid>*/}
         </div>
 
+
         <div className="calendar-div">
-          <h1 id="streak">you're on a {this.totalListsDone()} day streak!</h1>
+          <div className="stats">
+            <h1>lists completed: <p>{this.props.currentUser.lists_completed}</p></h1>
+            <h1>tasks completed: <p>{this.props.currentUser.tasks_completed}</p></h1>
+          </div>
           <DatePicker
-            inline
             onChange={this.handleChange}
             monthsShown={1}
             highlightDates={this.changeToMomentFormat()}
             onClick={ ("hi")}
+            inline
           />
         </div>
         <ReactTooltip />

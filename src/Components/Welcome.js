@@ -59,8 +59,9 @@ class Welcome extends Component {
       <div className="welcome">
         <div className="about-me">
           <p>hello. welcome to mindful todo.</p>
-          <p>this is a space to transfer your thoughts.</p>
-          <p>say all or nothing at all.</p>
+          <p>this is a space to store your thoughts.</p>
+          <p>lose the clutter and clear your mind.</p>
+          <p>say a little or nothing at all.</p>
           <p>your secret's safe with me.</p>
         </div>
       </div>
