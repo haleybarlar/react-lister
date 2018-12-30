@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-calendar-heatmap/dist/styles.css'
-import { Header, Grid, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import 'moment/locale/en-gb';
 import "react-datepicker/dist/react-datepicker.css";
 import ReactTooltip from 'react-tooltip'
+import './CSS/calendar.scss'
 
 // if a list is completed that day, mark that day in calendar
 
@@ -41,10 +41,8 @@ class Calendar extends Component {
 
     return (
       <div>
-        <Image src={'https://images.unsplash.com/photo-1541269676894-e7edc07ec4b1?ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb'} alt="#" id="calendar-img"/>
         <div className="calendar-circle-div">
-            <Grid columns={2}  textAlign='center'>
-
+          {/*<Grid columns={2}  textAlign='center'>
               <Grid.Row verticalAlign='middle'>
                 <Grid.Column id="calendar-lists">
                   <Header>
@@ -60,7 +58,7 @@ class Calendar extends Component {
                   </Header>
                 </Grid.Column>
               </Grid.Row>
-            </Grid>
+            </Grid>*/}
         </div>
 
         <div className="calendar-div">
