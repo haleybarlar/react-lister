@@ -5,7 +5,7 @@ $medgrey: #969696;
 .whole {
   border: 1px solid $ltgrey;
   display: grid;
-  margin-top: 21%;
+  margin-top: 8.5rem;
   margin-left: 12%;
   margin-right: 12%;
   height: 24.9rem;
@@ -22,7 +22,7 @@ $medgrey: #969696;
   .home-page {
     h1 {
       font-weight: 400;
-      margin-bottom: 6%;
+      margin-bottom: 1rem;
       color: #7a7a7a;
     }
   }
@@ -41,7 +41,7 @@ $medgrey: #969696;
     padding: 2px;
     text-align: center;
     color: $medgrey;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
     background: white;
 
     i#add {
@@ -53,7 +53,7 @@ $medgrey: #969696;
   h1#create-new:hover {
     background: $ltgrey;
     color: white;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
     cursor: pointer;
   }
 
@@ -74,8 +74,8 @@ $medgrey: #969696;
   overflow: auto;
   margin: 0 auto;
   z-index: 1;
-  margin-top: 42%;
-  box-shadow: 5px 5px $dkgrey;
+  margin-top: 12.5rem;
+  // box-shadow: 5px 5px $dkgrey;
 
   p {
     font-family: 'Space Mono';
@@ -113,17 +113,17 @@ $medgrey: #969696;
     padding: 2px;
     margin: 0 auto;
     width: 24rem;
-    margin-top: 42%;
+    margin-top: 12.5rem;
     color: $medgrey;
     text-align: center;
     background: white;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
   }
 
   p#not:hover {
     background: $ltgrey;
     color: white;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
   }
 
   i#not {

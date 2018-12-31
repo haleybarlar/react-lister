@@ -139,8 +139,8 @@ class GetStarted extends Component {
               {(lists ? lists.map(list => <p value={list.id} id={list.id} onClick={this.handleChange}>{list.text}</p>) : <p>you don't have any yet</p>)}
             </div>
             : <div id="not-clicked"><p id="not" onClick={this.triggerDropdown}>choose your list <i onClick={this.triggerDropdown} id="not" class="material-icons">expand_more</i></p></div>
-          )}
-        </div>
+        )}
+      </div>
         </div>
         :
         <ListContainer />

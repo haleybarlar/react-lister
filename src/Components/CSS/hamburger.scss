@@ -3,7 +3,7 @@
   position: fixed;
   width: 3rem;
   height: 1.5rem;
-  margin-top: -5%;
+  margin-top: -2rem;
   right: 0;
   margin-right: 10%;
 }
@@ -57,4 +57,10 @@ span.bm-burger-bars {
 p {
   color: #7a7a7a;
   font-size: 1.3rem;
+}
+
+@media screen and (min-width: 768px) {
+  div.bm-burger-button {
+    display: none;
+  }
 }

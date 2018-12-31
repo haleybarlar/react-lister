@@ -1,13 +1,11 @@
 .navbar {
   font-family: 'Space Mono';
-  // padding: 0 12%;
   overflow: hidden;
-  // position: fixed;
   top: 0;
   width: 100%;
   z-index: 999;
   background: white;
-  height: 55px;
+  height: 100px;
 
   a {
     text-decoration: none;
@@ -53,5 +51,20 @@
   i:hover {
     cursor: pointer;
     color: #505050;
+  }
+}
+
+@media screen and (min-width: 768px) {
+
+  .navbar {
+
+    p.main {
+      padding-top: 6.3rem;
+    }
+
+    div.nav-right {
+      display: inline;
+      margin-right: 10rem;
+    }
   }
 }

@@ -77,11 +77,8 @@ class List extends Component {
             <button
               onClick={this.handleDelete}
               id="delete-list-button"><i class="material-icons">close</i></button>
-{/*            {(this.props.isListDone ?
-              <h1>{this.props.currentList.kind} <Icon name="checkmark"></Icon></h1>
-            :
-              <h1>{this.props.currentList.kind} </h1>
-            )}*/}
+            <h1>{this.props.currentList.kind} </h1>
+
           {/*  <Popup
               trigger={
                 <Button
