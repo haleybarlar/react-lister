@@ -7,6 +7,7 @@ $blue: #8dbdc1;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 29rem;
+
 }
 
 .about-me {
@@ -18,5 +19,11 @@ $blue: #8dbdc1;
 }
 
 @media screen and (min-width: 768px) {
+  .welcome {
+    width: 36rem;
 
+    p {
+      font-size: 1.5rem;
+    }
+  }
 }

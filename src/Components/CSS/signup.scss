@@ -47,7 +47,30 @@
     border: 1px solid #c7c7c7;
   }
 
+  button:focus {
+    outline:none;
+  }
+
   .password {
     margin-top: 4%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .signup {
+    width: 62%;
+    top: 54%;
+
+    label {
+      font-size: 1.5rem;
+    }
+
+    input {
+      font-size: 1.4rem;
+    }
+
+    button {
+      font-size: 1.4rem;
+    }
   }
 }

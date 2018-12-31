@@ -39,3 +39,19 @@ i.fa.fa-circle-thin {
 i.fa.fa-circle-thin:hover {
   cursor: pointer;
 }
+
+@media screen and (min-width: 768px) {
+  i.fa.fa-circle-thin {
+    font-size: 1.7rem;
+    padding-left: 0.1rem;
+  }
+
+  i.fa.fa-times {
+    font-size: 1.5rem !important;
+    padding-right: 6%;
+  }
+
+  i.fa.fa-check-circle-o {
+    font-size: 1.7rem;
+  }
+}

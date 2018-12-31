@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import './CSS/navbar.scss'
 import Hamburger from './Hamburger.js'
 
+
 class Navbar extends Component {
 
   state = {
@@ -49,9 +50,9 @@ class Navbar extends Component {
             <Link to="/user/home"><p className="main">mindful todo</p></Link>
             <Hamburger handleLogout={this.props.handleLogout}/>
             <div className="nav-right">
-              <Link to="/user/lists"><p className="right-p">lists</p></Link>
-              <Link to="/user/calendar"><p className="right-p">calendar</p></Link>
-              <Link to="/" onClick={this.props.handleLogout}><p className="right-p">logout</p></Link>
+              <Link to="/user/lists"><p className="right-p padding">lists <i class="fa fa-list" aria-hidden="true"></i></p></Link>
+              <Link to="/user/calendar"><p className="right-p padding">calendar <i class="fa fa-calendar-o" aria-hidden="true"></i></p></Link>
+              <Link to="/" onClick={this.props.handleLogout}><p className="right-p">logout <i class="fa fa-sign-out" aria-hidden="true"></i></p></Link>
             </div>
           </div>
         :
@@ -59,8 +60,8 @@ class Navbar extends Component {
             <Link to="/"><p className="main">mindful todo</p></Link>
             <Hamburger handleLogout={this.props.handleLogout}/>
             <div className="nav-right">
-              <Link to="/login"><p className="right-p">log in <i class="large material-icons">account_circle</i></p></Link>
-              <Link to="/signup"><p className="right-p">sign up</p></Link>
+              <Link to="/login"><p id="login" className="right-p">log in <i class="fa fa-sign-in" aria-hidden="true"></i></p></Link>
+              <Link to="/signup"><p className="right-p">sign up <i class="fa fa-user-plus" aria-hidden="true"></i></p></Link>
             </div>
           </div>
         }

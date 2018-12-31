@@ -5,10 +5,10 @@ $medgrey: #969696;
 .whole {
   border: 1px solid $ltgrey;
   display: grid;
-  margin-top: 8.5rem;
+  margin-top: 4.5rem;
   margin-left: 12%;
   margin-right: 12%;
-  height: 24.9rem;
+  height: 14.2rem;
 }
 
 .get-started {
@@ -41,7 +41,7 @@ $medgrey: #969696;
     padding: 2px;
     text-align: center;
     color: $medgrey;
-    // box-shadow: 5px 5px $dkgrey;
+    box-shadow: 5px 5px $dkgrey;
     background: white;
 
     i#add {
@@ -53,7 +53,7 @@ $medgrey: #969696;
   h1#create-new:hover {
     background: $ltgrey;
     color: white;
-    // box-shadow: 5px 5px $dkgrey;
+    box-shadow: 5px 5px $dkgrey;
     cursor: pointer;
   }
 
@@ -67,15 +67,15 @@ $medgrey: #969696;
 
 .vertical-menu {
   overflow: scroll;
-  border: 2px solid $ltgrey;
+  border: 1px solid $ltgrey;
   width: 24rem;
-  max-height: 88px;
-  height: 88px;
+  max-height: 82px;
+  height: 82px;
   overflow: auto;
   margin: 0 auto;
   z-index: 1;
   margin-top: 12.5rem;
-  // box-shadow: 5px 5px $dkgrey;
+  box-shadow: 5px 5px $dkgrey;
 
   p {
     font-family: 'Space Mono';
@@ -92,7 +92,7 @@ $medgrey: #969696;
   }
 
   p#title {
-    background: $ltgrey;
+    background: #8dbdc1;
     color: white;
     text-align: center;
     border-bottom: 1px solid $medgrey;
@@ -117,17 +117,48 @@ $medgrey: #969696;
     color: $medgrey;
     text-align: center;
     background: white;
-    // box-shadow: 5px 5px $dkgrey;
+    box-shadow: 5px 5px $dkgrey;
   }
 
   p#not:hover {
     background: $ltgrey;
     color: white;
-    // box-shadow: 5px 5px $dkgrey;
+    box-shadow: 5px 5px $dkgrey;
   }
 
   i#not {
     font-size: 1.5rem;
     margin-left: 10%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .whole {
+    width: 32rem;
+    height: 16.1rem;
+    margin: 0 auto;
+    margin-top: 6rem;
+
+    .home-page {
+      h1 {
+        margin-top: 2rem;
+      }
+    }
+
+    .get-started {
+      top: 38%;
+    }
+
+    .vertical-menu {
+      margin-top: 14.5rem;
+      height: 136px;
+      max-height: 136px;
+    }
+
+    #not-clicked {
+      p#not {
+        margin-top: 14.5rem;
+      }
+    }
   }
 }

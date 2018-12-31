@@ -1,3 +1,8 @@
+$dkgrey: #7a7a7a;
+$ltgrey: #c7c7c7;
+$medgrey: #969696;
+$xdkgrey: #525151;
+
 .navbar {
   font-family: 'Space Mono';
   overflow: hidden;
@@ -32,39 +37,36 @@
     margin-top: -2.2rem;
 
     .right-p {
-      padding: 0rem 0.5rem;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       color: #969696;
       display: inline;
     }
-  }
 
-  i {
-    right: 0;
-    position: absolute;
-    margin-top: -5.9%;
-    margin-right: 12%;
-    font-size: 2.6rem;
-    color: #969696;
-  }
-
-  i:hover {
-    cursor: pointer;
-    color: #505050;
+    .right-p:hover {
+      color: $dkgrey;
+      cursor: pointer;
+    }
   }
 }
 
 @media screen and (min-width: 768px) {
 
   .navbar {
-
     p.main {
-      padding-top: 6.3rem;
+      padding-top: 4rem;
     }
 
     div.nav-right {
       display: inline;
       margin-right: 10rem;
+
+      p#login {
+        padding-right: 14px;
+      }
+
+      .padding {
+        padding-right: 14px;
+      }
     }
   }
 }
