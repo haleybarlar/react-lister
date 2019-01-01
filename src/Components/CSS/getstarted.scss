@@ -41,7 +41,7 @@ $medgrey: #969696;
     padding: 2px;
     text-align: center;
     color: $medgrey;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
     background: white;
 
     i#add {
@@ -53,7 +53,7 @@ $medgrey: #969696;
   h1#create-new:hover {
     background: $ltgrey;
     color: white;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
     cursor: pointer;
   }
 
@@ -75,7 +75,7 @@ $medgrey: #969696;
   margin: 0 auto;
   z-index: 1;
   margin-top: 12.5rem;
-  box-shadow: 5px 5px $dkgrey;
+  // box-shadow: 5px 5px $dkgrey;
 
   p {
     font-family: 'Space Mono';
@@ -117,13 +117,13 @@ $medgrey: #969696;
     color: $medgrey;
     text-align: center;
     background: white;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
   }
 
   p#not:hover {
     background: $ltgrey;
     color: white;
-    box-shadow: 5px 5px $dkgrey;
+    // box-shadow: 5px 5px $dkgrey;
   }
 
   i#not {
