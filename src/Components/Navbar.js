@@ -57,7 +57,7 @@ class Navbar extends Component {
           </div>
         :
           <div>
-            <Link to="/"><p className="main">mindful todo</p></Link>
+            <Link to="/"><p className="main">MINDFUL TODO</p></Link>
             <Hamburger handleLogout={this.props.handleLogout}/>
             <div className="nav-right">
               <Link to="/login"><p id="login" className="right-p">log in <i class="fa fa-sign-in" aria-hidden="true"></i></p></Link>

@@ -1,3 +1,4 @@
+
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -6,6 +7,10 @@
   margin-top: -2rem;
   right: 0;
   margin-right: 10%;
+}
+
+button:focus {
+  outline:none;
 }
 
 /* Color/shape of burger icon bars */
@@ -31,6 +36,10 @@ span.bm-burger-bars {
   background: white;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+}
+
+div.bm-item:focus {
+  outline: none;
 }
 
 /* Morph shape necessary with bubble or elastic */

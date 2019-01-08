@@ -9,7 +9,6 @@ $xdkgrey: #525151;
   top: 0;
   width: 100%;
   z-index: 999;
-  background: white;
   height: 100px;
 
   a {
@@ -23,7 +22,7 @@ $xdkgrey: #525151;
   }
 
   .main {
-    color: #8dbdc1;
+    color: $xdkgrey;
     font-size: 2rem;
     font-weight: 500;
     padding-top: 2.3rem;

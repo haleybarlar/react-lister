@@ -9,6 +9,7 @@ $medgrey: #969696;
   margin-left: 12%;
   margin-right: 12%;
   height: 14.2rem;
+  background: white;
 }
 
 .get-started {
@@ -92,7 +93,7 @@ $medgrey: #969696;
   }
 
   p#title {
-    background: #8dbdc1;
+    background: $medgrey;
     color: white;
     text-align: center;
     border-bottom: 1px solid $medgrey;
@@ -159,6 +160,28 @@ $medgrey: #969696;
       p#not {
         margin-top: 14.5rem;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  div#get-started {
+    background: beige;
+    height: 26rem;
+    margin-top: 2rem !important;
+    margin: 0 auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: url(windy.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .whole {
+      width: 32rem;
+      height: 16.1rem;
+      margin-left: 26rem;
+      margin-top: 6rem;
+      position: absolute;
     }
   }
 }

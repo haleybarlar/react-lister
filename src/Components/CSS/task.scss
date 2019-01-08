@@ -2,9 +2,13 @@ ul.fa-ul {
   margin-left: 0rem;
 }
 
+li {
+  display: grid;
+  grid-template-columns: auto 80% auto;
+}
+
 span {
-  padding-left: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-family: 'Space Mono';
   color: #505050;
 }
@@ -17,6 +21,8 @@ i.fa.fa-times {
   float: right;
   padding-right: 7%;
   color: #c7c7c7;
+  margin-top: 21%;
+  font-size: 1rem;
 }
 
 i.fa.fa-times:hover {
@@ -26,6 +32,8 @@ i.fa.fa-times:hover {
 
 i.fa.fa-check-circle-o {
   color: #505050;
+  margin-top: 21%;
+  font-size: 1.3rem;
 }
 
 i.fa.fa-check-circle-o:hover {
@@ -34,6 +42,8 @@ i.fa.fa-check-circle-o:hover {
 
 i.fa.fa-circle-thin {
   color: #505050;
+  margin-top: 21%;
+  font-size: 1.3rem;
 }
 
 i.fa.fa-circle-thin:hover {

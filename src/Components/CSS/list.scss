@@ -1,6 +1,6 @@
 .list {
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 68%;
@@ -14,7 +14,7 @@
 
     h1 {
       font-family: 'Space Mono';
-      font-size: 1.5rem;
+      font-size: 1.9rem;
       font-weight: 400;
       margin-top: -4rem;
       color: #525151;
@@ -32,7 +32,7 @@
     font-family: 'Space Mono';
     float: left;
     color: #7a7a7a;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 
   ::placeholder {

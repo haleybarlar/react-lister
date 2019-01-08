@@ -110,7 +110,6 @@ class GetStarted extends Component {
   }
 
   render() {
-
     if (this.state.submitted === true || this.state.clicked === true) {
       return <Redirect to='/user/lists' />
     }
@@ -120,32 +119,41 @@ class GetStarted extends Component {
     ))
 
     return(
-
-    <div>
-      <Modali modal={this.state.openModal} handleSubmit={this.handleSubmit} handleChange={this.changeValue}/>
-      {(this.state.clicked === false && this.state.submitted === false ?
-      <div className="whole">
-      <div className="get-started" onClick={this.triggerDropdown}>
-        <div className='home-page'>
-          <h1>hello, {this.props.currentUser.name}.</h1>
-            <h1 id="create-new" onClick={this.openModal}>create a new list <i id="add" class="material-icons">add</i></h1>
-            <h3>or</h3>
-        </div>
-        </div>
-        <div>
-          {(this.state.dropdown === true ?
-            <div className="vertical-menu">
-              <p onClick={this.triggerDropdown} id="title">choose your list <i onClick={this.triggerDropdown} id="not" class="material-icons">expand_more</i></p>
-              {(lists ? lists.map(list => <p value={list.id} id={list.id} onClick={this.handleChange}>{list.text}</p>) : <p>you don't have any yet</p>)}
+      <div id="get-started">
+        <div id="eyes"></div>
+        <div id="lips"></div>
+        <Modali modal={this.state.openModal} handleSubmit={this.handleSubmit} handleChange={this.changeValue}/>
+        {(this.state.clicked === false && this.state.submitted === false ?
+        <div className="whole">
+          <div className="get-started" onClick={this.triggerDropdown}>
+            <div className='home-page'>
+              <h1>hello, {this.props.currentUser.name}.</h1>
+                <h1 id="create-new" onClick={this.openModal}>create a new list <i id="add" class="material-icons">add</i></h1>
+                <h3>or</h3>
             </div>
-            : <div id="not-clicked"><p id="not" onClick={this.triggerDropdown}>choose your list <i onClick={this.triggerDropdown} id="not" class="material-icons">expand_more</i></p></div>
-        )}
-      </div>
+          </div>
+          <div>
+            {(this.state.dropdown === true ?
+              <div className="vertical-menu">
+                <p onClick={this.triggerDropdown} id="title">choose your list <i onClick={this.triggerDropdown} id="not" class="material-icons">expand_more</i></p>
+                {(lists ? lists.map(list => <p value={list.id} id={list.id} onClick={this.handleChange}>{list.text}</p>) : <p>you don't have any yet</p>)}
+              </div>
+              :
+              <div id="not-clicked">
+                <p id="not" onClick={this.triggerDropdown}>
+                  choose your list
+                  <i onClick={this.triggerDropdown} id="not" class="material-icons">
+                    expand_more
+                  </i>
+                </p>
+              </div>
+            )}
+          </div>
         </div>
         :
         <ListContainer />
-      )}
-    </div>
+        )}
+      </div>
     )
   }
 }
@@ -183,19 +191,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetStarted)
-
-// {(this.props.currentList !== undefined && this.props.currentList.kind === "todo" ? <TodoList /> : <List/>)}
-
-// <Modal open={this.state.open} onClose={this.close} trigger={
-//   <Button circular icon='add' onClick={this.triggerModal}></Button>
-// } closeIcon>
-//   <Modal.Header id="modal-header">Create a list</Modal.Header>
-//   <Modal.Content>
-//     <form onSubmit={this.handleSubmit}>
-//     <input id="input" className="get-started-input" type="text" onChange={this.changeValue} placeholder="ex: todo, gratitude, grocery"/>
-//     <Modal.Actions>
-//       <button type="submit" value="Submit" id="new-list-button">Submit</button>
-//     </Modal.Actions>
-//   </form>
-//   </Modal.Content>
-// </Modal>
