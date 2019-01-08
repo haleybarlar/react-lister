@@ -79,8 +79,10 @@ class Calendar extends Component {
 
         <div className="calendar-div">
           <div className="stats">
-            <h1>lists completed: <p>{this.props.currentUser.lists_completed}</p></h1>
-            <h1>tasks completed: <p>{this.props.currentUser.tasks_completed}</p></h1>
+            <div id="cal-h1">
+              <h1>lists completed: <p>{this.props.currentUser.lists_completed}</p></h1>
+              <h1>tasks completed: <p>{this.props.currentUser.tasks_completed}</p></h1>
+            </div>
           </div>
           <DatePicker
             onChange={this.handleChange}
