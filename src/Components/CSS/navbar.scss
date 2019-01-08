@@ -57,7 +57,7 @@ $xdkgrey: #525151;
 
     div.nav-right {
       display: inline;
-      margin-right: 10rem;
+      margin-right: 7rem;
 
       p#login {
         padding-right: 14px;
@@ -66,6 +66,19 @@ $xdkgrey: #525151;
       .padding {
         padding-right: 14px;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .navbar {
+    p.main {
+      margin-left: 11rem;
+      padding-left: 0;
+    }
+
+    div.nav-right {
+      margin-right: 11rem;
     }
   }
 }

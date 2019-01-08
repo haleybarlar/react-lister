@@ -85,7 +85,8 @@ div.react-datepicker__month {
   }
 
   .react-datepicker__day--highlighted {
-    background: red;
+    color: #f8baa7;
+    background: none;
   }
 }
 
@@ -94,7 +95,7 @@ div.react-datepicker__month {
     height: 32rem;
     width: 32rem;
     margin-top: 8rem;
-    margin-right: 9rem;
+    margin-right: 7rem;
 
     div.react-datepicker__header {
       width: 31.8rem;
@@ -130,7 +131,7 @@ div.react-datepicker__month {
     margin-top: 0rem;
 
     div.stats {
-      width: 32rem;
+      width: 27rem;
       margin-top: 8rem;
       margin-left: 21%;
 
@@ -140,12 +141,24 @@ div.react-datepicker__month {
 
       h1 {
         font-size: 1.8rem;
-        margin-left: 5rem;
+        margin-left: 3rem;
       }
 
       p {
         font-size: 1.8rem;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  div.calendar-div {
+    .stats {
+      margin-left: 21rem !important;
+    }
+
+    div.react-datepicker {
+      margin-right: 16rem;
     }
   }
 }

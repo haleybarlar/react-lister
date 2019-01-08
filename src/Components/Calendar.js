@@ -56,27 +56,6 @@ class Calendar extends Component {
 
     return (
       <div>
-        <div className="calendar-circle-div">
-          {/*<Grid columns={2}  textAlign='center'>
-              <Grid.Row verticalAlign='middle'>
-                <Grid.Column id="calendar-lists">
-                  <Header>
-                    <p className="lists" id="calendar">total lists</p>
-                    <h1 id="calendar" className="total">{this.props.currentUser.lists_completed}</h1>
-                  </Header>
-                </Grid.Column>
-
-                <Grid.Column id="calendar-tasks">
-                  <Header>
-                    <p className="lists" id="calendar">total tasks</p>
-                    <h1 className="total" id="calendar">{this.props.currentUser.tasks_completed}</h1>
-                  </Header>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>*/}
-        </div>
-
-
         <div className="calendar-div">
           <div className="stats">
             <div id="cal-h1">
