@@ -73,3 +73,13 @@
     }
   }
 }
+
+@media screen and (min-width: 992px) {
+  div.login {
+    width: 54%;
+
+    label {
+      font-size: 1.6rem;
+    }
+  }
+}

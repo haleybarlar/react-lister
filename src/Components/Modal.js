@@ -35,9 +35,9 @@ class Modali extends Component {
         >
         <i onClick={this.closeModal} class="material-icons">close</i>
           <form className="modal-form" onSubmit={this.props.handleSubmit}>
-            <p>create a new list</p>
-            <input id="container" type="text" onChange={this.props.handleChange} placeholder="ex: ideas, gratitude, todo" autoComplete="off"/><br />
-            <button type="submit" id="new-list-button">submit</button>
+            <p>Create a new list</p>
+            <input id="container" type="text" onChange={this.props.handleChange} placeholder="Ex: ideas, gratitude, todo" autoComplete="off"/><br />
+            <button type="submit" id="new-list-button">Submit</button>
           </form>
         </Modal>
       </div>

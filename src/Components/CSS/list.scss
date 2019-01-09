@@ -12,6 +12,10 @@
   .entire-list {
     padding-left: 2rem;
 
+    h1#title {
+      text-transform: capitalize;
+    }
+
     h1 {
       font-family: 'Space Mono';
       font-size: 1.9rem;

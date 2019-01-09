@@ -26,6 +26,10 @@ $medgrey: #969696;
       margin-bottom: 1rem;
       color: #7a7a7a;
     }
+
+    h1#name {
+      text-transform: capitalize;
+    }
   }
 
   h1 {
@@ -85,6 +89,8 @@ $medgrey: #969696;
     padding: 2px;
     background: white;
     color: $medgrey;
+    text-transform: capitalize;
+    padding-left: 1rem;
   }
 
   p:hover {
@@ -156,7 +162,7 @@ $medgrey: #969696;
     }
 
     .vertical-menu {
-      margin-top: 14.5rem;
+      margin-top: 15.5rem;
       height: 136px;
       max-height: 136px;
     }

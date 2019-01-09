@@ -77,21 +77,12 @@ class List extends Component {
             <button
               onClick={this.handleDelete}
               id="delete-list-button"><i class="material-icons">close</i></button>
-            <h1>{this.props.currentList.kind} </h1>
-
-          {/*  <Popup
-              trigger={
-                <Button
-                  inline field circular icon='x'
-                  onClick={this.handleDelete}
-                  id="delete-list-button"/>
-              }
-              content="Delete this list"/>*/}
+            <h1 id="title">{this.props.currentList.kind}</h1>
             <form onSubmit={this.handleSubmit} >
               <input
                 type="text"
                 name="task"
-                placeholder="what's on your mind?"
+                placeholder="What's on your mind?"
                 className="haley"
                 autoComplete="off"
               />
@@ -113,7 +104,7 @@ class List extends Component {
               <input
                 type="text"
                 name="task"
-                placeholder="what's on your mind?"
+                placeholder="What's on your mind?"
                 autoComplete="off"
                 className="haley"/>
             </form>

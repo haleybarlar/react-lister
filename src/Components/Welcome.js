@@ -58,9 +58,9 @@ class Welcome extends Component {
     return (
       <div className="welcome">
         <div className="about-me">
-          <p>hello. welcome to mindful todo.</p>
-          <p>this is a space to store your thoughts.</p>
-          <p>lose the clutter and clear your mind.</p>
+          <p>Hello. Welcome to mindful todo.</p>
+          <p>This is a space to store your thoughts.</p>
+          <p>Lose the clutter and clear your mind.</p>
         </div>
       </div>
     )
@@ -68,45 +68,3 @@ class Welcome extends Component {
 }
 
 export default Welcome
-
-
-// <Grid container className="welcome-grid">
-//   <Grid.Column width={7}>
-//     <Image src={'https://images.unsplash.com/photo-1517021818302-9b520a06c834?ixlib=rb-0.3.5&s=407b3a1f90c0d6b32d1aa055bc57290c&w=1000&q=80'} alt="#" className="welcome-img" />
-//   </Grid.Column>
-//   <Grid.Column width={9}>
-//     <h3 id="welcome-h3">a place to calm your overactive mind</h3>
-//     <List relaxed>
-//       <List.Item>
-//         <List.Icon name='check circle outline' size='small' verticalAlign='middle' />
-//         <List.Content>
-//           <p>declutter your brain by writing down your thoughts</p>
-//         </List.Content>
-//       </List.Item>
-//       <List.Item>
-//         <List.Icon name='check circle outline' size='small' verticalAlign='middle' />
-//         <List.Content>
-//           <p>get rewarded for completeting tasks and lists</p>
-//         </List.Content>
-//       </List.Item>
-//       <List.Item>
-//         <List.Icon name='check circle outline' size='small' verticalAlign='middle' />
-//         <List.Content>
-//           <p>follow your progress and watch your productivity grow</p>
-//         </List.Content>
-//       </List.Item>
-//     </List>
-//       <Modal className="welcome-modal" open={this.state.open} onClose={this.close} trigger={
-//         <div className="welcome-button">
-//           <Button value="login" id="login" onClick={this.triggerModal}>log in</Button>
-//           <Button value="signup" id="signup" onClick={this.triggerModal}>sign up</Button>
-//         </div>
-//       } closeIcon>
-//       <Modal.Content>
-//         {this.state.login ? <LoginForm signup={this.toggle}/> : null}
-//         {this.state.signup ? <SignupForm login={this.toggle}/> : null}
-//       </Modal.Content>
-//     </Modal>
-//   </Grid.Column>
-// </Grid>
-//

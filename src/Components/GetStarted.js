@@ -127,21 +127,21 @@ class GetStarted extends Component {
         <div className="whole">
           <div className="get-started" onClick={this.triggerDropdown}>
             <div className='home-page'>
-              <h1>hello, {this.props.currentUser.name}.</h1>
-                <h1 id="create-new" onClick={this.openModal}>create a new list <i id="add" class="material-icons">add</i></h1>
+              <h1 id="name">Hello, {this.props.currentUser.name}.</h1>
+                <h1 id="create-new" onClick={this.openModal}>Create a new list <i id="add" class="material-icons">add</i></h1>
                 <h3>or</h3>
             </div>
           </div>
           <div>
             {(this.state.dropdown === true ?
               <div className="vertical-menu">
-                <p onClick={this.triggerDropdown} id="title">choose your list <i onClick={this.triggerDropdown} id="not" class="material-icons">expand_more</i></p>
-                {(lists ? lists.map(list => <p value={list.id} id={list.id} onClick={this.handleChange}>{list.text}</p>) : <p>you don't have any yet</p>)}
+                <p onClick={this.triggerDropdown} id="title">Choose your list <i onClick={this.triggerDropdown} id="not" class="material-icons">expand_more</i></p>
+                {(lists ? lists.map(list => <p value={list.id} id={list.id} onClick={this.handleChange}>{list.text}</p>) : <p>You don't have any yet</p>)}
               </div>
               :
               <div id="not-clicked">
                 <p id="not" onClick={this.triggerDropdown}>
-                  choose your list
+                  Choose your list
                   <i onClick={this.triggerDropdown} id="not" class="material-icons">
                     expand_more
                   </i>

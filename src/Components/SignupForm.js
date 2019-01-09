@@ -140,7 +140,7 @@ class SignupForm extends Component {
       <div className="signup">
         <form onSubmit={this.handleSubmit} error>
           <div className="password">
-            <label>FIRST NAME</label>
+            <label>first name</label>
             <input
               name="name"
               placeholder="first name"
@@ -150,7 +150,7 @@ class SignupForm extends Component {
               autoComplete="off"/>
           </div>
           <div className="password">
-            <label>USERNAME</label>
+            <label>username</label>
             <input
               name="username"
               placeholder="username"
@@ -160,7 +160,7 @@ class SignupForm extends Component {
               autoComplete="off"/>
           </div>
           <div className="password">
-            <label>EMAIL</label>
+            <label>email</label>
             <input
               type="email"
               name="email"
@@ -178,7 +178,7 @@ class SignupForm extends Component {
             null
           }
           <div className="password">
-            <label>PASSWORD</label>
+            <label>password</label>
             <input
               type="password"
               name="password"
@@ -189,7 +189,7 @@ class SignupForm extends Component {
               autoComplete="off"/>
           </div>
           <div className="password">
-            <label>CONFIRM PASSWORD</label>
+            <label>confirm password</label>
             <input
               type="password"
               name="confirm"
@@ -202,7 +202,7 @@ class SignupForm extends Component {
           <button
             type="submit"
             className="login-button">
-            Submit
+            submit
           </button>
         </form>
       </div>
